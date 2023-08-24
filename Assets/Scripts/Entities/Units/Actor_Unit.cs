@@ -1347,8 +1347,6 @@ public class Actor_Unit
                         Unit.RemoveTenacious();
                     if (target.Unit.HasTrait(Traits.Tenacious))
                         target.Unit.AddTenacious();
-                    if (target.Unit.GetStatusEffect(StatusEffectType.SpellForce) != null)                  
-                        target.Unit.RemoveFocus();
                     
                     TacticalGraphicalEffects.CreateProjectile(this, target);
                     State.GameManager.TacticalMode.TacticalStats.RegisterHit(BestRanged, Mathf.Min(damage, remainingHealth), Unit.Side);
@@ -1418,8 +1416,6 @@ public class Actor_Unit
                         Unit.RemoveTenacious();
                     if (target.Unit.HasTrait(Traits.Tenacious))
                         target.Unit.AddTenacious();
-                    if (target.Unit.GetStatusEffect(StatusEffectType.SpellForce) != null)
-                        target.Unit.RemoveFocus();
                     if (target.Unit.HasTrait(Traits.Toxic) && State.Rand.Next(8) == 0)
                         Unit.ApplyStatusEffect(StatusEffectType.Poisoned, 2 + target.Unit.GetStat(Stat.Endurance) / 20, 3);
                     if (Unit.HasTrait(Traits.ForcefulBlow))
