@@ -4668,18 +4668,18 @@ Turns: {currentTurn}
                     foreach (var prey in actor.PredatorComponent.GetDirectPrey().Where(s => s.Unit.Stamina <= 0).ToList())
                     {
                         actor.PredatorComponent.FreeEndoPrey(prey);
-                        if (actor.Unit.HasTrait(Traits.Friendosoma))
+                        if (actor.Unit.HasTrait(Traits.Friendosoma) && prey.Actor.Unit.IsEnemyOfSide(actor.Unit.Side))
                         {
                             SwitchAlignment(prey.Actor);
                             RetreatUnit(prey.Actor, prey.Unit.Side == defenderSide);
                         }
                         else
                         {
-                            if (remainingAttackers > 0 && !prey.Actor.Unit.IsEnemyOfSide(0))
+                            if (remainingAttackers == 0 && prey.Actor.Unit.IsEnemyOfSide(0))
                             {
                                 continue;
                             }
-                            if (remainingDefenders > 0 && prey.Actor.Unit.IsEnemyOfSide(0))
+                            if (remainingDefenders == 0 && !prey.Actor.Unit.IsEnemyOfSide(0))
                             {
                                 continue;
                             }

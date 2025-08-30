@@ -2697,6 +2697,10 @@ public class Actor_Unit
         NewTurnPreMPTraits();
 
         Unit.RestoreMana(Unit.TraitBoosts.ManaRegen);
+        if (SelfPrey == null)
+        {
+            Unit.RestoreStamPct(0.1f);
+        }
         UnitSprite.UpdateHealthBar(this);
         TurnsSinceLastParalysis++;
         if (Targetable && Visible && Surrendered == false && Fled == false)
