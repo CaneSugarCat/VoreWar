@@ -13,7 +13,6 @@ class Umbreon : DefaultRaceData
     public Umbreon()
     {
         GentleAnimation = true;
-        CanBeGender = new List<Gender>() { Gender.Female, Gender.Male };
         AccessoryColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.UmbreonSkin);
         SkinColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.UmbreonSkin);
         EyeColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.UmbreonSkin);

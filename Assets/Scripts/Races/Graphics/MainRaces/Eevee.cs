@@ -9,7 +9,6 @@ class Eevee : DefaultRaceData
 
     public Eevee()
     {
-        CanBeGender = new List<Gender>() { Gender.Female, Gender.Male };
         AccessoryColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.EeveeEqualeonSkin);
         SkinColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.EeveeEqualeonSkin);
         EyeColors = 20;
