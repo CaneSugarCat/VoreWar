@@ -5,7 +5,7 @@ class FeralUmbreon : BlankSlate
 {
     internal FeralUmbreon()
     {
-        CanBeGender = new List<Gender>() { Gender.None };
+        CanBeGender = new List<Gender>() { Gender.Male, Gender.Female };
         AccessoryColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.UmbreonSkin);
         SkinColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.UmbreonSkin);
         EyeColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.UmbreonSkin);

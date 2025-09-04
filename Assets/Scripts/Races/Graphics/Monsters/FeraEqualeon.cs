@@ -5,7 +5,7 @@ class FeralEqualeon : BlankSlate
 {
     internal FeralEqualeon()
     {
-        CanBeGender = new List<Gender>() { Gender.None };
+        CanBeGender = new List<Gender>() { Gender.Male, Gender.Female };
         SkinColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.EeveeEqualeonSkin);
         AccessoryColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.EeveeEqualeonSkin);
         EyeColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.EqualeonEyes);
