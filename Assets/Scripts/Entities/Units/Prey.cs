@@ -270,6 +270,7 @@ class Prey
             case Race.SpringSlugs:
             case Race.Aabayx:
             case Race.ViraeUltimae:
+            case Race.Iliijiith:
                 // No bone
                 break;
             case Race.Dragon:

@@ -10,7 +10,7 @@ using UnityEngine;
 public static class State
 {
     static int saveErrors = 0;
-    public const string Version = "44C";
+    public const string Version = "44D";
     public static World World;
     public static Rand Rand = new Rand();
     public static NameGenerator NameGen;
@@ -42,6 +42,18 @@ public static class State
 
     public static int RaceSlot;
     public static string RaceSaveDataName;
+    public static string[] nameTextFileNames = new string[] {"armyNames", "males","females","monsters","femaleFeralLions","maleFeralLions","femaleAabayx","maleAabayx","Cake","Collectors","Compy","CoralSlugs","DarkSwallower","Dragonfly","Catfish","Earthworms","Vagrants","femaleAlligators"
+            ,"maleAlligators","femaleAlraune","maleAlraune","femaleAnts","maleAnts","femaleAvians","maleAvians","femaleBats","maleBats","femaleBees","maleBees","femaleBunnies","maleBunnies","femaleCats","maleCats","femaleCockatrice","maleCockatrice","femaleCrux","maleCrux","femaleCrypters"
+            ,"maleCrypters","femaleDeer","maleDeer","femaleDewSprites","femaleDogs","maleDogs","femaleDragon","maleDragon","femaleDratopyr","maleDratopyr","femaleDriders","maleDriders","femaleEasternDragon","maleEasternDragon","femaleEquines","maleEquines","femaleFairies","maleFairies"
+            ,"femaleFeralBats","maleFeralBats","femaleFeralFox","maleFeralFox","femaleFeralHorses","maleFeralHorses","femaleFeralLizards","maleFeralLizards","femaleFoxes","maleFoxes","femaleFrogs","maleFrogs","femaleGazelle","maleGazelle","femaleGoblins","maleGoblins"
+            ,"femaleGryphons","maleGryphons","femaleHamsters","maleHamsters","femaleHarpies","maleHarpies","femaleHippos","maleHippos","femaleHumans","maleHumans","femaleImps","maleImps","femaleKangaroos","maleKangaroos","femaleKobolds","maleKobolds","femaleKomodos"
+            ,"maleKomodos","femaleLamia","maleLamia","femaleLizards","maleLizards","femaleMantis","maleMantis","femaleMerfolk","maleMerfolk","femaleMonitors","maleMonitors","femalePanthers","malePanthers","femalePuca","malePuca","femaleScylla","maleScylla","femaleSergal"
+            ,"maleSergal","femaleSharks","maleSharks","femaleSlimes","maleSlimes","femaleSuccubi","maleSuccubi","femaleTaurus","maleTaurus","femaleTerrorbird","maleTerrorbird","femaleTigers","maleTigers","femaleVargul","maleVargul","femaleVipers","maleVipers","femaleWolves","maleWolves"
+            ,"femaleWyvern","maleWyvern","femaleYouko","maleYouko","FeralAnts","FeralFrogs","FeralSharks","FeralWolves","Harvesters","Raptor","RockSlugs","Salamanders","Schiwardez","Serpents","SpitterSlugs","SpringSlugs","Voilin","WarriorAnts","Whisp","femaleBoomBunnies"
+            ,"maleBoomBunnies","WyvernMatron","maleFeralOrcas","femaleFeralOrcas","femaleBears","maleBears","femaleCentaur","maleCentaur","femaleGnolls","maleGnolls","femaleMainlandElves","maleMainlandElves","femaleViisels","maleViisels","FeralSlimes","femaleEevee","maleEevee","femaleEqualeon"
+            ,"maleEqualeon","femaleUmbreon","maleUmbreon","maleLupine","femaleLupine","femaleMatronsMinions","maleMatronsMinions","femaleJackals","maleJackals","femaleRwuMercenaries","maleRwuMercenaries","TwistedVines","femaleOtachi","maleOtachi","femaleRaiju","maleRaiju","femaleSmudger","maleSmudger"
+            ,"WoodDryad","RiverDryad","EarthDryad","FungalDryad","maleGhosts","femaleGhosts","femaleUtahraptor","maleUtahraptor","femaleTrex","maleTrex","femaleSpaceCroach","maleSpaceCroach","femaleMice","maleMice","Terminid","femaleFeralEevee","maleFeralEevee","femaleFeralEqualeon","maleFeralEqualeon","femaleFeralUmbreon","maleFeralUmbreon","Iliijiith"};
+
 
     static State()
     {
@@ -109,18 +121,199 @@ public static class State
         {
             Debug.Log("Initial setup failed!");
         }
-        string[] nameTextFileNames = new string[] {"armyNames", "males","females","monsters","femaleFeralLions","maleFeralLions","femaleAabayx","maleAabayx","Cake","Collectors","Compy","CoralSlugs","DarkSwallower","Dragonfly","Catfish","Earthworms","Vagrants","femaleAlligators"
-            ,"maleAlligators","femaleAlraune","maleAlraune","femaleAnts","maleAnts","femaleAvians","maleAvians","femaleBats","maleBats","femaleBees","maleBees","femaleBunnies","maleBunnies","femaleCats","maleCats","femaleCockatrice","maleCockatrice","femaleCrux","maleCrux","femaleCrypters"
-            ,"maleCrypters","femaleDeer","maleDeer","femaleDewSprites","femaleDogs","maleDogs","femaleDragon","maleDragon","femaleDratopyr","maleDratopyr","femaleDriders","maleDriders","femaleEasternDragon","maleEasternDragon","femaleEquines","maleEquines","femaleFairies","maleFairies"
-            ,"femaleFeralBats","maleFeralBats","femaleFeralFox","maleFeralFox","femaleFeralHorses","maleFeralHorses","femaleFeralLizards","maleFeralLizards","femaleFoxes","maleFoxes","femaleFrogs","maleFrogs","femaleGazelle","maleGazelle","femaleGoblins","maleGoblins"
-            ,"femaleGryphons","maleGryphons","femaleHamsters","maleHamsters","femaleHarpies","maleHarpies","femaleHippos","maleHippos","femaleHumans","maleHumans","femaleImps","maleImps","femaleKangaroos","maleKangaroos","femaleKobolds","maleKobolds","femaleKomodos"
-            ,"maleKomodos","femaleLamia","maleLamia","femaleLizards","maleLizards","femaleMantis","maleMantis","femaleMerfolk","maleMerfolk","femaleMonitors","maleMonitors","femalePanthers","malePanthers","femalePuca","malePuca","femaleScylla","maleScylla","femaleSergal"
-            ,"maleSergal","femaleSharks","maleSharks","femaleSlimes","maleSlimes","femaleSuccubi","maleSuccubi","femaleTaurus","maleTaurus","femaleTerrorbird","maleTerrorbird","femaleTigers","maleTigers","femaleVargul","maleVargul","femaleVipers","maleVipers","femaleWolves","maleWolves"
-            ,"femaleWyvern","maleWyvern","femaleYouko","maleYouko","FeralAnts","FeralFrogs","FeralSharks","FeralWolves","Harvesters","Raptor","RockSlugs","Salamanders","Schiwardez","Serpents","SpitterSlugs","SpringSlugs","Voilin","WarriorAnts","Whisp","femaleBoomBunnies"
-            ,"maleBoomBunnies","WyvernMatron","maleFeralOrcas","femaleFeralOrcas","femaleBears","maleBears","femaleCentaur","maleCentaur","femaleGnolls","maleGnolls","femaleMainlandElves","maleMainlandElves","femaleViisels","maleViisels","FeralSlimes","femaleEevee","maleEevee","femaleEqualeon"
-            ,"maleEqualeon","femaleUmbreon","maleUmbreon","maleLupine","femaleLupine","femaleMatronsMinions","maleMatronsMinions","femaleJackals","maleJackals","femaleRwuMercenaries","maleRwuMercenaries","TwistedVines","femaleOtachi","maleOtachi","femaleRaiju","maleRaiju","femaleSmudger","maleSmudger"
-            ,"WoodDryad","RiverDryad","EarthDryad","FungalDryad","maleGhosts","femaleGhosts","femaleUtahraptor","maleUtahraptor","femaleTrex","maleTrex","femaleSpaceCroach","maleSpaceCroach","femaleMice","maleMice","Terminid","femaleFeralEevee","maleFeralEevee","femaleFeralEqualeon","maleFeralEqualeon","femaleFeralUmbreon","maleFeralUmbreon"};
+        try
+        {
+            foreach (string nameList in nameTextFileNames)
+            {
+                if (File.Exists($"{NameFileDirectory}{nameList}.txt") == false)
+                    File.Copy($"{Application.streamingAssetsPath}{Path.DirectorySeparatorChar}{nameList}.txt", $"{NameFileDirectory}{nameList}.txt");
+            }
+        }
+        catch
+        {
+            Debug.Log("Name setup failed!");
+        }
 
+
+        try
+        {
+            if (File.Exists($"{StorageDirectory}taggedTraits.json") == false)
+                File.Copy($"{Application.streamingAssetsPath}{Path.DirectorySeparatorChar}taggedTraits.json", $"{StorageDirectory}taggedTraits.json");
+            if (File.Exists($"{StorageDirectory}buildingConfig.json") == false)
+                File.Copy($"{Application.streamingAssetsPath}{Path.DirectorySeparatorChar}buildingConfig.json", $"{StorageDirectory}buildingConfig.json");
+        }
+        catch
+        {
+            Debug.Log("Initial setup failed!");
+        }
+
+        FlagLoader.FlagLoader flagLoader = new FlagLoader.FlagLoader();
+        flagLoader.LoadFlags();
+        NameGen = new NameGenerator();
+        EventList = new EventList();
+        AssimilateList = new AssimilateList();
+        CustomTraitList = new List<CustomTraitBoost>();
+        ConditionalTraitList = new List<ConditionalTraitContainer>();
+        UnitTagList = new List<UnitTag>();
+        UnitTagAssociatedTraitDictionary = new Dictionary<Traits, List<int>>();
+        UntaggedTraits = new Dictionary<TaggedTrait, bool>();
+
+        TieredTraitsList = ExternalTraitHandler.TaggedTraitParser();
+        TieredTraitsTagsList = new List<string>();
+        ExternalTraitHandler.CustomTraitParser();
+        ExternalTraitHandler.ConditionalTraitParser();
+        ExternalTraitHandler.UnitTagParser();
+        TagConditionChecker.CompileTraitTagAssociateDict();
+        Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+        List<string> lines;
+        RandomizeLists = new List<RandomizeList>();
+        if (File.Exists($"{State.StorageDirectory}customTraits.txt"))
+        {
+            var logFile = File.ReadAllLines($"{State.StorageDirectory}customTraits.txt", encoding);
+            if (logFile.Any())
+            {
+                lines = new List<string>(logFile);
+                int count = 0;
+                lines.ForEach(line =>
+                {
+                    count++;
+                    RandomizeList custom = new RandomizeList();
+                    line = new string(line
+                       .Where(c => !Char.IsWhiteSpace(c)).ToArray());
+                    string[] strings = line.Split(',');
+                    if (strings.Length == 4)
+                    {
+                        custom.id = int.Parse(strings[0]);
+                        custom.name = strings[1];
+                        custom.chance = float.Parse(strings[2], new CultureInfo("en-US"));
+                        custom.level = 0;
+                        custom.count = 1;
+                        custom.RandomTraits = strings[3].Split('|').ToList().ConvertAll(s => (Traits)int.Parse(s));
+                        RandomizeLists.Add(custom);
+                    } else if (strings.Length == 6)
+                    {
+                        custom.id = int.Parse(strings[0]);
+                        custom.name = strings[1];
+                        custom.chance = float.Parse(strings[2], new CultureInfo("en-US"));
+                        custom.count = int.Parse(strings[3]);
+                        custom.level = int.Parse(strings[4]);
+                        custom.RandomTraits = strings[5].Split('|').ToList().ConvertAll(s => (Traits)int.Parse(s));
+                        RandomizeLists.Add(custom);
+                    }
+                });
+            }
+        }
+
+        foreach (Traits trait in (Traits[])Enum.GetValues(typeof(Traits)))
+        {
+            if (TieredTraitsList.Keys.Contains(trait))
+            {
+                if (TieredTraitsList[trait].tags == null)
+                {
+                    UntaggedTraits.Add(TieredTraitsList[trait], true);
+                    continue;
+                }
+                if (TieredTraitsList[trait].tags.Count <= 0)
+                {
+                    UntaggedTraits.Add(TieredTraitsList[trait], true);
+                }
+            }
+            else
+            {
+                TaggedTrait newTrait = new TaggedTrait();
+                newTrait.name = trait.ToString();
+                newTrait.tierValue = TraitTier.Neutral;
+                newTrait.tier = newTrait.tierValue.ToString();
+                newTrait.traitEnum = trait;
+                UntaggedTraits.Add(newTrait, false);
+            }
+        }
+
+        List<TaggedTrait> newTraits = new List<TaggedTrait>();
+        foreach (var newTrait in UntaggedTraits)
+        {
+            if (newTrait.Value)
+            {
+                continue;
+            }
+            newTraits.Add(newTrait.Key);
+        }
+
+        ExternalTraitHandler.AppendTaggedTrait(newTraits);
+
+
+    }
+
+    public static void WipeUserdata()
+    {
+        if (Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            if (Directory.Exists(Application.persistentDataPath))
+                Directory.Delete(Application.persistentDataPath, true);
+            SaveDirectory = Application.persistentDataPath + $"Saves{Path.DirectorySeparatorChar}";
+            StorageDirectory = Application.persistentDataPath + Path.DirectorySeparatorChar;
+            MapDirectory = Application.persistentDataPath + $"Maps{Path.DirectorySeparatorChar}";
+            CustomTraitDirectory = Application.persistentDataPath + $"CustomTraits{Path.DirectorySeparatorChar}";
+            ConditionalTraitDirectory = Application.persistentDataPath + $"ConditionalTraits{Path.DirectorySeparatorChar}";
+            UnitTagDirectory = Application.persistentDataPath + $"UnitTags{Path.DirectorySeparatorChar}";
+            NameFileDirectory = Application.persistentDataPath + $"NameFiles{Path.DirectorySeparatorChar}";
+        }
+        else
+        {
+            if (Directory.Exists($"UserData"))
+                Directory.Delete($"UserData", true);
+            SaveDirectory = $"UserData{Path.DirectorySeparatorChar}Saves{Path.DirectorySeparatorChar}";
+            StorageDirectory = $"UserData{Path.DirectorySeparatorChar}";
+            MapDirectory = $"UserData{Path.DirectorySeparatorChar}Maps{Path.DirectorySeparatorChar}";
+            CustomTraitDirectory = $"UserData{Path.DirectorySeparatorChar}CustomTraits{Path.DirectorySeparatorChar}";
+            ConditionalTraitDirectory = $"UserData{Path.DirectorySeparatorChar}ConditionalTraits{Path.DirectorySeparatorChar}";
+            UnitTagDirectory = $"UserData{Path.DirectorySeparatorChar}UnitTags{Path.DirectorySeparatorChar}";
+            NameFileDirectory = $"UserData{Path.DirectorySeparatorChar}NameFiles{Path.DirectorySeparatorChar}";
+        }
+        try
+        {
+            Directory.CreateDirectory(StorageDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(MapDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(SaveDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(CustomTraitDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(ConditionalTraitDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(UnitTagDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(NameFileDirectory.TrimEnd(new char[] { '\\', '/' }));
+        }
+        catch
+        {
+            SaveDirectory = Application.persistentDataPath + $"Saves{Path.DirectorySeparatorChar}";
+            StorageDirectory = Application.persistentDataPath + Path.DirectorySeparatorChar;
+            MapDirectory = Application.persistentDataPath + $"Maps{Path.DirectorySeparatorChar}";
+            CustomTraitDirectory = Application.persistentDataPath + $"CustomTraits{Path.DirectorySeparatorChar}";
+            ConditionalTraitDirectory = Application.persistentDataPath + $"ConditionalTraits{Path.DirectorySeparatorChar}";
+            UnitTagDirectory = Application.persistentDataPath + $"UnitTags{Path.DirectorySeparatorChar}";
+            NameFileDirectory = Application.persistentDataPath + $"NameFiles{Path.DirectorySeparatorChar}";
+            Directory.CreateDirectory(StorageDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(MapDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(SaveDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(CustomTraitDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(ConditionalTraitDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(UnitTagDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(NameFileDirectory.TrimEnd(new char[] { '\\', '/' }));
+        }
+
+
+
+        string[] systemTextFileNames = new string[] { "customTraits", "events" };
+
+        try
+        {
+            foreach (string text in systemTextFileNames)
+            {
+                if (File.Exists($"{StorageDirectory}{text}.txt") == false)
+                    File.Copy($"{Application.streamingAssetsPath}{Path.DirectorySeparatorChar}{text}.txt", $"{StorageDirectory}{text}.txt");
+            }
+        }
+        catch
+        {
+            Debug.Log("Initial setup failed!");
+        }
         try
         {
             foreach (string nameList in nameTextFileNames)
@@ -298,6 +491,36 @@ public static class State
             RaceSettings = new RaceSettings();
             GameManager.Start_Mode.miscText.text = "Failed to properly read race settings";
         }
+    }
+
+
+    public static void ResetNamelists()
+    {
+        try
+        {
+            foreach (string nameList in nameTextFileNames)
+            {
+                if (File.Exists($"{NameFileDirectory}{nameList}.txt") == true)
+                {
+                    File.Delete($"{NameFileDirectory}{nameList}.txt");
+                    File.Copy($"{Application.streamingAssetsPath}{Path.DirectorySeparatorChar}{nameList}.txt", $"{NameFileDirectory}{nameList}.txt");
+                }
+                else
+                {
+                    File.Copy($"{Application.streamingAssetsPath}{Path.DirectorySeparatorChar}{nameList}.txt", $"{NameFileDirectory}{nameList}.txt");
+                }
+            }
+            NameGen = new NameGenerator();
+        }
+        catch
+        {
+            Debug.LogWarning("Namelist refresh failed!");
+        }
+    }
+
+    public static void ReloadNamelists()
+    {
+        NameGen = new NameGenerator();
     }
 
 
