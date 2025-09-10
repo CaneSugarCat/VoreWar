@@ -1996,6 +1996,10 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
 
         PermanentTraits.Add(traitIdToAdd);
         RecalculateStatBoosts();
+        if (traitIdToAdd == Traits.Resourceful)
+        {
+            SetMaxItems();
+        }
         return true;
     }
 

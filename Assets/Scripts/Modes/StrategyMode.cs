@@ -948,13 +948,13 @@ public class StrategyMode : SceneBase
                             else if (west)
                                 spr = 3;
 
-                            GameObject wall = Instantiate(SpriteCategories[4], new Vector3(i, j, 0), new Quaternion(), WallRoadFolder);
+                            GameObject wall = Instantiate(SpriteCategories[14], new Vector3(i, j, 0), new Quaternion(), WallRoadFolder);
                             wall.GetComponent<SpriteRenderer>().sprite = WallMultiSprites[spr];
                             wall.GetComponent<SpriteRenderer>().sortingOrder = 1;
                         }
                         else
                         {
-                            TilemapLayers[3].SetTile(new Vector3Int(i, j, 0), DoodadTypes[-1 + (int)doodads[i, j]]);
+                            TilemapLayers[13].SetTile(new Vector3Int(i, j, 0), DoodadTypes[-1 + (int)doodads[i, j]]);
                         }
                     }
                 }
