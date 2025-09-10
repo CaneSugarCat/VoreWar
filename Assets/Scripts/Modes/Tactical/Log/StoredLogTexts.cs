@@ -2982,7 +2982,7 @@ static class StoredLogTexts
             priority: 8),
             new EventString((i) => $"Tired of <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> struggling, <b>{i.Unit.Name}</b> grabs {GPPHim(i.Target)} by {GPPHis(i.Target)} shoulders and swiftly humps <b>{i.Target.Name}</b> into {GPPHis(i.Unit)} cock.",
             priority: 8),
-            new EventString((i) => $"Just bringing <b>{i.Target.Name}</b> close enough to glans causes <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> cock to swell and instantly swallow {GPPHis(i.Unit)} prey.",
+            new EventString((i) => $"Just bringing <b>{i.Target.Name}</b> close enough to {GPPHis(i.Unit)} glans causes <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> cock to swell and instantly swallow {GPPHis(i.Unit)} prey.",
             priority: 8),
 
             //Slime pred

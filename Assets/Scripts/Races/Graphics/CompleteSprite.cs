@@ -320,6 +320,8 @@ class CompleteSprite
         belly = race.Belly; //This is done because of the belly sprite affecting the scale
         if (belly != null)
             belly.GetSprite = (s) => race.BellySprite(actor, sprites[(int)SpriteType.Belly].GameObject);
+        if (actor.Unit.Race == Race.Umbreon && sprites[(int)SpriteType.BodyAccent5] != null)
+            sprites[(int)SpriteType.BodyAccent5].GameObject.transform.SetParent(sprites[(int)SpriteType.Belly].GameObject.transform.parent, false);
         if (actor.Unit.Race == Race.Imps && sprites[(int)SpriteType.BodyAccent6] != null)
             sprites[(int)SpriteType.BodyAccent6].GameObject.transform.SetParent(sprites[(int)SpriteType.Belly].GameObject.transform.parent, false);
         SetSprite(SpriteType.Belly, belly);
@@ -352,8 +354,12 @@ class CompleteSprite
         if (Config.HideBreasts == false)
         {
             SetSprite(SpriteType.Breasts, race.Breasts);
+        if (actor.Unit.Race == Race.Umbreon && sprites[(int)SpriteType.BodyAccent3] != null)
+            sprites[(int)SpriteType.BodyAccent3].GameObject.transform.SetParent(sprites[(int)SpriteType.Breasts].GameObject.transform.parent, false);
             SetSprite(SpriteType.BreastShadow, race.BreastShadow);
             SetSprite(SpriteType.SecondaryBreasts, race.SecondaryBreasts);
+        if (actor.Unit.Race == Race.Umbreon && sprites[(int)SpriteType.BodyAccent4] != null)
+            sprites[(int)SpriteType.BodyAccent4].GameObject.transform.SetParent(sprites[(int)SpriteType.SecondaryBreasts].GameObject.transform.parent, false);
         }
         else
         {

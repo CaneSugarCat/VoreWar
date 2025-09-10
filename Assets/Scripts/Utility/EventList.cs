@@ -2057,6 +2057,7 @@ internal class EventList
                         {
                             village.VillagePopulation.RemoveHireable(unit);
                             village.SubtractPopulation(1);
+                            empire.AddGold(300);
                         }
                     });
                     UI.ThirdChoice.interactable = empire.CanVore;
