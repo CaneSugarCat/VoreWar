@@ -941,14 +941,19 @@ static class SpellList
             {
                 if (TacticalUtilities.OpenTile(loc, null) && a.CastSpell(SummonDoppelganger, null))
                 {
+                    bool checkResourceful = false;
                     Unit unit = new Unit(a.Unit.Side, a.Unit.Race, (int)(a.Unit.Experience * .50f), true, UnitType.Summon);
                     unit.Name = a.Unit.Name;
                     foreach (Traits trait in a.Unit.GetTraits)
                     {
                         unit.AddTrait(trait);
+                        if (trait == Traits.Resourceful)
+                            checkResourceful = true;
                     }
                     unit.CopyAppearance(a.Unit);
                     unit.AddTrait(Traits.Feral);
+                    if (checkResourceful == true)
+                        unit.Items = new Item[3];
                     var actorCharm = a.Unit.GetStatusEffect(StatusEffectType.Charmed) ?? a.Unit.GetStatusEffect(StatusEffectType.Hypnotized);
                     if (actorCharm != null)
                     {

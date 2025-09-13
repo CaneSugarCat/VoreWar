@@ -1119,7 +1119,7 @@ public class Unit
     {
         this.HairColor = appearance.HairColor;
         this.HairStyle = appearance.HairStyle;
-        this.BeardStyle = appearance.HairStyle;
+        this.BeardStyle = appearance.BeardStyle;
         this.SkinColor = appearance.SkinColor;
         this.AccessoryColor = appearance.AccessoryColor;
         this.EyeColor = appearance.EyeColor;
