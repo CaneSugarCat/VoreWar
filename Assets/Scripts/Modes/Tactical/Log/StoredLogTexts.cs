@@ -138,8 +138,8 @@ static class StoredLogTexts
         bool PreyCumgested(EventLog s) => s.Prey.IsDead && InBalls(s);
         bool CanBurp(EventLog s) => Config.BurpFraction > .1f;
         bool Farts(EventLog s) => Config.FartOnAbsorb;
-        bool Scat(EventLog s) => Config.Scat && Config.CleanDisposal == false && (s.preyLocation == PreyLocation.stomach || s.preyLocation == PreyLocation.stomach2);
-        bool Diaper(EventLog s) => Config.CleanDisposal && (s.preyLocation == PreyLocation.stomach || s.preyLocation == PreyLocation.stomach2);
+        bool Scat(EventLog s) => Config.Scat && s.Unit.HasTrait(Traits.TotalAbsorption) == false && Config.CleanDisposal == false && (s.preyLocation == PreyLocation.stomach || s.preyLocation == PreyLocation.stomach2);
+        bool Diaper(EventLog s) => Config.CleanDisposal && s.Unit.HasTrait(Traits.TotalAbsorption) == false && (s.preyLocation == PreyLocation.stomach || s.preyLocation == PreyLocation.stomach2);
         bool Lewd(EventLog s) => Config.LewdDialog;
         bool HardVore(EventLog s) => Config.HardVoreDialog;
         bool HardVoreInStomach(EventLog s) => Config.HardVoreDialog && (s.preyLocation == PreyLocation.stomach || s.preyLocation == PreyLocation.stomach2);
@@ -175,7 +175,7 @@ static class StoredLogTexts
         bool ReqTargetClothingOn(EventLog s) => s.Target.ClothingType != 0;
         bool ReqTargetClothingOff(EventLog s) => s.Target.ClothingType == 0;
         bool WeightGain(EventLog s) => Config.WeightGain;
-        bool BonesDisposal(EventLog s) => Config.Bones && (s.preyLocation == PreyLocation.stomach || s.preyLocation == PreyLocation.stomach2);
+        bool BonesDisposal(EventLog s) => Config.Bones && s.Unit.HasTrait(Traits.TotalAbsorption) == false && (s.preyLocation == PreyLocation.stomach || s.preyLocation == PreyLocation.stomach2);
         bool TargetBoobs(EventLog s) => s.Target.HasBreasts;
         bool ActorBoobs(EventLog s) => s.Unit.HasBreasts;
         bool TargetDick(EventLog s) => s.Target.HasDick;
@@ -187,7 +187,7 @@ static class StoredLogTexts
         bool CanAddressPlayer(EventLog s) => Config.FourthWallBreakType == FourthWallBreakType.On ||
                                                 !TacticalUtilities.IsUnitControlledByPlayer(s.Unit) && Config.FourthWallBreakType == FourthWallBreakType.EnemyOnly ||
                                                 TacticalUtilities.IsUnitControlledByPlayer(s.Unit) && Config.FourthWallBreakType == FourthWallBreakType.FriendlyOnly;
-        bool Condoms(EventLog s) => Config.CondomsForCV && (s.preyLocation == PreyLocation.balls);
+        bool Condoms(EventLog s) => Config.CondomsForCV && s.Unit.HasTrait(Traits.TotalAbsorption) == false && (s.preyLocation == PreyLocation.balls);
         bool PreyIsVeteranPred(EventLog s) => s.Target.DigestedUnits == 0 && s.Target.Level < 10 && State.GameManager.PureTactical == false;
         bool CleaveageVore(EventLog s) => ((s.preyLocation == PreyLocation.breasts && s.Unit.Race != Race.Kangaroos) || ((s.preyLocation == PreyLocation.rightBreast || s.preyLocation == PreyLocation.leftBreast) && Config.FairyBVType == FairyBVType.Shared)); //Cleaveage vore lines by Tatltuae! All lines include a common theme to them (Which I guess is semi-BTF), to quote Tatltuae: "This document does include a sort of temporary sentient fat as a common motief, since it's what makes the most sense to me as the answer to "once cleavage vored, where does the prey go?" My idea is that, unlike most vore, cleavage vore has absorbtion technically occur instantly, with the digestion period being a time when the prey is sentient fat that can still become a seperate person again, meanwhile death is the point when escape becomes impossible, and full assimilation begins."
         bool PermaVore(EventLog s) => s.Target.GetStatusEffect(StatusEffectType.Respawns) == null && !(s.Target.HasTrait(Traits.Eternal)) && !(s.Target.HasTrait(Traits.Reformer)) && !(s.Target.HasTrait(Traits.LuckySurvival)) && !(s.Target.Type == UnitType.Leader) && (s.Target.SavedCopy == null && s.Target.SavedVillage == null); // For prey that aren't coming back (In most cases) Intentionally left out DeathCheater

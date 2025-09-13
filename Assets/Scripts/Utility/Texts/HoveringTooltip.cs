@@ -822,11 +822,11 @@ public class HoveringTooltip : MonoBehaviour
             case Traits.BlessingOfFerocity:
                 return "This unit grants sharpness to any unit that buffs it, equal to 10% of Strength every turn while the buff persists. This unit gives 'Valor' to an ally within 2 spaces every other turn, duration scaling with level.";
             case Traits.TotalAbsorption:
-                return "This unit does not produce waste or remains when digesting absorbing prey.";
+                return "This unit does not produce waste or remains when digesting or absorbing prey.";
             case Traits.Crystaline:
                 return "Unit takes 25% reduced damage from all sources, but each time it is hit it has a 1/4 chance to gain the 'Fractured' status effect, canceling out this trait and greatly increasing damage from all sources. 'Fractured' lasts until the battle is over.";
             case Traits.DyingStrike:
-                return "When unit is killed in melee or digested does has a 1/3 chance of hiting with a melee attack against the agressor, 3/4 hit chance if vored.";
+                return "When unit is killed in melee or digested does has a 1/3 chance of hitting with a melee attack against the aggressor, 3/4 hit chance if vored.";
             case Traits.DimensionalAntilock:
                 return "This unit is not completely fixed to the space around it. \n(Allows using the Dimension Shift ability once per battle, which attempts to teleport the User to a random open tile within 20 tiles.)";
         }  
