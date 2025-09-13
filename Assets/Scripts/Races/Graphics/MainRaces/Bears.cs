@@ -130,7 +130,7 @@ class Bears : DefaultRaceData
         if (actor.Unit.HasDick == false)
             return null;
 
-        if (actor.IsErect())
+        if (actor.IsErect() && ((Config.CockVoreHidesClothes == true) || (actor.Unit.ClothingType != 3 && actor.Unit.ClothingType2 != 2))) // disables erections appearing through Loincloth and Leathers
         {
             if (actor.PredatorComponent?.VisibleFullness < .5f)
             {
