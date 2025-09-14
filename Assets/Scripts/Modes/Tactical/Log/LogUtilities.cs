@@ -896,6 +896,10 @@ static class LogUtilities
             else if (weapon.Name == "Compound Bow") return "Mechanical Slingbow";
             else if (weapon.Name == "Claw") return "Claws";
         }
+        else if (unit.Race == Race.Cats || unit.Race == Race.Dogs || unit.Race == Race.Foxes || unit.Race == Race.Wolves || unit.Race == Race.Bunnies || unit.Race == Race.Tigers)
+        {
+            if (weapon.Name == "Mace" && unit.BasicMeleeWeaponType == 1) return "Sword";
+        }
         else if (weapon.Name == "Claw") return "Claws";
         return weapon.Name;
     }

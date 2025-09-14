@@ -112,7 +112,7 @@ abstract class DefaultRaceData
     internal int BodyAccentTypes5 = 0;
     internal int BallsSizes = 0;
     internal int VulvaTypes = 0;
-    internal int BasicMeleeWeaponTypes = 1;
+    internal int BasicMeleeWeaponTypes = 2;
     internal int AdvancedMeleeWeaponTypes = 1;
     internal int BasicRangedWeaponTypes = 1;
     internal int AdvancedRangedWeaponTypes = 1;
@@ -301,6 +301,7 @@ abstract class DefaultRaceData
         unit.ClothingColor = State.Rand.Next(ColorMap.ClothingColorCount);
         unit.MouthType = State.Rand.Next(Math.Max(MouthTypes - AvoidedMouthTypes, 0));
         unit.SpecialAccessoryType = State.Rand.Next(SpecialAccessoryCount);
+        unit.BasicMeleeWeaponType = State.Rand.Next(BasicMeleeWeaponTypes);
 
         if (unit.HasDick && unit.HasBreasts == false)
             unit.BeardStyle = State.Rand.Next(BeardStyles);
@@ -649,6 +650,13 @@ abstract class DefaultRaceData
     {
         if (actor.Unit.HasWeapon && actor.Surrendered == false)
         {
+            if (actor.Unit.BasicMeleeWeaponType == 1 && (actor.GetWeaponSprite() == 0 || actor.GetWeaponSprite() == 1))
+            {
+                    if (actor.GetWeaponSprite() == 0)
+                return State.GameManager.SpriteDictionary.Weapons[8];
+                    else
+                return State.GameManager.SpriteDictionary.Weapons[9];
+            }
             return State.GameManager.SpriteDictionary.Weapons[actor.GetWeaponSprite()];
         }
         else
