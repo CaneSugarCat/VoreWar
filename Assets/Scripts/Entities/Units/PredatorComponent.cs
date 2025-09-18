@@ -1599,7 +1599,7 @@ public class PredatorComponent
                     unit.RandomStatIncrease(1);
                 }
             }
-            if (preyUnit.Unit.GetStatusEffect(StatusEffectType.Respawns) != null && (preyUnit.Unit.HasTrait(Traits.Respawner) || preyUnit.Unit.HasTrait(Traits.RespawnerIII)))
+            if (preyUnit.Unit.GetStatusEffect(StatusEffectType.Respawns) != null)
             {
                 var spawnLoc = TacticalUtilities.GetRandomTileForActor(preyUnit.Actor);
                 if (spawnLoc == null)

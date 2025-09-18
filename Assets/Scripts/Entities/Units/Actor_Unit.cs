@@ -2002,7 +2002,7 @@ public class Actor_Unit
             else
                 State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"In {LogUtilities.GPPHis(target.Unit)} last moments <b>{target.Unit.Name}</b> attacks <b>{Unit.Name}</b> dealing <color=red>{target.WeaponDamageAgainstTarget(this, false)}</color> damage!");
         }
-        if (target.Unit.GetStatusEffect(StatusEffectType.Respawns) != null && (target.Unit.HasTrait(Traits.Respawner) || target.Unit.HasTrait(Traits.RespawnerIII)))
+        if (target.Unit.GetStatusEffect(StatusEffectType.Respawns) != null)
         {
             var spawnLoc = TacticalUtilities.GetRandomTileForActor(target);
             if (spawnLoc == null)
@@ -2045,7 +2045,7 @@ public class Actor_Unit
         if (Unit.HasTrait(Traits.TasteForBlood))
             GiveRandomBoost();
         Unit.GiveScaledExp(4 * target.Unit.ExpMultiplier, Unit.Level - target.Unit.Level);
-        if (target.Unit.GetStatusEffect(StatusEffectType.Respawns) != null && (target.Unit.HasTrait(Traits.Respawner) || target.Unit.HasTrait(Traits.RespawnerIII)))
+        if (target.Unit.GetStatusEffect(StatusEffectType.Respawns) != null)
         {
             var spawnLoc = TacticalUtilities.GetRandomTileForActor(target);
             if (spawnLoc == null)
