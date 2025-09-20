@@ -155,6 +155,7 @@ static class Config
     internal static int AdditionalExperiencePerLevel => World.AdditionalExperiencePerLevel;
     internal static int VillageIncomePercent => World.VillageIncomePercent;
     internal static int VillagersPerFarm => World.VillagersPerFarm;
+    internal static int VillagerDevourEXP => World.VillagerDevourEXP;
     internal static int SoftLevelCap => World.SoftLevelCap;
     internal static int HardLevelCap => World.HardLevelCap;
 

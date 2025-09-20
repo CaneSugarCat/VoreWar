@@ -1244,6 +1244,9 @@ public static class State
             if (Config.World.VillagersPerFarm == 0)
                 Config.World.VillagersPerFarm = 6;
 
+            if (Config.World.VillagerDevourEXP == 0)
+                Config.World.VillagerDevourEXP = 1;
+
             if (Config.World.SoftLevelCap == 0)
                 Config.World.SoftLevelCap = 999999;
 

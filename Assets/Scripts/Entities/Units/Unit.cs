@@ -2859,7 +2859,7 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
 
     public void Feed()
     {
-        GiveExp(1, true);
+        GiveExp(Config.VillagerDevourEXP, true);
         Health += 10;
         if (Health > MaxHealth)
         {

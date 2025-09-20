@@ -830,6 +830,8 @@ Does not retroactively affect already created units.";
                 return "Disables the potion system. (Frees up a lot of AI income)";
             case 346:
                 return "Enables wandering clusters of Iliijiith.";
+            case 347:
+                return "Determines how much EXP a single villager provides when devoured by an occupying army.";
             default:
                 return "";
         }
