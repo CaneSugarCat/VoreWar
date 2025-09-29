@@ -4293,6 +4293,8 @@ static class RaceParameters
                 Traits.Pounce,
                 Traits.Timid,
                 Traits.Submissive,
+                Traits.Eternal,
+                Traits.TheGreatEscape,
         },
             InnateSpells = new List<SpellTypes>() { SpellTypes.CrossShock, SpellTypes.ArcBolt },
             RaceDescription = "A small fox with surprisingly strong lightning magic.",

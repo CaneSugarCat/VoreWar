@@ -3423,7 +3423,7 @@ static class StoredLogTexts
             priority: 9, conditional: s=> HardVore(s) && InStomach(s) && ActorHumanoid(s)),
             //Humanoid pred
             new EventString((i) => $"\"Shh, it’s okay. You’re right where you belong,\" <b>{i.Unit.Name}</b> says soothingly while stroking {GPPHis(i.Unit)} belly. <b>{i.Target.Name}</b>, too weak to fight by this point, gives in to the loving words and dies with a final tummy wobble.",
-            priority: 9, conditional: s=> ActorHumanoid(s) && InPouch(s) == false),
+            priority: 9, conditional: s=> ActorHumanoid(s) && InStomach(s)),
             new EventString((i) => $"<b>{i.Unit.Name}</b> tries to draw out the process of digesting {GPPHis(i.Unit)} wiggling prey a little longer, but {GPPHis(i.Unit)} voracious {i.preyLocation.ToSyn()} overcome{PluralForPart(i.preyLocation)} the living meal before {GPPHe(i.Target)} can stop it.",
             priority: 9, conditional: s=> ActorHumanoid(s) && InPouch(s) == false),
             new EventString((i) => $"<b>{i.Unit.Name}</b> grows tired of {GPPHis(i.Unit)} meal’s incessant struggling and decides to stop playing with {GPPHis(i.Unit)} food. <b>{i.Target.Name}</b> doesn’t stand a chance as the well trained {i.preyLocation.ToSyn()} begin{PluralForPart(i.preyLocation)} to convulse and fill with juices as the charade ends.",

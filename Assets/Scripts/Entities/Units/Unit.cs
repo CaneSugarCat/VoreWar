@@ -1813,6 +1813,8 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
     {
         if (tag == Traits.TheGreatEscape && Race == Race.Erin)
             return true;
+        if (tag == Traits.TheGreatEscape && Race == Race.Olivia)
+            return true;
         if (Tags != null)
             return Tags.Contains(tag) || (PermanentTraits?.Contains(tag) ?? false);
         return false;

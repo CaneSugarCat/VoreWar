@@ -3133,7 +3133,7 @@ public class Actor_Unit
             State.GameManager.TacticalMode.DirtyPack = true;
             Targetable = false;
             Surrendered = true;
-            if (Config.VisibleCorpses && Unit.Race != Race.Erin && Unit.Race != Race.Iliijiith)
+            if (Config.VisibleCorpses && Unit.Race != Race.Erin && Unit.Race != Race.Iliijiith && Unit.Race != Race.Olivia)
             {
                 float angle = 40 + State.Rand.Next(280);
                 UnitSprite.transform.rotation = Quaternion.Euler(0, 0, angle);
