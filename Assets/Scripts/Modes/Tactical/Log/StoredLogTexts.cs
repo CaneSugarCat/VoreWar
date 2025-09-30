@@ -1136,6 +1136,23 @@ static class StoredLogTexts
             actorRace: Race.FeralEevee, priority: 12, conditional: s => TargetHumanoid(s) && Endo(s)),
             new EventString((i) => $"<b>{i.Unit.Name}</b> playfully leaps at <b>{i.Target.Name}</b>, mouth open, swallowing {GPPHis(i.Unit)} ally. Don't fret; <b>{i.Target.Name}</b> will be completely safe!",
             actorRace: Race.FeralEevee, priority: 12, conditional: s => TargetHumanoid(s) && Endo(s)),
+
+            //Iliijiith Swallow
+            new EventString((i) => $"<b>{i.Unit.Name}</b> stands before <b>{i.Target.Name}</b>, and the {GetRaceDescSingl(i.Target)} watches as the crystalline entity seems to distort, filling more and more of {GPPHis(i.Target)} vision until {GPPHe(i.Target)} suddenly realize{SIfSingular(i.Target)} that {GPPHeIsAbbr(i.Target)} now inside the Iliijiith.",
+            priority: 25, conditional: s => s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"For a moment, everyone looking in the direction of <b>{i.Unit.Name}</b> and <b>{i.Target.Name}</b> go blind, and when their vision returns, <b>{i.Target.Name}</b> is gone, and {GetRandomStringFrom($"<b>{i.Unit.Name}</b>", $"<b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> central crystal")} is bigger than before.",
+            priority: 25, conditional: s => s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"As <b>{i.Unit.Name}</b> approaches {GPPHim(i.Target)}, reality seems to bend and twist around <b>{i.Target.Name}</b>, until the {GetRaceDescSingl(i.Target)} is no longer outside the Iliijiith, but inside it.",
+            priority: 25, conditional: s => s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> color suddenly changes, and <b>{i.Target.Name}</b> vanishes without a trace... Except the Iliijiith's suddenly larger central crystal.",
+            priority: 25, conditional: s => s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"As the Iliijiith approaches {GPPHim(i.Target)}, <b>{i.Target.Name}</b> feels like it looks wrong somehow, like the crystalline surface looks almost... Concave? As {GPPHe(i.Target)} get{SIfSingular(i.Target)} closer, the {GetRaceDescSingl(i.Target)} suddenly falls into the optical illusion, <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> central crystal expanding to hold {GPPHim(i.Target)}.",
+            priority: 25, conditional: s => s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> walks over to <b>{i.Target.Name}</b>, the two crystalline beings overlapping for a moment as though they didn't exist to one another, before <b>{i.Unit.Name}</b> comes out the victor, <b>{i.Target.Name}</b> calmly sitting inside.",
+            priority: 25, conditional: s => s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> rams into <b>{i.Target.Name}</b>, and for a moment, both shatter into tiny shards, before recoalessing, only with <b>{i.Target.Name}</b> now inside <b>{i.Unit.Name}</b>.",
+            priority: 25, conditional: s => s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+
         };
 
         RandomDigestionMessages = new List<EventString>()
@@ -2051,6 +2068,18 @@ static class StoredLogTexts
             actorRace: Race.FeralEevee, priority: 11, conditional: s => TargetHumanoid(s) && InWomb(s)),
             new EventString((i) => $"For a moment, <b>{i.Target.Name}</b> manages to stick {GPPHis(i.Target)} head out of <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> {GetRandomStringFrom("vagina", "muff", "cunt", "pussy")}, before the Eevee sits down to look at the sky, shoving {GPPHim(i.Target)} back up into the womb.",
             actorRace: Race.FeralEevee, priority: 11, conditional: s => TargetHumanoid(s) && InWomb(s)),
+            //Iliijiith RandomDigests
+            new EventString((i) => $"<b>{i.Target.Name}</b> shivers inside <b>{i.Unit.Name}</b> as all of {GPPHis(i.Target)} energy is pulled away from {GPPHim(i.Target)}.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> central crystal shakes around as <b>{i.Target.Name}</b> struggles within, the form of the trapped {GetRaceDescSingl(i.Target)} within occasionally visible, pressing up against the sides of the crystal like a glass wall.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Target.Name}</b> tries to push against the crystalline walls around {GPPHim(i.Target)}, but try as {GPPHe(i.Target)} might, nothing {GPPHe(i.Target)} do{EsIfSingular(i.Target)} can free {GPPHim(i.Target)} from <b>{i.Unit.Name}</b>.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> vision fades out as {GPPHe(i.Target)} freeze, rapidly approaching absolute zero as all energy is stripped from the {GetRaceDescSingl(i.Target)}, including the electrons helping hold {GPPHis(i.Target)} body together. As {GPPHe(i.Target)} collapse{SIfSingular(i.Target)} into individual particles, the matter that was <b>{i.Target.Name}</b> starts being deleted by the Iliijiith.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> shakes slightly as <b>{i.Target.Name}</b> does... Something. From the outside, it might look like it's doing nothing, but in truth, a battle of complex hypermathematical forces is taking place between <b>{i.Unit.Name}</b> and <b>{i.Target.Name}</b>.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+
             //Tail Vore RandomDigests
                 //Generic
             new EventString((i) => $"<b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> tail thrashes around, the {GetRaceDescSingl(i.Target)} inside trying as hard as {GPPHe(i.Target)} can to escape. Trying, and failing.",
@@ -2601,6 +2630,28 @@ static class StoredLogTexts
             actorRace: Race.FeralEevee, priority: 11, conditional: s => s.Target == s.Unit && HardVore(s) && InStomach(s) && !s.Prey.IsDead),
             new EventString((i) => $"A loud gurgle from somewhere below {GPPHim(i.Target)} scares <b>{i.Target.Name}</b>, who jumps up in response. As the Eevee comes back down on {GPPHis(i.Target)} belly, more solid pieces of <b>{i.Prey.Name}</b> become liquid.",
             actorRace: Race.FeralEevee, priority: 11, conditional: s => s.Target == s.Unit && HardVore(s) && InStomach(s) && s.Prey.IsDead),
+            //Iliijiith Rubs
+            new EventString((i) => $"<b>{i.Unit.Name}</b> feels along the outside of <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> central crystal, feeling the occasional shakes as <b>{i.Prey.Name}</b> fights and struggles inside.",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Target != s.Unit && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> taps the hard crystalline exomatter of <b>{i.Target.Name}</b>, watching as the vague shape of <b>{i.Prey.Name}</b> moves inside.",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Target != s.Unit && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"As <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> central crystal shakes with <b>{ApostrophizeWithOrWithoutS(i.Prey.Name)}</b> movements inside, <b>{i.Unit.Name}</b> gently grabs the extradimensional entity and holds it still for a moment.",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Target != s.Unit && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Target.Name}</b> vibrates in place for a moment, <b>{i.Prey.Name}</b> inside suddenly feeling colder...",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Target == s.Unit && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> central crystal starts to spin, soon moving too fast to make out, before suddenly stopping instantly. Inside, as it spins around {GPPHim(i.Prey)}, <b>{i.Prey.Name}</b> feels {GPPHimself(i.Prey)} growing ever colder.",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Target == s.Unit && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> feels along the outside of <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> central crystal, feeling the cool, glassy surface, and a slight... Buzzing sensation from all the energy contained within.",
+            priority: 25, conditional: s => InStomach(s) && s.Prey.IsDead && s.Target != s.Unit && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> taps the hard crystalline exomatter of <b>{i.Target.Name}</b>, only for the crystal to shrink slightly.",
+            priority: 25, conditional: s => InStomach(s) && s.Prey.IsDead && s.Target != s.Unit && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> presses on <b>{i.Target.Name}</b>, and is surprised when its central crystal shrinks a bit at {GPPHis(i.Unit)} touch.",
+            priority: 25, conditional: s => InStomach(s) && s.Prey.IsDead && s.Target != s.Unit && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Target.Name}</b> vibrates in place for a moment, speeding the deletion of {GetRandomStringFrom($"<b>{ApostrophizeWithOrWithoutS(i.Prey.Name)}</b> matter", $"the matter that had once been <b>{i.Prey.Name}</b>")}.",
+            priority: 25, conditional: s => InStomach(s) && s.Prey.IsDead && s.Target == s.Unit && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> central crystal starts to spin, soon moving too fast to make out, before suddenly stopping instantly, suddenly smaller, more of <b>{i.Prey.Name}</b> having been deleted from existence.",
+            priority: 25, conditional: s => InStomach(s) && s.Prey.IsDead && s.Target == s.Unit && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+
         };
 
         BreastRubMessages = new List<EventString>()
@@ -3848,6 +3899,18 @@ static class StoredLogTexts
             new EventString((i) => $"In {GPPHis(i.Target)} last few moments, <b>{i.Target.Name}</b> realizes that <b>{i.Unit.Name}</b> hasn't really been cruel so far, and probably doesn't even understand what {GPPHeIsAbbr(i.Unit)} {GetRandomStringFrom($"doing to <b>{i.Target.Name}</b>", $"doing to {GPPHim(i.Target)}", $"doing to the {GetRaceDescSingl(i.Unit)}", "doing")}. With this final thought, the {GetRaceDescSingl(i.Target)} melts away inside the Eevee's womb.",
             actorRace: Race.FeralEevee, priority: 11, conditional: s => TargetHumanoid(s) && InWomb(s)),
 
+            //Iliijiith Digests
+            new EventString((i) => $"As {GPPHis(i.Target)} body freezes inside <b>{i.Unit.Name}</b>, <b>{i.Target.Name}</b> feels trapped in {GPPHis(i.Target)} corpse as the Iliijiith begins to delete it.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && !PermaVore(s)),
+            new EventString((i) => $"As <b>{i.Unit.Name}</b> takes away all of the energy in <b>{i.Target.Name}</b>, {GPPHe(i.Target)} freeze{SIfSingular(i.Target)} to death, before quickly dissolving into nothing more than loose protons and neutrons, the electrons that helped hold the {GetRaceDescSingl(i.Target)} together being absorbed by the Iliijiith{GetRandomStringFrom(".", $". As the particles reach absolute zero, they begin to be deleted from existence within <b>{i.Unit.Name}</b>.")}",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && PermaVore(s)),
+            new EventString((i) => $"Inside the Iliijiith, <b>{i.Target.Name}</b> feels colder and colder as all energy is taken from {GPPHim(i.Target)}. Not just heat, but kinetic energy, light, electrons, all are absorbed into <b>{i.Unit.Name}</b> as the {GetRaceDescSingl(i.Target)} first freezes solid, before falling apart into individual protons and neutrons, the electrons that binded {GPPHim(i.Target)} no longer present{GetRandomStringFrom(".", ". Soon, the hypercooled particles begin to vanish, being deleted by the Iliijiith.")}",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && PermaVore(s)),
+            new EventString((i) => $"<b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> vision fades out as {GPPHe(i.Target)} freeze, rapidly approaching absolute zero as all energy is stripped from the {GetRaceDescSingl(i.Target)}, including the electrons helping hold {GPPHis(i.Target)} body together. As {GPPHe(i.Target)} collapse{SIfSingular(i.Target)} into individual particles, the matter that was <b>{i.Target.Name}</b> starts being deleted by the Iliijiith.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && PermaVore(s)),
+            new EventString((i) => $"The complex hypermathematical battle between <b>{i.Unit.Name}</b> and <b>{i.Target.Name}</b> ends when, despite its attempts to defend itself, <b>{i.Unit.Name}</b> {GetRandomStringFrom($"multiplies <b>{i.Target.Name}</b> by zero", $"divides <b>{i.Target.Name}</b> by zero", $"eliminates a central facet of <b>{i.Target.Name}</b>", $"shatters <b>{i.Target.Name}</b>", $"inverts <b>{i.Target.Name}</b>", $"undoes <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> coherence", $"initiates a <b>REDACTED</b> overload", $"<b>REDACTED</b>s <b>{i.Target.Name}</b>")}, dissolving the trapped Iliijiith into its base theoretical equations and exomatter.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+
             //Tail digests
             //Creds to Tatltuae for lines!
                 //Generic
@@ -4450,6 +4513,18 @@ static class StoredLogTexts
             new EventString((i) => $"Noticing that {GPPHis(i.Unit)} belly is back to normal size, <b>{i.Unit.Name}</b> figures that <b>{i.Target.Name}</b> must have found some way out. After all, <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> stomach is 100% safe. \n<b>{i.Unit.Name}</b> lets out a small burp. Yeah, definitely 100% safe.",
             actorRace: Race.FeralEevee, priority: 11, conditional: s => InStomach(s) && CanBurp(s)),
 
+            //Iliijiith Absorbs
+            new EventString((i) => $"As the last of <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> matter is deleted inside <b>{i.Unit.Name}</b>, one would assume the {GetRaceDescSingl(i.Target)} to be dead... In reality, {GPPHis(i.Target)} {GetRandomStringFrom("soul", "essence")} is still around, pinging around within <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> crystalline form. After a moment, a small, barely noticeable crack appears on the Iliijiith before healing instantly. But in the moment the crack exists, <b>{i.Target.Name}</b> is able to escape, in some form, to maybe one day come back.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && !PermaVore(s)),
+            new EventString((i) => $"The last few particles of <b>{i.Target.Name}</b> are deleted from existence within <b>{i.Unit.Name}</b>.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && PermaVore(s)),
+            new EventString((i) => $"As the last of <b>{i.Target.Name}</b> is deleted from existence, {GPPHis(i.Target)} comrades are already having a tough time recalling {GPPHim(i.Target)}.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && PermaVore(s)),
+            new EventString((i) => $"<b>{i.Target.Name}</b> is fully expunged from existence by <b>{i.Unit.Name}</b>.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith && PermaVore(s)),
+            new EventString((i) => $"The last parts of the complex theoretical mess <b>{i.Target.Name}</b> has been turned into are aligned with and conformed into <b>{i.Unit.Name}</b>.",
+            priority: 25, conditional: s => InStomach(s) && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+
             //Tail absorbs
             //Creds to Tatltuae!
                 //Generic
@@ -4578,6 +4653,11 @@ static class StoredLogTexts
             priority: 11, conditional: s => Config.CondomsForCV && !InStomach(s) && Lewd(s) && s.Prey.IsDead && ReqRAW(s) && ActorHumanoid(s)),
             new EventString((i) => $"Before having sex, <b>{i.Unit.Name}</b> looks for {GPPHis(i.Unit)} condom, but can't find it. \"I think I left it with <b>{RandomAlliedWarrior(i.Unit).Name}</b>. Want me to go get it?\" <b>{i.Target.Name}</b> responds \"Nah, I saw your face when that {GetRaceDescSingl(i.Prey)} went in your balls, I want to feel that myself.\" With that, the two {GetRandomStringFrom("have sex", "fuck")}, right there in the middle of the battlefield.",
             priority: 11, conditional: s => Config.CondomsForCV && !InStomach(s) && Lewd(s) && s.Prey.IsDead && ReqRAW(s) && TargetHumanoid(s) && ActorHumanoid(s)),
+            //Cock vore transfer to Iliijiith exclusive
+            new EventString((i) => $"<b>{i.Unit.Name}</b> approaches <b>{i.Target.Name}</b> and {GetRandomStringFrom("cums", "ejaculates")} the essence of <b>{i.Prey.Name}</b> into the Iliijiith, the {GetRaceDescSingl(i.Target)} totally absorbs the {GetRandomStringFrom("cum", "jizz", "thick fluid")}, locking it all away with nothing more than slight ripple of its surface before resolidifying.",
+            priority: 25, conditional: s => InStomach(s) && s.Prey.IsDead && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> approaches <b>{i.Target.Name}</b> and {GetRandomStringFrom("cums", "ejaculates")} <b>{i.Prey.Name}</b> into the Iliijiith, suprisingly the {GetRaceDescSingl(i.Target)} absorbs not only the {GetRaceDescSingl(i.Prey)} but also totally absorbs the cum as well, locking it all away with a ripple of its surface before resolidifying.",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Target.Race == Race.Iliijiith),
 
         };
 
@@ -4606,6 +4686,17 @@ static class StoredLogTexts
             priority: 10, conditional: s => InStomach(s) && !s.Prey.IsDead && !ActorHumanoid(s)),
             new EventString((i) => $"As <b>{i.Unit.Name}</b> and <b>{i.Target.Name}</b> kiss one another, the bulge <b>{i.Prey.Name}</b> makes in <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> stomach shrinks, traveling up {GPPHis(i.Unit)} throat, over and into <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> throat, and all the way down into <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> stomach. Noticing how much lighter {GPPHe(i.Unit)} suddenly {IsAre(i.Unit)}, <b>{i.Unit.Name}</b> pats <b>{i.Target.Name}</b> on the shoulder and says \"{GetRandomStringFrom("Take care of my prey now, ok?", "You will get me a better one, right?")}\"",
             priority: 10, conditional: s => InStomach(s) && !s.Prey.IsDead && ActorHumanoid(s)),
+            //Iliijiith exclusives
+            new EventString((i) => $"<b>{i.Unit.Name}</b> accidentally gets too close to <b>{i.Target.Name}</b>, as {GPPHe(i.Unit)} bumps into {GPPHim(i.Target)}, {GPPHis(i.Unit)} {PreyLocStrings.ToSyn(PreyLocation.stomach)} suddenly shrinks as <b>{i.Prey.Name}</b> is no longer inside of {GPPHim(i.Target)} and now in the Iliijiith{GetRandomStringFrom(".", $"leaving <b>{i.Unit.Name}</b> feeling rather robbed.")}",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Unit.Race != Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> decides that <b>{i.Target.Name}</b> is oddly pettable and approachs {GPPHim(i.Target)}, however the moment {GPPHe(i.Unit)} touches the Iliijiith, {GPPHe(i.Unit)} suddenly find{SIfSingular(i.Unit)} {GPPHimself(i.Unit)} feeling lighter as the {GetRaceDescSingl(i.Target)} briefly flashes and is now filled with <b>{i.Prey.Name}</b>{GetRandomStringFrom(".", ". \"Rude...\"", ". \"How did?...\"", $"leaving <b>{i.Unit.Name}</b> feeling rather robbed.")}",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Unit.Race != Race.Iliijiith && s.Target.Race == Race.Iliijiith && ActorHumanoid(s)),
+            new EventString((i) => $"<b>{i.Target.Name}</b> accidentally gets too close to <b>{i.Unit.Name}</b>, as {GPPHe(i.Target)} bumps into {GPPHim(i.Unit)}, {GPPHis(i.Target)} {PreyLocStrings.ToSyn(PreyLocation.stomach)} suddenly expands as <b>{i.Prey.Name}</b> is now inside of {GPPHim(i.Target)} and no longer in the Iliijiith.",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Target.Name}</b> accidentally gets too close to <b>{i.Unit.Name}</b>, as {GPPHe(i.Target)} bumps into {GPPHim(i.Unit)}, the Iliijiith briefly flashes causing the {GetRaceDescSingl(i.Target)} to jump back as {GPPHe(i.Target)} feel{SIfSingular(i.Target)} a sudden coldness inside of {GPPHim(i.Target)}, only to look at {GPPHimself(i.Target)} and realize one very cold <b>{i.Prey.Name}</b> is suddenly inside of {GPPHim(i.Target)}{GetRandomStringFrom(".", ". \'Ok!\'", ". \'Weird...\'", $"; not that {GPPHeIsAbbr(i.Target)} complaining~")}",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> moves close to <b>{i.Target.Name}</b> and suddenly a flash emits from between the two Iliijiith. As the light fades <b>{i.Prey.Name}</b> is now inside <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> crystalline body.",
+            priority: 25, conditional: s => InStomach(s) && !s.Prey.IsDead && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
 
         };
 
@@ -4699,6 +4790,13 @@ static class StoredLogTexts
             priority: 25, conditional: s => s.oldLocation == PreyLocation.tail && s.preyLocation == PreyLocation.stomach && s.Target.Race == Race.Terrorbird),
             new EventString((i) => $"Wrapping {GPPHis(i.Unit)} arms around <b>{ApostrophizeWithOrWithoutS(i.Target.Name)}</b> {GetRaceDescSingl(i.Prey)} filled neck, <b>{i.Unit.Name}</b> preforms some bizarre reinterpretation of the heimlich maneuver, pushing against the bulge <b>{i.Prey.Name}</b> makes in the {ApostrophizeWithOrWithoutS(GetRaceDescSingl(i.Target))} crop until {GPPHe(i.Prey)} come{SIfSingular(i.Prey)} back out, and directly into <b>{i.Unit.Name}</b>'s waiting mouth{GetRandomStringFrom(".", "!", ", like how a bird might feed her babies.")}",
             priority: 25, conditional: s => s.oldLocation == PreyLocation.tail && s.preyLocation == PreyLocation.stomach && s.Target.Race == Race.Terrorbird && ActorHumanoid(s)),
+            //Iliijiith Exclusive
+            new EventString((i) => $"<b>{i.Unit.Name}</b> {GetRandomStringFrom("quickly", "rapidly")} approaches <b>{i.Target.Name}</b> and passes through {GPPHim(i.Target)} seemingly doing nothing, that is until {GPPHe(i.Target)} realizes <b>{i.Prey.Name}</b> ,{GPPHis(i.Target)} prey, is oddly absent and <b>{i.Unit.Name}</b> is now larger.",
+            priority: 25, conditional: s => s.preyLocation == PreyLocation.stomach && s.Unit.Race == Race.Iliijiith && s.Target.Race != Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> charges at <b>{i.Target.Name}</b> and bashes into it at full force, managing to break its crystalline surface and partially phase into it, allowing {GPPHim(i.Unit)} to gulp up a rather chilly <b>{i.Prey.Name}</b> before pulling {GPPHimself(i.Unit)} safely back out, before the {ApostrophizeWithOrWithoutS(GetRaceDescSingl(i.Target))} surface resolidifies.",
+            priority: 25, conditional: s => (s.oldLocation == PreyLocation.stomach || s.oldLocation == PreyLocation.stomach2) && s.preyLocation == PreyLocation.stomach && s.Unit.Race != Race.Iliijiith && s.Target.Race == Race.Iliijiith),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> {GetRandomStringFrom("quickly", "rapidly")} approaches <b>{i.Target.Name}</b> and collides with the other Iliijiith in less than a second the two Iliijiith are seemingly one. After a moment the two Iliijiith seperate with <b>{i.Target.Name}</b> having a slight crack along its surface and <b>{i.Prey.Name}</b> now inside <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> crystalline body.",
+            priority: 25, conditional: s => (s.oldLocation == PreyLocation.stomach || s.oldLocation == PreyLocation.stomach2) && s.preyLocation == PreyLocation.stomach && s.Unit.Race == Race.Iliijiith && s.Target.Race == Race.Iliijiith),
         };
         BreastFeedMessages = new List<EventString>()
         {
@@ -4782,6 +4880,9 @@ static class StoredLogTexts
             //Slime exclusive
             new EventString((i) => $"With a squelch, <b>{i.Unit.Name}</b> performs mitosis, releasing <b>{i.Target.Name}</b>.",priority: 10, actorRace: Race.Slimes, conditional: s => (s.RebirthType == 2 || s.RebirthType == 4)),
             new EventString((i) => $"With a squelch, <b>{i.Unit.Name}</b> performs mitosis, <b>{i.Target.Name}</b> becoming a seperate slime.",priority: 10, actorRace: Race.Slimes, conditional: s => s.Target.Race != Race.Slimes && (s.RebirthType == 1 || s.RebirthType == 3)),
+            //Iliijiith exclusive
+            new EventString((i) => $"<b>{i.Unit.Name}</b> phases out of existence for a moment, and <b>{i.Target.Name}</b> falls to the floor, {GPPHis(i.Target)} mind wiped of any and all memories, a simple blank husk of {GetAorAN(GetRaceDescSingl(i.Target))}, the only thought left in {GPPHis(i.Target)} mind being to seek out problems and neutralize them, just like an Iliijiith.",priority: 25, actorRace: Race.Iliijiith, conditional: s => s.Target.Race != Race.Iliijiith && s.RebirthType == 4),
+            new EventString((i) => $"<b>{i.Unit.Name}</b> starts to phase out of sync with reality for a moment before stabilizing, a brand new {GetRaceDescSingl(i.Target)} manifesting beside it.",priority: 25, actorRace: Race.Iliijiith, conditional: s => s.RebirthType == 3),
             //Tail Rebirth and Conversion
                 //Generic
             new EventString((i) => $"<b>{i.Target.Name}</b> is squeezed back out <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> tail, mind reprogrammed and now ready to fight for <b>{ApostrophizeWithOrWithoutS(i.Unit.Name)}</b> side.",priority: 10, conditional: s => s.RebirthType == 4 && InTail(s) && !(s.Unit.Race == Race.Youko || s.Unit.Race == Race.Terrorbird)),

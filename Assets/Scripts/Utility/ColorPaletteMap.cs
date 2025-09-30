@@ -2632,8 +2632,6 @@ public static class ColorPaletteMap
         map = State.GameManager.PaletteDictionary.IliijiithIdleColor;
         for (int pixelY = 0; pixelY < map.height; pixelY++)
         {
-            if (pixelY == 0) //Skip the template
-                continue;
             Dictionary<int, Color> swapDict = new Dictionary<int, Color>
             {
                 [50] = map.GetPixel(0, pixelY),
@@ -2647,8 +2645,6 @@ public static class ColorPaletteMap
         map = State.GameManager.PaletteDictionary.IliijiithAttackColor;
         for (int pixelY = 0; pixelY < map.height; pixelY++)
         {
-            if (pixelY == 0) //Skip the template
-                continue;
             Dictionary<int, Color> swapDict = new Dictionary<int, Color>
             {
                 [50] = map.GetPixel(0, pixelY),

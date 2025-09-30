@@ -3111,8 +3111,9 @@ static class RaceParameters
                 Traits.DimensionalAntilock,
                 Traits.DyingStrike,
                 Traits.TotalAbsorption,
+                Traits.Greedy,
         },
-            RaceDescription = "I NEED INFO!",
+            RaceDescription = "Iliijiith function as the immune system of reality, appearing where violations occur to \"sterilize the wound\". The constant portals to this realm make the whole realm and all its inhabitants essentially one giant violation for the Iliijiith to delete and expunge from existence.",
         };
 
         Viisels = new RaceTraits()

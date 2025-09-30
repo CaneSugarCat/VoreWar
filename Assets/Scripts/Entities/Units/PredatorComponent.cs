@@ -1516,7 +1516,6 @@ public class PredatorComponent
                 return 0;
             }
             State.GameManager.TacticalMode.TacticalStats.RegisterDigestion(unit.Side);
-            TacticalUtilities.Log.RegisterDigest(unit, preyUnit.Unit, Location(preyUnit));
             if (!State.GameManager.TacticalMode.turboMode)
                 actor.SetDigestionMode();
             if (State.GameManager.TacticalMode.turboMode == false && Config.DigestionSkulls)
@@ -1552,6 +1551,7 @@ public class PredatorComponent
                 FreeUnit(preyUnit.Actor);
                 return 0;
             }
+            TacticalUtilities.Log.RegisterDigest(unit, preyUnit.Unit, Location(preyUnit));
             preyUnit.Actor.KilledByDigestion = true;
             if (preyUnit.Unit.HasTrait(Traits.CursedMark))
             {
@@ -4356,6 +4356,9 @@ public class PredatorComponent
             default:
                 State.GameManager.SoundManager.PlaySwallow(PreyLocation.stomach, actor);
                 AddToStomach(preyref, 1f);
+                if (unit.Race == Race.Iliijiith)
+                State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"<b>{forcePrey.Unit.Name}</b> runs up to <b>{unit.Name}</b> and leaps at it, vanishing into the crystalline entity, whose surface ripples like liquid for a moment before resolidifying.");
+                else
                 switch (State.Rand.Next(12))
                 {
                     case 0:
@@ -4749,6 +4752,9 @@ public class PredatorComponent
             default:
                 State.GameManager.SoundManager.PlaySwallow(PreyLocation.stomach, actor);
                 AddToStomach(preyref, 1f);
+                if (unit.Race == Race.Iliijiith)
+                State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"<b>{forcePrey.Unit.Name}</b> runs up to <b>{unit.Name}</b> and leaps at it, vanishing into the crystalline entity, whose surface ripples like liquid for a moment before resolidifying.");
+                else
                 switch (State.Rand.Next(12))
                 {
                     case 0:

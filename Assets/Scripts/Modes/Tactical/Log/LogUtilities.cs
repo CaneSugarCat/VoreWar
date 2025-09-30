@@ -621,7 +621,7 @@ static class LogUtilities
             case Race.Terrorbird:
                 return GetRandomStringFrom("bird", "long-necked avian", "flightless bird", "anger bird");
             case Race.Iliijiith:
-                return GetRandomStringFrom("being", "\"thing\"");
+                return GetRandomStringFrom(State.Rand.Next(77) == 1 ? "Iliijiith" : "REDACTIED", "being", "exomatter being", "entity", "exomatter entity");
             case Race.Nectar:
                 return GetRandomStringFrom("sphinx", "deity", "grand cat");
             case Race.Ryan:

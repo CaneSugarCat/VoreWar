@@ -299,7 +299,7 @@ public class ItemRepository
             new Weapon(name:"Fungal Claw", description:"Sharp claws of a fungal dryad", cost:4, graphic:0, damage:4, range:1),
             new Weapon(name:"Rex Jaws", description:"Chomp!", cost:4, graphic:0, damage:15, range:1),
             new Weapon(name:"Utahraptor Claws", description:"Utahraptor Claws", cost:4, graphic:0, damage:6, range:1),
-            new Weapon(name:"Asterial Strike", description:"A channeled strike from a dimension that exists and doesn't", cost:4, graphic:0, damage:4, range:1),
+            new Weapon(name:"Exomatter Pulse", description:"A destructive pulse of theoretical particles that sit on the border between being real and not. Harmless if you aren't the target... Very harmful if you are.", cost:4, graphic:0, damage:5, range:1),
         };
 
         specialItems = new List<Item>()
