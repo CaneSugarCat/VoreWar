@@ -354,11 +354,11 @@ class CompleteSprite
         if (Config.HideBreasts == false)
         {
             SetSprite(SpriteType.Breasts, race.Breasts);
-        if (actor.Unit.Race == Race.Umbreon && sprites[(int)SpriteType.BodyAccent3] != null)
+        if (actor.Unit.Race == Race.Umbreon && sprites[(int)SpriteType.BodyAccent3] != null && actor.Unit.HasBreasts)
             sprites[(int)SpriteType.BodyAccent3].GameObject.transform.SetParent(sprites[(int)SpriteType.Breasts].GameObject.transform.parent, false);
             SetSprite(SpriteType.BreastShadow, race.BreastShadow);
             SetSprite(SpriteType.SecondaryBreasts, race.SecondaryBreasts);
-        if (actor.Unit.Race == Race.Umbreon && sprites[(int)SpriteType.BodyAccent4] != null)
+        if (actor.Unit.Race == Race.Umbreon && sprites[(int)SpriteType.BodyAccent4] != null && actor.Unit.HasBreasts)
             sprites[(int)SpriteType.BodyAccent4].GameObject.transform.SetParent(sprites[(int)SpriteType.SecondaryBreasts].GameObject.transform.parent, false);
         }
         else

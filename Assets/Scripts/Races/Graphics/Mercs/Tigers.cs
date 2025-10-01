@@ -4,6 +4,7 @@ class Tigers : DefaultRaceData
 {
     public Tigers()
     {
+        BasicMeleeWeaponTypes = 2;
         FurCapable = true;
         BodyAccent5 = new SpriteExtraInfo(6, BodyAccentSprite5, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Fur, s.Unit.AccessoryColor));
         BaseBody = true;

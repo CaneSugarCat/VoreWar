@@ -112,7 +112,7 @@ abstract class DefaultRaceData
     internal int BodyAccentTypes5 = 0;
     internal int BallsSizes = 0;
     internal int VulvaTypes = 0;
-    internal int BasicMeleeWeaponTypes = 2;
+    internal int BasicMeleeWeaponTypes = 1;
     internal int AdvancedMeleeWeaponTypes = 1;
     internal int BasicRangedWeaponTypes = 1;
     internal int AdvancedRangedWeaponTypes = 1;
