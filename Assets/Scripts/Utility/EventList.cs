@@ -2085,7 +2085,7 @@ internal class EventList
                         village.Happiness -= 25;
                         village.SubtractPopulation(village.Population / 2);
                         village.SetPopulationToAtleastTwo();
-                        State.GameManager.CreateMessageBox($"The dragon liked the proposition, perhaps too much... The dragon first chose their servants the dragon then ate a substantial amount of the town's population threatening to raise the whole town to the ground should anyone object. Once the dragon ate their fill they left with newfound servants in tow. Let's hope the dragon won’t return soon. \n\nHappiness -25, Population halved");
+                        State.GameManager.CreateMessageBox($"The dragon liked the proposition, perhaps too much... The dragon first chose their servants the dragon then ate a substantial amount of the town's population threatening to raze the whole town to the ground should anyone object. Once the dragon ate their fill they left with newfound servants in tow. Let's hope the dragon won’t return soon. \n\nHappiness -25, Population halved");
                     });
                     UI.SecondChoice.interactable = true;
                     UI.ThirdChoice.GetComponentInChildren<Text>().text = $"We shall suffer this dragon no longer. Send some scouts to steal from their hoard!";
