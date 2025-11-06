@@ -2279,6 +2279,7 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
                     if (SharedTraits.Contains((Traits)id))
                         SharedTraits.Remove((Traits)id);
                 }
+                AllConditionalTraits.Remove(toRemove);
             }
             RecalculateStatBoosts();
             PreyCheck();
