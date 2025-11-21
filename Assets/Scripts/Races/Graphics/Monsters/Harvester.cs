@@ -187,7 +187,7 @@ class Harvester : BlankSlate
             return State.GameManager.SpriteDictionary.Harvester[35];
         }
 
-        if (size > 18) size = 18;
+        if (size > 17) size = 17;
 
         return State.GameManager.SpriteDictionary.Harvester[17 + size];
     }

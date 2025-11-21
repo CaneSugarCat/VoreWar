@@ -1010,6 +1010,16 @@ public class Unit
             }
             catch { }
         }
+        else if (race == Race.Nectar)
+        {
+            FixedGear = false;
+            Items[0] = State.World.ItemRepository.GetSpecialItem(SpecialItems.NectarWeapon);
+        }
+        else if (race == Race.Ryan)
+        {
+            FixedGear = true;
+            Items[0] = State.World.ItemRepository.GetSpecialItem(SpecialItems.RyanWeapon);
+        }
         else
         {
             FixedGear = false;
@@ -1109,7 +1119,7 @@ public class Unit
     {
         this.HairColor = appearance.HairColor;
         this.HairStyle = appearance.HairStyle;
-        this.BeardStyle = appearance.HairStyle;
+        this.BeardStyle = appearance.BeardStyle;
         this.SkinColor = appearance.SkinColor;
         this.AccessoryColor = appearance.AccessoryColor;
         this.EyeColor = appearance.EyeColor;
@@ -1802,6 +1812,8 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
     public bool HasTrait(Traits tag)
     {
         if (tag == Traits.TheGreatEscape && Race == Race.Erin)
+            return true;
+        if (tag == Traits.TheGreatEscape && Race == Race.Olivia)
             return true;
         if (Tags != null)
             return Tags.Contains(tag) || (PermanentTraits?.Contains(tag) ?? false);
@@ -2849,7 +2861,7 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
 
     public void Feed()
     {
-        GiveExp(1, true);
+        GiveExp(Config.VillagerDevourEXP, true);
         Health += 10;
         if (Health > MaxHealth)
         {
@@ -3527,7 +3539,7 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
             NonFatalDamage((int)effect.Strength, "virus");
         foreach (var eff in StatusEffects.ToList())
         {
-            if (eff.Type == StatusEffectType.Respawns || eff.Type == StatusEffectType.BladeDance || eff.Type == StatusEffectType.Tenacious || eff.Type == StatusEffectType.Focus || eff.Type == StatusEffectType.Weakness || eff.Type == StatusEffectType.Bolstered)
+            if (eff.Type == StatusEffectType.Fractured || eff.Type == StatusEffectType.Respawns || eff.Type == StatusEffectType.BladeDance || eff.Type == StatusEffectType.Tenacious || eff.Type == StatusEffectType.Focus || eff.Type == StatusEffectType.Weakness || eff.Type == StatusEffectType.Bolstered)
                 continue;
             var actor = TacticalUtilities.Units.Where(s => s.Unit == this).FirstOrDefault();
             var pred = actor.SelfPrey?.Predator;

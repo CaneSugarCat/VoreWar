@@ -4,6 +4,7 @@ class Wolves : DefaultRaceData
 {
     public Wolves()
     {
+        BasicMeleeWeaponTypes = 2;
         FurCapable = true;
         BaseBody = true;
     }

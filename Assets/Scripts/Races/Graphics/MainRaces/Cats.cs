@@ -4,6 +4,7 @@ class Cats : DefaultRaceData
 {
     public Cats()
     {
+        BasicMeleeWeaponTypes = 2;
         FurCapable = true;
         BaseBody = true;
         AllowedMainClothingTypes.Add(RaceSpecificClothing.CatLeader);

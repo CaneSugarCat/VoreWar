@@ -1524,6 +1524,9 @@ static class TacticalUtilities
                 possibleLines.Add($"<b>{actor.Unit.Name}</b> watches <b>{targetPred.Unit.Name}</b> closely, and then, seeing an opportunity, jumps for the {LogUtilities.ApostrophizeWithOrWithoutS(LogUtilities.GetRaceDescSingl(targetPred.Unit))} open beak, which snaps shut just in time for <b>{targetPred.Unit.Name}</b> to slam into and fall to the ground.");
                 possibleLines.Add($"<b>{actor.Unit.Name}</b> climbs up onto <b>{LogUtilities.ApostrophizeWithOrWithoutS(targetPred.Unit.Name)}</b> back, as though to ride the {LogUtilities.GetRaceDescSingl(targetPred.Unit)}, though whatever plans {LogUtilities.GPPHe(actor.Unit)} had were thwarted as <b>{targetPred.Unit.Name}</b> bucks the {LogUtilities.GetRaceDescSingl(actor.Unit)} off {LogUtilities.GPPHis(targetPred.Unit)} back.");
             }
+            if (targetPred.Unit.Race == Race.Iliijiith)
+            State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"<b>{actor.Unit.Name}</b> charges at <b>{targetPred.Unit.Name}</b> and leaps into it at full force, only to {LogUtilities.GetRandomStringFrom("phase through it and fall to the ground on the other side as if the Iliijiith didn't exist.", "slam headfirst into it and fall to the ground, now possibly with a concussion.")}");
+            else
             State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"{LogUtilities.GetRandomStringFrom(possibleLines.ToArray())}");
             actor.Movement = 0;
         }

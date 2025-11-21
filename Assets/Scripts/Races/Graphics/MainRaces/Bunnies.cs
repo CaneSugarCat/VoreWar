@@ -4,6 +4,7 @@ class Bunnies : DefaultRaceData
 {
     public Bunnies()
     {
+        BasicMeleeWeaponTypes = 2;
         FurCapable = true;
         BaseBody = true;
     }

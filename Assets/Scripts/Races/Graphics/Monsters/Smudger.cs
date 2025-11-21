@@ -149,7 +149,7 @@ class Smudger : BlankSlate
 
         if (actor.IsErect())
         {
-            if (actor.PredatorComponent?.VisibleFullness < 0.75f)
+            if (actor.PredatorComponent?.VisibleFullness < 0.50f)
             {
                 Dick.layer = 12;
                 if (actor.IsCockVoring) 

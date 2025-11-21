@@ -828,6 +828,10 @@ Does not retroactively affect already created units.";
                 return "Sets the leader's army to 0 MP upon respawning. (Helps the AI not run it down when an enemy army is nearby)";
             case 345:
                 return "Disables the potion system. (Frees up a lot of AI income)";
+            case 346:
+                return "Enables wandering clusters of Iliijiith.";
+            case 347:
+                return "Determines how much EXP a single villager provides when devoured by an occupying army.";
             default:
                 return "";
         }

@@ -4,6 +4,7 @@ class Dogs : DefaultRaceData
 {
     public Dogs()
     {
+        BasicMeleeWeaponTypes = 2;
         FurCapable = true;
         BaseBody = true;
     }

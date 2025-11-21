@@ -4,6 +4,7 @@ class Foxes : DefaultRaceData
 {
     public Foxes()
     {
+        BasicMeleeWeaponTypes = 2;
         FurCapable = true;
         BaseBody = true;
     }
