@@ -38,6 +38,9 @@ Special thanks to <b>Sheights</b> for fixing the errors that the above caused
 Condoms for CV disposal implemented by <b>Ignis Flamescale</b>
 Clean Disposal (Diapers) implemented by <b>Wolfwar106</b>
 Clean Disposal (Diapers) log messages by <b>Mocha</b>
+Goddess' Mercy implemented by <b>Wolfwar106</b>
+Scout Armies implemented by <b>Wolfwar106</b>
+Kiss transfer implemented by <b>Wolfwar106</b>
 NearbyEnemies variable functionality by <b>CaneSugarCat</b>
 Unit Upkeep code by <b>CaneSugarCat</b>
 Unit Deploy Cost code by <b>CaneSugarCat</b>
@@ -61,11 +64,12 @@ A good percentage of the town names are by <b>Katar</b>
 A significant amount of log messages by <b>HarryS</b>
 Most of the scat tactical log text from <b>InfernoTheDragon</b> or <b>Cattitude</b>
 Additional scat log messages by <b>Ignis Flamescale</b>
-CV and Condom disposal messages by <b>Tatltuae</b>
+Pouch vore, Tail vore, Cleavage vore, and Condom disposal messages by <b>Tatltuae</b>
 Fart log messages by <b>Cattitude</b>
 Wide array of synonyms applied throughout the TacLog by <b>Ignis Flamescale</b>
 Deer Log messages by <b>@bane of Fun#6036</b>
-A good amount of the unique race names by <b>Tatltuae</b>
+A good amount of the unique race names and descriptions by <b>Tatltuae</b>
+Additional Force feeding, Rebirth/Conversion, Regurgitation, Kiss transfer, and Vore steal log messages by <b>Tatltuae</b>
 
 
 <b>ARTISTS:</b>
@@ -237,6 +241,7 @@ Banner updates (w/ Wolfwar)
 Tatltuae
 Twisted Vine Updates
 Virae Ultimae
+Bird scat sprites
 
 <b><u>Wolfwar106:</b></u>
 Boom Bunnies

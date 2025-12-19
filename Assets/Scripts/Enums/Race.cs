@@ -122,6 +122,7 @@
     FungalDryad = 158,
     Trex = 159,
     Utahraptor = 160,
+    Iliijiith = 161,
 
     Selicia = 170,
     Vision = 171,
@@ -145,4 +146,7 @@
     Skapa = 189,
     Tatltuae = 190,
     Firefly = 191,
+    Nectar = 192,
+    Ryan = 193,
+    Konane = 194,
 }

@@ -131,14 +131,14 @@ class Kobolds : BlankSlate
     protected override Sprite HeadSprite(Actor_Unit actor)
     {
         int spr = 7 + (3 * actor.Unit.HeadType);
-        if (facingFront)
+        if (facingFront == false)
         {
-            Head.layer = 4;
-            if (actor.IsOralVoring) return Sprites[spr + 1];
-            return Sprites[spr];
+            Head.layer = 1;
+            return Sprites[spr + 2];
         }
-        Head.layer = 1;
-        return Sprites[spr + 2];
+        Head.layer = 4;
+        if (actor.IsOralVoring) return Sprites[spr + 1];
+        return Sprites[spr];
     }
 
     protected override Sprite WeaponSprite(Actor_Unit actor)

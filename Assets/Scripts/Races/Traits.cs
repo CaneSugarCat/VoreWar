@@ -349,7 +349,7 @@ static class TraitList
         [Traits.AccuteDodge] = new Booster("Unit has a 10% chance to minimise recieved damage when being attacked. (Excludes spells and vore damage).", (s) => { s.Outgoing.GrazeRateShift += 0.1f; }),
         [Traits.ViralDigestion] = new ViralDigestion(),
         [Traits.ViralBiology] = new ViralBiology(),
-        [Traits.AwkwardShape] = new Booster("This unit has a very strange body type, making them harder to swallow and providing less sustenance as prey.", (s) => { s.Incoming.VoreOddsMult *= 0.75f; s.Outgoing.Nutrition *= 0.25f; }),
+        [Traits.AwkwardShape] = new Booster("This unit has a very strange body type, making them harder to swallow.", (s) => { s.Incoming.VoreOddsMult *= 0.75f; }),
         [Traits.Legendary] = new Booster("<b>This unit is a legendary predator renowned throughout the realm, possessing a wide array of skills learned from generations upon generations of experiences.</b> \n<b>StrongGullet:</b> May attempt <b>2</b> vore attacks per turn, each using half of max AP. \n<b>BornToMove:</b> Total prey does not affect unit's movement speed. \n<b>IronGut:</b> It is much harder for prey to escape this unit's innards once devoured. \n<b>MagicResistance:</b> This unit is harder to hit with magic. \n<b>GreatlyTempered:</b>Recieves less damage from ranged attacks, but full damage from melee attacks. \n<b>WideRanged:</b>Grants GiantSweep and SweepingSwallow abilities. \nCheat Trait", (s) => { s.VoreAttacks += 1; s.SpeedLossFromWeightMultiplier = 0; s.DodgeLossFromWeightMultiplier = 0.2f; s.Outgoing.ChanceToEscape *= 0.5f; s.Incoming.MagicShift += 0.2f; s.Incoming.RangedDamage *= .7f; }),
         [Traits.FireVulnerable] = new Booster("Unit takes extra damage from all sources of fire. (150%)", (s) => s.FireDamageTaken *= 1.5f),
         [Traits.IceVulnerable] = new Booster("Unit takes extra damage from all sources of ice. (150%)", (s) => s.IceDamageTaken *= 1.5f),
@@ -360,6 +360,7 @@ static class TraitList
         [Traits.SlowerAbsorption] = new Booster("Unit absorbs dead prey even more slowly. (25%)", (s) => s.Outgoing.AbsorptionRate *= 0.25f),
         [Traits.SlowerMetabolism] = new Booster("Unit digests and absorbs prey very slowly. (25%)", (s) => { s.Outgoing.AbsorptionRate *= 0.25f; s.Outgoing.DigestionRate *= 0.25f; }),
         [Traits.QueenOfFrost] = new Booster("<b>This unit is a fierce dragon of ice, possessing abilities and traits reflecting that status.</b> \n\n\nTakes <b>20%</b> less damage from Ice attacks. \nMay attempt <b>2</b> Vore actions per turn.  \nMay attempt <b>2</b> Normal attacks. \nCarries prey with no penalty to speed. \nPrey has a tough time escaping this predator's insides. (<b>50%</b> of normal odds)", (s) => { s.VoreAttacks += 1; s.MeleeAttacks += 1; s.Outgoing.ChanceToEscape *= 0.5f; s.SpeedLossFromWeightMultiplier = 0; s.DodgeLossFromWeightMultiplier = 0.2f; s.IceDamageTaken *= .8f; }),
+        [Traits.AcellularBody] = new Booster("This unit has a non-cellular makeup causing them to provide less sustenance as prey and be impossible to convert by races without the same trait. Also has a hard time converting other races to its race. (50% convert rate and can only switch the prey's side unless they have the same trait)", (s) => { s.Outgoing.Nutrition *= 0.25f; }),
     };
 
 }
@@ -912,7 +913,7 @@ internal class ViralBiology : VoreTraitBooster
 {
     public ViralBiology()
     {
-        Description = "This unit's body is entirely comprised of viruses resulting in an overall unconventional biology \n<b>ViralDigestion:</b> Unit uses powerful viruses to digest prey; escaped prey will continue to take additional damage for a few turns. \n<b>AwkwardShape:</b> This unit has an unusual body type; unit is harder to swallow and provids less sustenance as prey.";
+        Description = "This unit's body is entirely comprised of viruses resulting in an overall unconventional biology \n<b>ViralDigestion:</b> Unit uses powerful viruses to digest prey; escaped prey will continue to take additional damage for a few turns. \n<b>AwkwardShape:</b> Harder to swallow. \n<b>AcellularBody:</b> Less healing as prey. Impossible to convert by races without trait. 50% convert rate and can only switch sides unless they have the same trait.";
         Boost = (s) =>{ s.Outgoing.Nutrition *= 0.25f; s.Incoming.VoreOddsMult *= 0.75f; };
     }
 
