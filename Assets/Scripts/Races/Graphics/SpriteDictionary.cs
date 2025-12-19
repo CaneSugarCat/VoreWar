@@ -321,6 +321,7 @@ public class SpriteDictionary : MonoBehaviour
     public Sprite[] Nectar;
     public Sprite[] Ryan;
     public Sprite[] RyanVore;
+    public Sprite[] Konane;
     
     [Header("Bosses")]
     public Sprite[] Abakhanskya;

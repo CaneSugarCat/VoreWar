@@ -150,6 +150,7 @@
     static internal Firefly Firefly = new Firefly();
     static internal Nectar Nectar = new Nectar();
     static internal Ryan Ryan = new Ryan();
+    static internal Konane Konane = new Konane();
 
 
     static internal DefaultRaceData GetRace(Unit unit)
@@ -435,6 +436,8 @@
                 return Nectar;
             case Race.Ryan:
                 return Ryan;
+            case Race.Konane:
+                return Konane;
             case Race.Otachi:
                 return Otachi;
             case Race.Raiju:
