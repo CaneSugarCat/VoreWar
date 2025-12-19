@@ -22,6 +22,8 @@ public class TacticalData
 
     [OdinSerialize]
     public int defenderSide;
+    [OdinSerialize]
+    public int attackerSide;
 
     [OdinSerialize]
     public int currentTurn;

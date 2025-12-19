@@ -195,7 +195,7 @@ class Taurus : DefaultRaceData
         if (actor.Unit.HasDick == false)
             return null;
 
-        if (actor.IsErect())
+        if (actor.IsErect() && (Config.CockVoreHidesClothes == true || actor.Unit.ClothingType2 != 2)) // disables erections appearing through Loincloth
         {
             if (actor.PredatorComponent?.VisibleFullness < .5f)
             {

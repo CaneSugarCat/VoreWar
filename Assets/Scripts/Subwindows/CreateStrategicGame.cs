@@ -79,6 +79,7 @@ public class CreateStrategicGame : MonoBehaviour
     public InputField ExpIncreaseRate;
     public InputField VillageIncomeRate;
     public InputField VillagersPerFarm;
+    public InputField VillagerDevourEXP;
     public InputField SoftLevelCap;
     public InputField HardLevelCap;
     public Toggle FactionLeaders;
@@ -656,6 +657,7 @@ public class CreateStrategicGame : MonoBehaviour
             Config.World.VictoryCondition = (Config.VictoryType)VictoryCondition.value;
             Config.World.VillageIncomePercent = Convert.ToInt32(VillageIncomeRate.text);
             Config.World.VillagersPerFarm = Convert.ToInt32(VillagersPerFarm.text);
+            Config.World.VillagerDevourEXP = Convert.ToInt32(VillagerDevourEXP.text);
             Config.World.ArmyUpkeep = Convert.ToInt32(ArmyUpkeep.text);
             Config.World.CapMaxGarrisonIncrease = CapitalGarrisonCapped.isOn;
             Config.World.Toggles["FirstTurnArmiesIdle"] = FirstTurnArmiesIdle.isOn;

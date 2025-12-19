@@ -263,6 +263,8 @@ public class TacticalMessageLog
                 return $"<b>{action.Unit.Name}</b> is a bit too quick, and {GPPHis(action.Unit)} prey gets partially released.";
             case MessageLogEvent.VoreStealFail:
             //Additional fail lines by Tatltuae
+                if (action.Target.Race != Race.Iliijiith && action.Unit.Race == Race.Iliijiith) //Ultra generic Iliijiith VoreSteal Fail line
+                return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("quickly", "rapidly")} approaches <b>{action.Target.Name}</b> and passes through {GPPHim(action.Target)} seemingly doing nothing, although {GPPHe(action.Target)} feels and odd coldness in {GPPHis(action.Target)} body as though something \"tried\" happening.";
                 if (action.oldLocation == PreyLocation.breasts || action.oldLocation == PreyLocation.leftBreast || action.oldLocation == PreyLocation.rightBreast)
                 {
                     if (action.Target.Race == Race.Kangaroos)
@@ -293,32 +295,39 @@ public class TacticalMessageLog
                         }
                 }
                 else if (action.oldLocation == PreyLocation.stomach || action.oldLocation == PreyLocation.stomach2)
-                switch (State.Rand.Next(4))
                 {
-                    case 0:
-                        if (action.Target.Race == Race.Aabayx && ActorHumanoid(action.Unit))
-                            return $"<b>{action.Unit.Name}</b> carefully pries <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> triangular face open, before foolishly trying to reach in to pull out <b>{action.Prey.Name}</b>. In an instant, the Aabayx's face plates snap shut on {GPPHis(action.Unit)} arm, causing {GPPHim(action.Unit)} to yank it back in pain.";
-                        else
+                    if (action.Target.Race == Race.Iliijiith && action.Unit.Race != Race.Iliijiith)
+                    return $"<b>{action.Unit.Name}</b> charges at <b>{action.Target.Name}</b> and bashes into it at full force however bounces off of its hard outer body{GetRandomStringFrom(".", ". \'Owww...\'", $". Although <b>{action.Target.Name}</b> doesn't have a face <b>{action.Unit.Name}</b> cannot help but feel like the Iliijiith is glareing at {GPPHim(action.Unit)}...")}";
+                    else if (action.Target.Race == Race.Iliijiith && action.Unit.Race == Race.Iliijiith)
+                    return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("quickly", "rapidly")} approaches <b>{action.Target.Name}</b> and merges with the other Iliijiith. After several movements of the two exomatter beings seemingly shifing in size, the two Iliijiith seperate, both appearing briefly slighty cracked, although still the original size they were before merging.";
+                    else
+                    switch (State.Rand.Next(4))
+                    {
+                        case 0:
+                            if (action.Target.Race == Race.Aabayx && ActorHumanoid(action.Unit))
+                                return $"<b>{action.Unit.Name}</b> carefully pries <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> triangular face open, before foolishly trying to reach in to pull out <b>{action.Prey.Name}</b>. In an instant, the Aabayx's face plates snap shut on {GPPHis(action.Unit)} arm, causing {GPPHim(action.Unit)} to yank it back in pain.";
+                            else
+                                return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly, but <b>{action.Target.Name}</b> refuses to let go of <b>{action.Prey.Name}</b> that easily.";
+                        case 1:
+                            if (action.Target.Race == Race.Aabayx)
+                                return $"<b>{action.Unit.Name}</b> {(ActorHumanoid(action.Unit) ? "punches" : "hits")} <b>{action.Target.Name}</b> in {GPPHis(action.Target)} singular eye, recoiling at the surprisingly hard material of the Aabayx's icosahedral head.";
+                            else
+                                return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly, but <b>{action.Target.Name}</b> refuses to let go of <b>{action.Prey.Name}</b> that easily.";
+                        case 2:
+                            if (action.Target.Race == Race.Aabayx)
+                                return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly. A dull thud can be heard inside <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> icosahedral head as <b>{action.Prey.Name}</b> hits the inside before sliding back down into the Aabayx's {PreyLocStrings.ToSyn(PreyLocation.stomach)}.";
+                            else
+                                return $"<b>{action.Unit.Name}</b> rushes over and places {GPPHis(action.Unit)} lips firmly against <b>{action.Target.Name}</b>' {GetRandomStringFrom("lips", "mouth")}, but before {GPPHe(action.Unit)} can coax the {ApostrophizeWithOrWithoutS((GetRaceDescSingl(action.Target)))} stomach into giving up <b>{action.Prey.Name}</b>, <b>{action.Target.Name}</b> breaks off the kiss and pushes <b>{action.Unit.Name}</b> away.";
+                        case 3:
+                            if (action.Target.Race == Race.Aabayx)
+                                return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly. A dull thud can be heard inside <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> icosahedral head as <b>{action.Prey.Name}</b> hits the inside before sliding back down into the Aabayx's {PreyLocStrings.ToSyn(PreyLocation.stomach)}.";
+                            else if (Config.BurpFraction > .1f)
+                                return $"<b>{action.Unit.Name}</b> wraps {GPPHis(action.Unit)} arms around <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> body, pressing against {GPPHim(action.Target)} and crushing against {GPPHis(action.Target)} prey filled {PreyLocStrings.ToSyn(PreyLocation.stomach)}. Before long, <b>{action.Target.Name}</b> releases a loud burp straight in <b>{ApostrophizeWithOrWithoutS(action.Unit.Name)}</b> face, forcing {GPPHim(action.Unit)} to let go and {GetRandomStringFrom("retreat.", "back away.")}";
+                            else
+                                return $"<b>{action.Unit.Name}</b> rushes over and places {GPPHis(action.Unit)} lips firmly against <b>{action.Target.Name}</b>' {GetRandomStringFrom("lips", "mouth")}, but before {GPPHe(action.Unit)} can coax the {ApostrophizeWithOrWithoutS((GetRaceDescSingl(action.Target)))} stomach into giving up <b>{action.Prey.Name}</b>, <b>{action.Target.Name}</b> breaks off the kiss and pushes <b>{action.Unit.Name}</b> away.";
+                        default:
                             return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly, but <b>{action.Target.Name}</b> refuses to let go of <b>{action.Prey.Name}</b> that easily.";
-                    case 1:
-                        if (action.Target.Race == Race.Aabayx)
-                            return $"<b>{action.Unit.Name}</b> {(ActorHumanoid(action.Unit) ? "punches" : "hits")} <b>{action.Target.Name}</b> in {GPPHis(action.Target)} singular eye, recoiling at the surprisingly hard material of the Aabayx's icosahedral head.";
-                        else
-                            return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly, but <b>{action.Target.Name}</b> refuses to let go of <b>{action.Prey.Name}</b> that easily.";
-                    case 2:
-                        if (action.Target.Race == Race.Aabayx)
-                            return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly. A dull thud can be heard inside <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> icosahedral head as <b>{action.Prey.Name}</b> hits the inside before sliding back down into the Aabayx's {PreyLocStrings.ToSyn(PreyLocation.stomach)}.";
-                        else
-                            return $"<b>{action.Unit.Name}</b> rushes over and places {GPPHis(action.Unit)} lips firmly against <b>{action.Target.Name}</b>' {GetRandomStringFrom("lips", "mouth")}, but before {GPPHe(action.Unit)} can coax the {ApostrophizeWithOrWithoutS((GetRaceDescSingl(action.Target)))} stomach into giving up <b>{action.Prey.Name}</b>, <b>{action.Target.Name}</b> breaks off the kiss and pushes <b>{action.Unit.Name}</b> away.";
-                    case 3:
-                        if (action.Target.Race == Race.Aabayx)
-                            return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly. A dull thud can be heard inside <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> icosahedral head as <b>{action.Prey.Name}</b> hits the inside before sliding back down into the Aabayx's {PreyLocStrings.ToSyn(PreyLocation.stomach)}.";
-                        else if (Config.BurpFraction > .1f)
-                            return $"<b>{action.Unit.Name}</b> wraps {GPPHis(action.Unit)} arms around <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> body, pressing against {GPPHim(action.Target)} and crushing against {GPPHis(action.Target)} prey filled {PreyLocStrings.ToSyn(PreyLocation.stomach)}. Before long, <b>{action.Target.Name}</b> releases a loud burp straight in <b>{ApostrophizeWithOrWithoutS(action.Unit.Name)}</b> face, forcing {GPPHim(action.Unit)} to let go and {GetRandomStringFrom("retreat.", "back away.")}";
-                        else
-                            return $"<b>{action.Unit.Name}</b> rushes over and places {GPPHis(action.Unit)} lips firmly against <b>{action.Target.Name}</b>' {GetRandomStringFrom("lips", "mouth")}, but before {GPPHe(action.Unit)} can coax the {ApostrophizeWithOrWithoutS((GetRaceDescSingl(action.Target)))} stomach into giving up <b>{action.Prey.Name}</b>, <b>{action.Target.Name}</b> breaks off the kiss and pushes <b>{action.Unit.Name}</b> away.";
-                    default:
-                        return $"<b>{action.Unit.Name}</b> {GetRandomStringFrom("tackles", "headbutts", "charges into", "bashes")} <b>{ApostrophizeWithOrWithoutS(action.Target.Name)}</b> {GetRandomStringFrom("filled", "bulbus", "exposed")} belly, but <b>{action.Target.Name}</b> refuses to let go of <b>{action.Prey.Name}</b> that easily.";
+                    }
                 }
                 else if (action.oldLocation == PreyLocation.womb)
                 switch (State.Rand.Next(4))
@@ -787,7 +796,7 @@ public class TacticalMessageLog
         {
             return GetRandomStringFrom(
                 $"As the curse comes to an end, <b>{action.Target.Name}</b> tries and figures out where {GPPHeIs(action.Target)} and begins to scream in horror as {GPPHe(action.Target)} realize{SIfSingular(action.Target)} what’s happened.",
-                $"<b>{action.Target.Name}</b> confusedly asks where {GPPHeIs(action.Target)} as the spell breaks. <b>{action.Unit.Name}</b> tells {GPPHim(action.Target)} {GPPHeIsAbbr(action.Target)} exactly where {GPPHeIsAbbr(action.Target)} meant to be as {GPPHe(action.Unit)} lovingly embraces {GPPHis(action.Unit)} swollen stomach."
+                $"<b>{action.Target.Name}</b> confusedly wonders where {GPPHeIs(action.Target)} as the spell breaks. <b>{action.Unit.Name}</b> smugly knows {GPPHeIsAbbr(action.Target)} exactly where {GPPHeIsAbbr(action.Target)} meant to be~"
             );
         }
     }
@@ -838,7 +847,18 @@ public class TacticalMessageLog
                     );
                 else  // Pred Feral
                 {
-                    if(State.Rand.Next(2) == 0 && action.Unit.Race == Race.FeralEevee)
+                    if (action.Unit.Race == Race.Iliijiith && action.Target.Race != Race.Iliijiith)
+                    {
+                        if (action.Target.HealthPct <= 0.3f)
+                        return $"Cold, and unable to muster up any more struggle, <b>{action.Target.Name}</b> curls up, and waits for the end... Only to suddenly feel warmth again? Looking around, {GPPHe(action.Target)} see{SIfSingular(action.Target)} the battlefield again, <b>{action.Unit.Name}</b> nearby shaking slightly, small fracture lines in its central crystal slowly fading away.{odds}";
+                        else
+                        return GetRandomStringFrom(
+                        $"<b>{action.Target.Name}</b> pushes up against the crystalline inside of <b>{action.Unit.Name}</b>, and watches as it seems to crack slightly, small fractures splintering out from the pressure {GPPHe(action.Target)} put{SIfSingular(action.Target)} on it. Pressing harder, the wall shatters, and <b>{action.Target.Name}</b> tumbles out{GetRandomStringFrom($".", $". Looking back, {GPPHe(action.Target)} watch{EsIfSingular(action.Target)} all the crystalline fragments flow back to <b>{action.Unit.Name}</b>, sliding back into place like parts of a puzzle.")}{odds}",
+                        $"<b>{action.Unit.Name}</b> stumbles and shifts as small cracks form along its surface, before suddenly, with a flash of light, <b>{action.Target.Name}</b> is back!{odds}",
+                        $"As <b>{action.Target.Name}</b> sits inside <b>{action.Unit.Name}</b>, the walls of the crystal suddenly start crushing in from all sides. <b>{action.Target.Name}</b> is certain this is it, until {GPPHe(action.Target)} simply phase through and land unscathed outside the now seemingly fractured Iliijiith.{odds}"
+                        );
+                    }
+                    if (State.Rand.Next(2) == 0 && action.Unit.Race == Race.FeralEevee)
                         return GetRandomStringFrom(
                         $"As <b>{action.Target.Name}</b> pulls {GPPHimself(action.Target)} up <b>{ApostrophizeWithOrWithoutS(action.Unit.Name)}</b> throat, the Eevee looks around for a playmate. As <b>{action.Target.Name}</b> slides back out the Eevee's mouth, {GPPHe(action.Unit)} get{SIfSingular(action.Unit)} excited, as a new playmate has been found!{odds}",
                         $"After forcefully prying {GPPHis(action.Target)} way out <b>{ApostrophizeWithOrWithoutS(action.Unit.Name)}</b> mouth, <b>{action.Target.Name}</b> looks back at the Eevee, and actually feels kind of bad, and for a split moment considers going back in to make <b>{action.Unit.Name}</b> feel better.{odds}",
@@ -874,6 +894,9 @@ public class TacticalMessageLog
                     $"<b>{action.Target.Name}</b>'s natural built-in weapons proove too much to leave {GPPHim(action.Target)} contained. The irritated gut soon sets {GPPHim(action.Target)} free.{odds}"
                     );
                 else  // Pred Feral
+                    if (action.Unit.Race == Race.Iliijiith && action.Target.Race == Race.Iliijiith)
+                    return $"Suddenly, <b>{action.Unit.Name}</b> turns into <b>{action.Target.Name}</b>, and then back to <b>{action.Unit.Name}</b>, and back- It flashes between being the two Iliijiith faster and faster until both remain, standing next to one another.{odds}";
+                    else
                     return GetRandomStringFrom(
                     $"<b>{action.Unit.Name}</b>’s stomach finds something particularly disagreeable with how <b>{action.Target.Name}</b> tastes. With a wretched gag, <b>{action.Target.Name}</b> is expelled from <b>{action.Unit.Name}</b>’s tummy.{odds}",
                     $"The rampant indigestion caused by <b>{action.Target.Name}</b>’s incessant struggles causes <b>{action.Unit.Name}</b> to reluctantly release {GPPHis(action.Unit)} stubborn prey.{odds}",
@@ -970,6 +993,11 @@ public class TacticalMessageLog
                 possibleLines.Add($"For a moment, <b>{action.Unit.Name}</b> appears to be undergoing mitosis, splitting in half. Then, one half pulls itself off a slightly freaked out <b>{action.Target.Name}</b>, the other becoming <b>{action.Unit.Name}</b> once again.");
             else
                 possibleLines.Add($"For a moment, <b>{action.Unit.Name}</b> appears to be undergoing mitosis, splitting in half. Then, one half begins to shift slightly as <b>{action.Target.Name}</b> becomes a seperate slime once more.");
+            return GetRandomStringFrom(possibleLines.ToArray());
+        }
+        if (action.Unit.Race == Race.Iliijiith)
+        {
+            possibleLines.Add($"One of the flat faces of <b>{ApostrophizeWithOrWithoutS(action.Unit.Name)}</b> geometric form suddenly vanishes for a moment, <b>{action.Target.Name}</b> falling out, the face reappearing behind {GPPHim(action.Target)}.");
             return GetRandomStringFrom(possibleLines.ToArray());
         }
         possibleLines.Add($"<b>{action.Unit.Name}</b> decides to {GetRandomStringFrom("release", "free", "regurgitate", "eject")} <b>{action.Target.Name}</b>.");//Generic unspecified line

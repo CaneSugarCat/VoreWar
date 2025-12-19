@@ -790,8 +790,8 @@ public class PredatorComponent
         var target = alives[State.Rand.Next(alives.Length)];
         if (TacticalUtilities.OpenTile(location, target.Actor) == false)
             return null;
-        if (!unit.HasTrait(Traits.FriendlyStomach) || !unit.HasTrait(Traits.Endosoma) || !(target.Unit.FixedSide == unit.GetApparentSide(target.Unit)))
-            unit.GiveScaledExp(-4, unit.Level - target.Unit.Level, true);
+        if (!(target.Unit.FixedSide == unit.GetApparentSide(target.Unit)) || !(unit.HasTrait(Traits.FriendlyStomach) || unit.HasTrait(Traits.Endosoma)))
+            unit.DrainExp((unit.CalcScaledExp(4 * target.Unit.ExpMultiplier, unit.Level - target.Unit.Level, true)));
         target.Actor.SetPos(location);
         target.Actor.Visible = true;
         target.Actor.Targetable = true;
@@ -1461,7 +1461,7 @@ public class PredatorComponent
         if (unit.HasTrait(Traits.Annihilation) && !TacticalUtilities.IsPreyEndoTargetForUnit(preyUnit, unit))
         {
             int prevLevelExp = preyUnit.Unit.GetExperienceRequiredForLevel(preyUnit.Unit.Level - 2);
-            if (preyUnit.Unit.Level == 1 && preyUnit.Unit.Race != Race.Erin)
+            if (preyUnit.Unit.Level == 1 && preyUnit.Unit.Race != Race.Erin && preyUnit.Unit.Race != Race.Olivia)
             {
                 preyUnit.Unit.SetLevel(0);
                 preyUnit.Unit.SetStatBaseAll(1);
@@ -1506,7 +1506,7 @@ public class PredatorComponent
              (Location(preyUnit) == PreyLocation.womb || Config.KuroTenkoConvertsAllTypes) &&
              (Config.KuroTenkoEnabled && (Config.UBConversion == UBConversion.Both || Config.UBConversion == UBConversion.ConversionOnly) || unit.HasTrait(Traits.PredConverter)) &&
              !unit.HasTrait(Traits.PredRebirther) &&
-             !unit.HasTrait(Traits.PredGusher))
+             !unit.HasTrait(Traits.PredGusher) && !(preyUnit.Unit.AtypicalBiology() && !unit.AtypicalBiology()) && !(!preyUnit.Unit.AtypicalBiology() && unit.AtypicalBiology() && State.Rand.Next(2) == 0))
             {
                 preyUnit.Unit.Health = preyUnit.Unit.MaxHealth / 2;
                 preyUnit.Actor.Movement = 0;
@@ -1518,14 +1518,13 @@ public class PredatorComponent
                 return 0;
             }
             State.GameManager.TacticalMode.TacticalStats.RegisterDigestion(unit.Side);
-            TacticalUtilities.Log.RegisterDigest(unit, preyUnit.Unit, Location(preyUnit));
             if (!State.GameManager.TacticalMode.turboMode)
                 actor.SetDigestionMode();
             if (State.GameManager.TacticalMode.turboMode == false && Config.DigestionSkulls)
                 GameObject.Instantiate(State.GameManager.TacticalMode.SkullPrefab, new Vector3(actor.Position.x + UnityEngine.Random.Range(-0.2F, 0.2F), actor.Position.y + 0.1F + UnityEngine.Random.Range(-0.1F, 0.1F)), new Quaternion());
             Actor_Unit existingPredator = actor;
             freshKill = true;
-            if (unit.HasTrait(Traits.DigestionConversion) && State.Rand.Next(2) == 0 && preyUnit.Unit.CanBeConverted())
+            if (unit.HasTrait(Traits.DigestionConversion) && State.Rand.Next(2) == 0 && preyUnit.Unit.CanBeConverted() && !(preyUnit.Unit.AtypicalBiology() && !unit.AtypicalBiology()))
             {
                 preyUnit.Unit.Health = preyUnit.Unit.MaxHealth / 2;
                 preyUnit.Actor.Movement = 0;
@@ -1536,7 +1535,7 @@ public class PredatorComponent
                 FreeUnit(preyUnit.Actor);
                 return 0;
             }
-            if (unit.HasTrait(Traits.DigestionRebirth) && State.Rand.Next(2) == 0 && preyUnit.Unit.CanBeConverted() && (Config.SpecialMercsCanConvert || unit.DetermineConversionRace() < Race.Selicia))
+            if (unit.HasTrait(Traits.DigestionRebirth) && State.Rand.Next(2) == 0 && preyUnit.Unit.CanBeConverted() && (Config.SpecialMercsCanConvert || unit.DetermineConversionRace() < Race.Selicia) && !(preyUnit.Unit.AtypicalBiology() && !unit.AtypicalBiology()))
             {
                 //HandleShapeshifterRebirth(preyUnit);
                 Race conversionRace = unit.DetermineConversionRace();
@@ -1545,11 +1544,16 @@ public class PredatorComponent
                 // use source race IF changeling already had this ability before transforming
                 preyUnit.Unit.Health = preyUnit.Unit.MaxHealth / 2;
                 preyUnit.ChangeSide(unit.Side);
-                preyUnit.ChangeRace(conversionRace);
-                TacticalUtilities.Log.RegisterBirth(unit, preyUnit.Unit, 0.5f, Location(preyUnit), 3);
+                if ((!preyUnit.Unit.AtypicalBiology() && !unit.AtypicalBiology()) || (preyUnit.Unit.AtypicalBiology() && unit.AtypicalBiology())) // Only if the both units have AcellularBody or neither can they change the prey's race
+                    preyUnit.ChangeRace(conversionRace);
+                if (!preyUnit.Unit.AtypicalBiology() && unit.AtypicalBiology())
+                    TacticalUtilities.Log.RegisterBirth(unit, preyUnit.Unit, 0.5f, Location(preyUnit), 4);
+                else
+                    TacticalUtilities.Log.RegisterBirth(unit, preyUnit.Unit, 0.5f, Location(preyUnit), 3);
                 FreeUnit(preyUnit.Actor);
                 return 0;
             }
+            TacticalUtilities.Log.RegisterDigest(unit, preyUnit.Unit, Location(preyUnit));
             preyUnit.Actor.KilledByDigestion = true;
             if (preyUnit.Unit.HasTrait(Traits.CursedMark))
             {
@@ -1597,7 +1601,7 @@ public class PredatorComponent
                     unit.RandomStatIncrease(1);
                 }
             }
-            if (preyUnit.Unit.GetStatusEffect(StatusEffectType.Respawns) != null && (preyUnit.Unit.HasTrait(Traits.Respawner) || preyUnit.Unit.HasTrait(Traits.RespawnerIII)))
+            if (preyUnit.Unit.GetStatusEffect(StatusEffectType.Respawns) != null)
             {
                 var spawnLoc = TacticalUtilities.GetRandomTileForActor(preyUnit.Actor);
                 if (spawnLoc == null)
@@ -1624,6 +1628,14 @@ public class PredatorComponent
 
         if (freshKill)
         {
+            if (preyUnit.Unit.HasTrait(Traits.DyingStrike) && State.Rand.Next(4) == 0)
+            {
+                actor.Damage(preyUnit.Actor.WeaponDamageAgainstTarget(actor, false));
+                if (State.Rand.Next(2) == 0)
+                    State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"As <b>{preyUnit.Unit.Name}</b> perishes {LogUtilities.GPPHe(preyUnit.Unit)} do{LogUtilities.EsIfSingular(preyUnit.Unit)} one last attack against <b>{actor.Unit.Name}</b> dealing <color=red>{preyUnit.Actor.WeaponDamageAgainstTarget(actor, false)}</color> damage!");
+                else
+                    State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"In {LogUtilities.GPPHis(preyUnit.Unit)} last moments <b>{preyUnit.Unit.Name}</b> strikes at {LogUtilities.GetRandomStringFrom($"{LogUtilities.GPPHis(preyUnit.Unit)} captor", $"<b>{actor.Unit.Name}</b>")} dealing <color=red>{preyUnit.Actor.WeaponDamageAgainstTarget(actor, false)}</color> damage!");
+            }
             preyUnit.Actor.Unit.Health = 0;
             foreach (IVoreCallback callback in Callbacks)
             {
@@ -1735,7 +1747,7 @@ public class PredatorComponent
                  (Location(preyUnit) == PreyLocation.womb || Config.KuroTenkoConvertsAllTypes) &&
                  ((Config.KuroTenkoEnabled && (Config.UBConversion == UBConversion.Both || Config.UBConversion == UBConversion.RebirthOnly)) || unit.HasTrait(Traits.PredRebirther)) &&
                  (Config.SpecialMercsCanConvert || unit.DetermineConversionRace() < Race.Selicia) &&
-                 !unit.HasTrait(Traits.PredGusher))
+                 !unit.HasTrait(Traits.PredGusher) && !(preyUnit.Unit.AtypicalBiology() && !unit.AtypicalBiology()) && !(!preyUnit.Unit.AtypicalBiology() && unit.AtypicalBiology() && State.Rand.Next(2) == 0))
                 {
                     Race conversionRace = unit.DetermineConversionRace();
                     if(unit.HasTrait(Traits.PredRebirther) && !unit.HasSharedTrait(Traits.PredRebirther))
@@ -1743,12 +1755,15 @@ public class PredatorComponent
                     // use source race IF changeling already had this ability before transforming
                     preyUnit.Unit.Health = preyUnit.Unit.MaxHealth / 2;
                     preyUnit.ChangeSide(unit.Side);
-                    if (preyUnit.Unit.Race != conversionRace)
+                    if (preyUnit.Unit.Race != conversionRace && ((!preyUnit.Unit.AtypicalBiology() && !unit.AtypicalBiology()) || (preyUnit.Unit.AtypicalBiology() && unit.AtypicalBiology()))) // Only if the both units have AcellularBody or neither can they change the prey's race
                     {
                         //HandleShapeshifterRebirth(preyUnit);
                         preyUnit.ChangeRace(conversionRace);
                     }
-                    TacticalUtilities.Log.RegisterBirth(unit, preyUnit.Unit, 1f, Location(preyUnit), 1);
+                    if (!preyUnit.Unit.AtypicalBiology() && unit.AtypicalBiology())
+                        TacticalUtilities.Log.RegisterBirth(unit, preyUnit.Unit, 1f, Location(preyUnit), 2);
+                    else
+                        TacticalUtilities.Log.RegisterBirth(unit, preyUnit.Unit, 1f, Location(preyUnit), 1);
                     FreeUnit(preyUnit.Actor);
                     if (!State.GameManager.TacticalMode.turboMode)
                         actor.SetBirthMode();
@@ -2046,7 +2061,7 @@ public class PredatorComponent
 
         DefaultRaceData preyRace = Races.GetRace(preyUnit.Unit);
 
-        if (Config.ClothingDiscards)
+        if (Config.ClothingDiscards && !actor.Unit.HasTrait(Traits.TotalAbsorption))
         {
             if (preyRace.AllowedMainClothingTypes.Count >= preyUnit.Unit.ClothingType && preyUnit.Unit.ClothingType > 0)
             {
@@ -2142,10 +2157,11 @@ public class PredatorComponent
                 State.GameManager.SoundManager.PlayFart(actor);
             }
 
-            if (Config.Scat && preyUnit.ScatDisabled == false)
+            if (actor.Unit.HasTrait(Traits.TotalAbsorption) || preyUnit.Unit.Race == Race.Iliijiith) {}
+            else if (Config.Scat && preyUnit.ScatDisabled == false)
             {
                 State.GameManager.SoundManager.PlayAbsorb(location, actor);
-                if (preyUnit.Unit.Race == Race.Slimes && Config.CleanDisposal == false)
+                if ((preyUnit.Unit.Race == Race.Slimes || preyUnit.Unit.Race == Race.FeralSlime) && Config.CleanDisposal == false)
                 {
                     State.GameManager.TacticalMode.CreateMiscDiscard(GetCurrentLocation(), BoneTypes.SlimePile, preyUnit.Unit.Name, preyUnit.Unit.AccessoryColor);
                 }
@@ -2161,7 +2177,8 @@ public class PredatorComponent
         else if (location == PreyLocation.balls)
         {
             State.GameManager.SoundManager.PlayAbsorb(location, actor);
-            if (Config.Cumstains)
+            if (actor.Unit.HasTrait(Traits.TotalAbsorption) || preyUnit.Unit.Race == Race.Iliijiith) {}
+            else if (Config.Cumstains)
             {
                 if (unit.Race == Race.Selicia)
                     State.GameManager.TacticalMode.CreateMiscDiscard(GetCurrentLocation(), BoneTypes.CumPuddle, preyUnit.Unit.Name, 0);
@@ -2174,7 +2191,8 @@ public class PredatorComponent
         else if (location == PreyLocation.womb || (location == PreyLocation.breasts && unit.Race != Race.Kangaroos) || location == PreyLocation.leftBreast || location == PreyLocation.rightBreast)
         {
             State.GameManager.SoundManager.PlayAbsorb(location, actor);
-            if (Config.Cumstains)
+            if (actor.Unit.HasTrait(Traits.TotalAbsorption) || preyUnit.Unit.Race == Race.Iliijiith) {}
+            else if (Config.Cumstains)
             {
                 if (unit.Race == Race.Selicia)
                     State.GameManager.TacticalMode.CreateMiscDiscard(GetCurrentLocation(), BoneTypes.CumPuddle, preyUnit.Unit.Name, 0);
@@ -2187,7 +2205,9 @@ public class PredatorComponent
         else if (location == PreyLocation.tail && unit.Race == Race.Bees && Config.Cumstains)
         {
             State.GameManager.SoundManager.PlayAbsorb(location, actor);
-            State.GameManager.TacticalMode.CreateMiscDiscard(GetCurrentLocation(), BoneTypes.HoneyPuddle, preyUnit.Unit.Name);
+            if (actor.Unit.HasTrait(Traits.TotalAbsorption) || preyUnit.Unit.Race == Race.Iliijiith) {}
+            else
+                State.GameManager.TacticalMode.CreateMiscDiscard(GetCurrentLocation(), BoneTypes.HoneyPuddle, preyUnit.Unit.Name);
         }
     }
 
@@ -2703,7 +2723,12 @@ public class PredatorComponent
                     }
                 }
                 if (!State.GameManager.TacticalMode.turboMode)
-                    actor.SetVoreSuccessMode();
+                {
+                    if (preyType == PreyLocation.stomach && actor.Unit.Race == Race.Ryan)
+                        actor.SetVoreSuccessMode();
+                    if (actor.Unit.Race != Race.Ryan)
+                        actor.SetVoreSuccessMode();
+                }
                 if (unit.HasTrait(Traits.Tenacious))
                     unit.RemoveTenacious();
                 if (unit.HasTrait(Traits.FearsomeAppetite))
@@ -4333,6 +4358,9 @@ public class PredatorComponent
             default:
                 State.GameManager.SoundManager.PlaySwallow(PreyLocation.stomach, actor);
                 AddToStomach(preyref, 1f);
+                if (unit.Race == Race.Iliijiith)
+                State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"<b>{forcePrey.Unit.Name}</b> runs up to <b>{unit.Name}</b> and leaps at it, vanishing into the crystalline entity, whose surface ripples like liquid for a moment before resolidifying.");
+                else
                 switch (State.Rand.Next(12))
                 {
                     case 0:
@@ -4386,7 +4414,10 @@ public class PredatorComponent
         }
         AddPrey(preyref);
         actor.SetPredMode(preyLocation);
-        actor.SetVoreSuccessMode();
+        if (preyLocation == PreyLocation.stomach && actor.Unit.Race == Race.Ryan)
+            actor.SetVoreSuccessMode();
+        if (actor.Unit.Race != Race.Ryan)
+            actor.SetVoreSuccessMode();
         UpdateFullness();
     }
 
@@ -4723,6 +4754,9 @@ public class PredatorComponent
             default:
                 State.GameManager.SoundManager.PlaySwallow(PreyLocation.stomach, actor);
                 AddToStomach(preyref, 1f);
+                if (unit.Race == Race.Iliijiith)
+                State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"<b>{forcePrey.Unit.Name}</b> runs up to <b>{unit.Name}</b> and leaps at it, vanishing into the crystalline entity, whose surface ripples like liquid for a moment before resolidifying.");
+                else
                 switch (State.Rand.Next(12))
                 {
                     case 0:
@@ -4776,7 +4810,10 @@ public class PredatorComponent
         }
         AddPrey(preyref);
         actor.SetPredMode(loc);
-        actor.SetVoreSuccessMode();
+        if (loc == PreyLocation.stomach && actor.Unit.Race == Race.Ryan)
+            actor.SetVoreSuccessMode();
+        if (actor.Unit.Race != Race.Ryan)
+            actor.SetVoreSuccessMode();
         UpdateFullness();
     }
 }

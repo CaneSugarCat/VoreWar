@@ -352,7 +352,7 @@ class Imps : DefaultRaceData
         else
             return null;
     }
-    protected override Sprite BodyAccentSprite6(Actor_Unit actor)
+    protected override Sprite BodyAccentSprite6(Actor_Unit actor) // Animation syncing with belly handled in "CompleteSprite.cs" "Void UpdateSprite"
     {
         if (actor.Unit.BodyAccentType1 == 2)
         {

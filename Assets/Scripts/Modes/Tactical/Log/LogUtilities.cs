@@ -616,8 +616,18 @@ static class LogUtilities
                 return GetRandomStringFrom("elf", GetGenderString(unit, "woman", "man", "elf"), "humanoid");
             case Race.Tatltuae:
                 return GetRandomStringFrom("cartograher", "raven", "chaos mage", "corvid", State.Rand.Next(42) == 1 ? "bird" : "birb");
+            case Race.Firefly:
+                return GetRandomStringFrom("umbreon", "mon", "pilot", "merc", "mercenary");
             case Race.Terrorbird:
                 return GetRandomStringFrom("bird", "long-necked avian", "flightless bird", "anger bird");
+            case Race.Iliijiith:
+                return GetRandomStringFrom(State.Rand.Next(77) == 1 ? "Iliijiith" : "REDACTIED", "being", "exomatter being", "entity", "exomatter entity");
+            case Race.Umbreon:
+                return GetRandomStringFrom("umbreon", "mon", "pokemon", "rebel", "revolutionary");
+            case Race.Nectar:
+                return GetRandomStringFrom("sphinx", "deity", "grand cat");
+            case Race.Ryan:
+                return GetRandomStringFrom("sergal", "veteran", "captain");
             default:
                 return "creature";
         }
@@ -644,6 +654,7 @@ static class LogUtilities
         else if (unit.Race == Race.Selicia) return "Claws";
         else if (unit.Race == Race.Xelhilde) return "Zweihänder";
         else if (unit.Race == Race.Olivia) return "Static Fist";
+        else if (unit.Race == Race.Nectar) return "Claws";
 
         else if (unit.Race == Race.Kangaroos)
         {
@@ -886,6 +897,10 @@ static class LogUtilities
             else if (weapon.Name == "Simple Bow") return "Slingbow";
             else if (weapon.Name == "Compound Bow") return "Mechanical Slingbow";
             else if (weapon.Name == "Claw") return "Claws";
+        }
+        else if (unit.Race == Race.Cats || unit.Race == Race.Dogs || unit.Race == Race.Foxes || unit.Race == Race.Wolves || unit.Race == Race.Bunnies || unit.Race == Race.Tigers)
+        {
+            if (weapon.Name == "Mace" && unit.BasicMeleeWeaponType == 1) return "Sword";
         }
         else if (weapon.Name == "Claw") return "Claws";
         return weapon.Name;

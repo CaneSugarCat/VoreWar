@@ -245,6 +245,7 @@ public class UnitCustomizer
             case Race.Tigers:
                 buttons[(int)ButtonTypes.HairColor].Label.text = "Hair Color: " + HairColorLookup(Unit.HairColor);
                 buttons[(int)ButtonTypes.BodyAccessoryColor].Label.text = "Fur Color: " + HairColorLookup(Unit.AccessoryColor);
+                buttons[(int)ButtonTypes.AltWeaponTypes].Label.text = "Mace Alt";
                 break;
             case Race.Imps:
                 Imp();
@@ -565,6 +566,9 @@ public class UnitCustomizer
                 break;
             case Race.Skapa:
                 buttons[(int)ButtonTypes.TailTypes].Label.text = "Facing";
+                break;
+            case Race.Ryan:
+                buttons[(int)ButtonTypes.BodyAccessoryType].Label.text = "Armor";
                 break;
             case Race.Jackals:
                 buttons[(int)ButtonTypes.BodyAccessoryColor].Label.text = "Fur Color";
@@ -1492,7 +1496,7 @@ public class UnitCustomizer
     void ChangeWeaponSprite(int change)
     {
         int basicMeleeTypes = RaceData.BasicMeleeWeaponTypes;
-        if (Config.HideCocks == false)
+        if (Config.HideCocks == false && Unit.Race == Race.Crux) // Give Crux the ability to have dildo weapons only if HideCocks is off
             basicMeleeTypes++;
         Unit.BasicMeleeWeaponType = (basicMeleeTypes + Unit.BasicMeleeWeaponType + change) % basicMeleeTypes;
 

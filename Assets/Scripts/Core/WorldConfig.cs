@@ -37,6 +37,8 @@ public class WorldConfig
     internal int VillageIncomePercent = 100;
     [OdinSerialize, AllowEditing, ProperName("Villagers Per Farm"), IntegerRange(0, 9999), Description("Doesn't take effect until a new turn")]
     internal int VillagersPerFarm = 9;
+    [OdinSerialize, AllowEditing, ProperName("Devoured villager EXP gain"), IntegerRange(0, 9999), Description("How much EXP is gained from a single devoured villager")]
+    internal int VillagerDevourEXP = 1;
     [OdinSerialize, AllowEditing, ProperName("Soft Level Cap"), IntegerRange(0, 9999), Description("After this level exp required spikes sharply")]
     internal int SoftLevelCap = 0;
     [OdinSerialize, AllowEditing, ProperName("Hard Level Cap"), IntegerRange(0, 9999), Description("After this level there are no more levels")]

@@ -444,6 +444,11 @@ public class Unit
         return Type != UnitType.Summon && Type != UnitType.Leader && Type != UnitType.SpecialMercenary && HasTrait(Traits.Eternal) == false && SavedCopy == null && Level > 0;
     }
 
+    internal bool AtypicalBiology()
+    {
+        return HasTrait(Traits.AcellularBody) || HasTrait(Traits.ViralBiology);
+    }
+
     internal bool CanUnbirth => Config.Unbirth && HasVagina;
     internal bool CanCockVore => Config.CockVore && HasDick;
     internal bool CanBreastVore => Config.BreastVore && HasBreasts;
@@ -1005,6 +1010,16 @@ public class Unit
             }
             catch { }
         }
+        else if (race == Race.Nectar)
+        {
+            FixedGear = false;
+            Items[0] = State.World.ItemRepository.GetSpecialItem(SpecialItems.NectarWeapon);
+        }
+        else if (race == Race.Ryan)
+        {
+            FixedGear = true;
+            Items[0] = State.World.ItemRepository.GetSpecialItem(SpecialItems.RyanWeapon);
+        }
         else
         {
             FixedGear = false;
@@ -1104,7 +1119,7 @@ public class Unit
     {
         this.HairColor = appearance.HairColor;
         this.HairStyle = appearance.HairStyle;
-        this.BeardStyle = appearance.HairStyle;
+        this.BeardStyle = appearance.BeardStyle;
         this.SkinColor = appearance.SkinColor;
         this.AccessoryColor = appearance.AccessoryColor;
         this.EyeColor = appearance.EyeColor;
@@ -1355,7 +1370,22 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
 
         experience += exp;
     }
+	
+    public float CalcGiveExp(float exp, bool voreSource = false, bool isKill = false)// Used for calculations
+    {
+        exp *= TraitBoosts.ExpGain;
 
+        if (State.World.GetEmpireOfSide(Side)?.StrategicAI is StrategicAI ai)
+        {
+            if (ai.CheatLevel > 0)
+                exp *= 1 + .25f * ai.CheatLevel;
+        }
+
+        if (voreSource) exp *= TraitBoosts.ExpGainFromVore;
+        if (voreSource && isKill) exp *= TraitBoosts.ExpGainFromAbsorption;
+
+        return exp;
+    }
     public void GiveRawExp(int exp) => experience += exp;
 
     public bool IsDeadAndOverkilledBy(int overkill)
@@ -1405,6 +1435,31 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
         }
 
         experience += exp;
+    }
+
+    public float CalcScaledExp(float exp, int attackerLevelAdvantage, bool voreSource = false, bool isKill = false)//Used for calculations only
+    {
+        if (Config.FlatExperience)
+        {
+            return CalcGiveExp(exp, voreSource, isKill);
+        }
+        if (State.World.GetEmpireOfSide(Side)?.StrategicAI is StrategicAI ai)
+        {
+            if (ai.CheatLevel > 0)
+                exp *= 1 + .25f * ai.CheatLevel;
+        }
+        exp *= TraitBoosts.ExpGain;
+        if (voreSource) exp *= TraitBoosts.ExpGainFromVore;
+        if (voreSource && isKill) exp *= TraitBoosts.ExpGainFromAbsorption;
+
+        if (attackerLevelAdvantage > 0)
+            exp = Math.Max(exp * (1 - ((float)Math.Pow(attackerLevelAdvantage, 1.2) / 24f)), .3f * exp);
+        else if (attackerLevelAdvantage < 0)
+        {
+            exp = Math.Min(exp * (1 + ((float)Math.Pow(-attackerLevelAdvantage, 1.2) / 12f)), 6f * exp);
+        }
+
+        return exp;
     }
 
     public static int GetExperienceRequiredForLevel(int level, float expRequiredMod)
@@ -1757,6 +1812,8 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
     public bool HasTrait(Traits tag)
     {
         if (tag == Traits.TheGreatEscape && Race == Race.Erin)
+            return true;
+        if (tag == Traits.TheGreatEscape && Race == Race.Olivia)
             return true;
         if (Tags != null)
             return Tags.Contains(tag) || (PermanentTraits?.Contains(tag) ?? false);
@@ -2805,7 +2862,7 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
 
     public void Feed()
     {
-        GiveExp(1, true);
+        GiveExp(Config.VillagerDevourEXP, true);
         Health += 10;
         if (Health > MaxHealth)
         {
@@ -3483,7 +3540,7 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
             NonFatalDamage((int)effect.Strength, "virus");
         foreach (var eff in StatusEffects.ToList())
         {
-            if (eff.Type == StatusEffectType.Respawns || eff.Type == StatusEffectType.BladeDance || eff.Type == StatusEffectType.Tenacious || eff.Type == StatusEffectType.Focus || eff.Type == StatusEffectType.Weakness || eff.Type == StatusEffectType.Bolstered)
+            if (eff.Type == StatusEffectType.Fractured || eff.Type == StatusEffectType.Respawns || eff.Type == StatusEffectType.BladeDance || eff.Type == StatusEffectType.Tenacious || eff.Type == StatusEffectType.Focus || eff.Type == StatusEffectType.Weakness || eff.Type == StatusEffectType.Bolstered)
                 continue;
             var actor = TacticalUtilities.Units.Where(s => s.Unit == this).FirstOrDefault();
             var pred = actor.SelfPrey?.Predator;

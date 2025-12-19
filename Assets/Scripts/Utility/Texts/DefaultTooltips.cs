@@ -810,7 +810,6 @@ Does not retroactively affect already created units.";
                 return "When enabled, unit's side will be displayed in their info panel.";
             case 336:
                 return "Enables, birds and bird-like races to have more accurate appearing scat sprites.";
-                return "Enables, birds and bird-like races to have more accurate appearing scat sprites (Only works with V2 scat off)";
             case 337:
                 return "Enables the Dryad monster packs - it's a pack of four different Dryad with complimentary abilities";
             case 338:
@@ -829,6 +828,10 @@ Does not retroactively affect already created units.";
                 return "Sets the leader's army to 0 MP upon respawning. (Helps the AI not run it down when an enemy army is nearby)";
             case 345:
                 return "Disables the potion system. (Frees up a lot of AI income)";
+            case 346:
+                return "Enables wandering clusters of Iliijiith.";
+            case 347:
+                return "Determines how much EXP a single villager provides when devoured by an occupying army.";
             default:
                 return "";
         }

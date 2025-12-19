@@ -132,7 +132,10 @@ namespace TaurusClothes
             {
                 spriteNum = actor.Unit.BreastSize;
             }
+            else
+            {
                 spriteNum = 5;
+            }
 
             clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Clothing, actor.Unit.ClothingColor);
 

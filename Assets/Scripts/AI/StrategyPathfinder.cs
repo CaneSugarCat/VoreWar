@@ -252,6 +252,8 @@ public static class StrategyPathfinder
                     int walkCost = Grid[v.x, v.y].MovementCost;
                     if (flyingPath)
                         walkCost = 1;
+                    if (MPPerTurn < 2) // Divide by zero fix and prevention of losing traveling units to adverse terrain
+                        MPPerTurn = 2;
                     int remainingMP = MPPerTurn - (dist[u.Value] % MPPerTurn);
                     if (walkCost > remainingMP)
                         walkCost = walkCost + remainingMP;

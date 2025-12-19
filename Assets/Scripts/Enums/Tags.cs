@@ -352,7 +352,7 @@ public enum Traits
     ArcaneMagistrate = 177,
     /// <summary>Damage over time effect received from being devoured by an Aabayx</summary>
     ViralDigestion = 178,
-    /// <summary>This unit has a very strange body type, making them harder to swallow and providing less sustenance as prey.</summary>
+    /// <summary>This unit has a very strange body type, making them harder to swallow.</summary>
     AwkwardShape = 179,
     /// <summary>Unit deals up 1% more weapon damage per agility it has over it's target, up to 25%, tripled when using light weapons.</summary>
     SwiftStrike = 180,
@@ -592,12 +592,22 @@ public enum Traits
     DireInfection  = 308,
     /// <summary>Unit no longer has a 'mind' stat.</summary>
     Brainless  = 309,
-    /// <summary>ViralDigestion, AwkwardShape, and SlowAbsorption in one trait.</summary>
+    /// <summary>ViralDigestion, AwkwardShape, and AcellularBody in one trait.</summary>
     ViralBiology  = 310,
     /// <summary>If one of an army has this trait, all non-water tiles can be traversed by the army for 1 MP.</summary>
     Cartography  = 311,
     /// <summary>If one of an army has this trait, all non-water tiles can be traversed by the army for 1 MP.</summary>
     BoundWeapon  = 312,
+    /// <summary>Reduced nutrition as prey. Impossible to convert, as well as have a hard time converting other races to its race. (50% convert rate and can only convert).</summary>
+    AcellularBody  = 313,
+    /// <summary>Unit doesn't produce any post-vore discards for digested units.</summary>
+    TotalAbsorption  = 314,
+    /// <summary>Unit takes 25% reduced damage from all sources, has a chance to gain the 'Fractured' status effect when attacked; greatly increasing damage from all sources. 'Fractured' lasts until the battle is over.</summary>
+    Crystaline  = 315,
+    /// <summary>When unit is killed in melee or digested does has a 1/3 chance of hitting with a melee attack against the aggressor, 3/4 hit chance if vored.</summary>
+    DyingStrike  = 316,
+    /// <summary>Provides 1 use of Dimension Shift spell.</summary>
+    DimensionalAntilock  = 317,
 
 
     // Growth-related section

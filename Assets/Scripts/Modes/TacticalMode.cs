@@ -1798,6 +1798,7 @@ Turns: {currentTurn}
             activeEffects = ActiveEffects,
 
             defenderSide = defenderSide,
+            attackerSide = attackerSide,
 
             attackersTurn = attackersTurn,
             isAPlayerTurn = IsPlayerTurn,
@@ -1854,6 +1855,7 @@ Turns: {currentTurn}
         SelectedUnit = data.selectedUnit;
 
         defenderSide = data.defenderSide;
+        attackerSide = data.attackerSide;
 
         currentTurn = data.currentTurn;
 
