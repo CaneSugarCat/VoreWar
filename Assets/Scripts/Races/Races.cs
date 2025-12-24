@@ -43,6 +43,7 @@
     static internal Lupine Lupine = new Lupine();
     static internal Jackals Jackals = new Jackals();
     static internal Ghosts Ghosts = new Ghosts();
+    static internal DemiDragons DemiDragons = new DemiDragons();
 
 
     static internal Tigers Tigers = new Tigers();
@@ -448,6 +449,8 @@
                return SpaceCroach;
             case Race.Ghosts:
                 return Ghosts;
+            case Race.DemiDragons:
+                return DemiDragons;
             case Race.WoodDryad:
                 return WoodDryad;
             case Race.EarthDryad:

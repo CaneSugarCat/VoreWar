@@ -138,6 +138,8 @@ public class SpriteDictionary : MonoBehaviour
     public Sprite[] Harpies;
     public Sprite[] Crypters;
     public Sprite[] Lamia;
+    public Sprite[] LamiaScales;
+    public Sprite[] LamiaScalesBits;
     public Sprite[] Kangaroos;
     public Sprite[] Cows;
     public Sprite[] Crux;
@@ -276,6 +278,19 @@ public class SpriteDictionary : MonoBehaviour
     public Sprite[] Ghosts2;
     public Sprite[] Ghosts3;
     public Sprite[] GhostsVoreSprites;
+
+    public Sprite[] DemidragonBodies;
+    public Sprite[] DemidragonBodies2;
+    public Sprite[] DemidragonBreasts;
+    public Sprite[] DemidragonClothes;
+    public Sprite[] DemidragonClothes2;
+    public Sprite[] DemidragonClothes3;
+    public Sprite[] DemidragonCustomisation1;
+    public Sprite[] DemidragonCustomisation2;
+    public Sprite[] DemidragonCustomisation3;
+    public Sprite[] DemidragonPatterns;
+    public Sprite[] DemidragonPatterns2;
+    public Sprite[] DemidragonBelliesBalls;
 
     [Header("Unique Mercenaries")]
     public Sprite[] Selicia;

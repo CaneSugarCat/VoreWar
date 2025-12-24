@@ -41,6 +41,7 @@
     Lupine = 36,
     Jackals  = 37,
     Ghosts = 38,
+    DemiDragons = 39,
 
     Succubi = 50,
     Tigers = 51,

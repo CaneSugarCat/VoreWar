@@ -144,6 +144,7 @@ static class RaceParameters
     static readonly RaceTraits Trex;
     static readonly RaceTraits Utahraptor;
     static readonly RaceTraits Ghosts;
+    static readonly RaceTraits DemiDragons;
     static readonly RaceTraits WoodDryad;
     static readonly RaceTraits EarthDryad;
     static readonly RaceTraits RiverDryad;
@@ -449,6 +450,8 @@ static class RaceParameters
                 return SpaceCroach;
             case Race.Ghosts:
                 return Ghosts;
+            case Race.DemiDragons:
+                return DemiDragons;
             case Race.WoodDryad:
                 return WoodDryad;
             case Race.EarthDryad:
@@ -1307,6 +1310,21 @@ static class RaceParameters
             Traits.LightFrame,
         },
             RaceDescription = "The spooky spirits of the dead, come back in new incorporeal forms to haunt and feast upon the living. Formed when a soul takes five or more years to cross to the other side, these poltergeists, being dead, have no need for nutrition, and hunt for the fun of it and to spite the living.",
+        };
+
+        DemiDragons = new RaceTraits()
+        {
+            BodySize = 12,
+            StomachSize = 15,
+            HasTail = false,
+            FavoredStat = Stat.Agility,
+            DeployCost = 1,
+            Upkeep = 4f,
+            RacialTraits = new List<Traits>()
+        {
+
+        },
+            RaceDescription = "Dragon goes brrr",
         };
 
         Centaur = new RaceTraits()
@@ -4497,9 +4515,9 @@ static class RaceParameters
 
         Konane = new RaceTraits()
         {
-            BodySize = 20,
-            StomachSize = 20,
-            FavoredStat = Stat.Endurance,
+            BodySize = 15,
+            StomachSize = 40,
+            FavoredStat = Stat.Stomach,
             HasTail = true,
             AllowedVoreTypes = new List<VoreType> { VoreType.Oral},
             ExpMultiplier = 2f,
@@ -4519,13 +4537,11 @@ static class RaceParameters
             },
             RacialTraits = new List<Traits>()
         {
-                Traits.StrongMelee,
-                Traits.Pounce,
-                Traits.DoubleAttack,
-                Traits.Growth,
-                Traits.GiantSlayer,
+                Traits.Flight,
+                Traits.BornToMove,
+                ///Traits., Special move trait goes here. Add two actions to this trait
         },
-            RaceDescription = "A skilled warrior captain from the same world as the other Sergals. Strangely enough, not only does he look physically different from them, but he seems to hold some sort of resentment for them as well. He's an incredibly deadly frontline fighter, almost like he has been fighting in wars since birth. Many warriors, even whole companies have already fallen to either his polearm, or his voracious appetite. Needless to say: He seems to feel perfectly in his element here.",
+            RaceDescription = "Some kind of black falcon/snow leopard mix. Oh no! He's hot!",
         };
 
     }

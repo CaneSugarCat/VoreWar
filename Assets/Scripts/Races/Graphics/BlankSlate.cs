@@ -39,6 +39,11 @@ class BlankSlate : DefaultRaceData
         BodyAccent8 = null;
         BodyAccent9 = null;
         BodyAccent10 = null;
+        BodyAccent11 = null;
+        BodyAccent12 = null;
+        BodyAccent13 = null;
+        BodyAccent14 = null;
+        BodyAccent15 = null;
         Mouth = null;
         Hair = null;
         Hair2 = null;

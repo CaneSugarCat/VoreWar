@@ -1020,6 +1020,11 @@ public class Unit
             FixedGear = true;
             Items[0] = State.World.ItemRepository.GetSpecialItem(SpecialItems.RyanWeapon);
         }
+        else if (race == Race.Konane)
+        {
+            FixedGear = true;
+            Items[0] = State.World.ItemRepository.GetSpecialItem(SpecialItems.RyanWeapon);
+        }
         else
         {
             FixedGear = false;

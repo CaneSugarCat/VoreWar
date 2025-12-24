@@ -110,6 +110,7 @@ public enum SpecialItems
     FireflyRange,
     NectarWeapon,
     RyanWeapon,
+    KonaneWeapon,
 }
 
 
@@ -334,6 +335,7 @@ public class ItemRepository
             new Weapon(name:"HND15", description:"Firefly's faithful pistol.", cost:4, graphic:0, damage:5, range:7, accuracyModifier: 0.7f, lockedItem:true),
             new Weapon(name:"Nectar's Claws", description:"Large razor sharp sphinx claws, more than capable of leaving deep gashes in most foes.", cost:4, graphic:0, damage:10, range:1, accuracyModifier: 1.1f, lockedItem:true),
             new Weapon(name:"Captain's Polearm", description:"A trusty polearm that has seen many battles, and slain many more.", cost:4, graphic:0, damage:10, range:1, accuracyModifier: 1.1f, lockedItem:true),
+            new Weapon(name:"Focused Fist", description:"The earliest of weapons. Nothing beats a good punch to the face.", cost:4, graphic:0, damage:8, range:1, accuracyModifier: 2.1f, lockedItem:true),
         };
 
 
