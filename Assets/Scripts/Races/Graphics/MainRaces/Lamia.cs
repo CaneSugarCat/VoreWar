@@ -15,6 +15,7 @@ class Lamia : DefaultRaceData
         MouthTypes = 3;
         BodyAccentTypes1 = 3; // eyebrows
         BodyAccentTypes2 = 3; // Hoods
+        BodyAccentTypes3 = 2; // head patterns
 
         AccessoryColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.LizardMain);
         ExtraColors1 = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.LizardMain);
@@ -27,24 +28,26 @@ class Lamia : DefaultRaceData
         BodyAccent3 = new SpriteExtraInfo(5, BodyAccentSprite3, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor));
         BodyAccent4 = new SpriteExtraInfo(5, BodyAccentSprite4, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.NormalHair, s.Unit.HairColor));
         BodyAccent5 = new SpriteExtraInfo(5, BodyAccentSprite5, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor));
-        BodyAccent6 = new SpriteExtraInfo(5, BodyAccentSprite6, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor)); // Neck Scales
-        BodyAccent7 = new SpriteExtraInfo(5, BodyAccentSprite7, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor)); // Hood
-        BodyAccent8 = new SpriteExtraInfo(5, BodyAccentSprite8, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.ExtraColor1)); // Head Mark
+        BodyAccent6 = new SpriteExtraInfo(3, BodyAccentSprite6, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor)); // Neck Scales
+        BodyAccent7 = new SpriteExtraInfo(3, BodyAccentSprite7, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor)); // Hood
+        BodyAccent8 = new SpriteExtraInfo(5, BodyAccentSprite8, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.ExtraColor2)); // Head Mark
+        BodyAccent9 = new SpriteExtraInfo(5, BodyAccentSprite9, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.ExtraColor1)); // Body Scales
+        BodyAccent10 = new SpriteExtraInfo(3, BodyAccentSprite10, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.ExtraColor1)); // hood inner Scales
         Mouth = new SpriteExtraInfo(5, MouthSprite, null, (s) => FurryColor(s));
         Hair = new SpriteExtraInfo(6, HairSprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.NormalHair, s.Unit.HairColor));
         Hair2 = new SpriteExtraInfo(1, HairSprite2, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.NormalHair, s.Unit.HairColor));
         Hair3 = new SpriteExtraInfo(9, HairSprite3, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.NormalHair, s.Unit.HairColor));
-        Eyes = new SpriteExtraInfo(5, EyesSprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.EyeColor, s.Unit.EyeColor));
-        SecondaryEyes = null;
-        SecondaryAccessory = new SpriteExtraInfo(3, SecondaryAccessorySprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor));
-        Belly = new SpriteExtraInfo(15, null, null, (s) => FurryColor(s));
+        Eyes = new SpriteExtraInfo(6, EyesSprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.EyeColor, s.Unit.EyeColor));
+        SecondaryEyes = new SpriteExtraInfo(6, EyesSecondarySprite, WhiteColored);
+        SecondaryAccessory = new SpriteExtraInfo(3, SecondaryAccessorySprite, WhiteColored);
+        Belly = new SpriteExtraInfo(15, null, null, (s) => FurryColorInner(s));
         Weapon = new SpriteExtraInfo(1, WeaponSprite, WhiteColored);
         BackWeapon = new SpriteExtraInfo(0, BackWeaponSprite, WhiteColored);
         BodySize = new SpriteExtraInfo(4, BodySizeSprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.AccessoryColor));
-        Breasts = new SpriteExtraInfo(16, BreastsSprite, null, (s) => FurryColor(s));
+        Breasts = new SpriteExtraInfo(16, BreastsSprite, null, (s) => FurryColorInner(s));
         BreastShadow = null;
         Dick = new SpriteExtraInfo(9, DickSprite, null, (s) => FurryColor(s));
-        Balls = new SpriteExtraInfo(8, BallsSprite, null, (s) => FurryColor(s));
+        Balls = new SpriteExtraInfo(8, BallsSprite, null, (s) => FurryColorInner(s));
 
         FurCapable = true;
 
@@ -106,7 +109,7 @@ class Lamia : DefaultRaceData
     {
         if (actor.Unit.Furry)
         {
-            return State.GameManager.SpriteDictionary.LamiaScales[19 + (actor.IsAttacking ? 1 : 0) + (2 * actor.Unit.BodySize) + (actor.Unit.HasBreasts ? 0 : 8)];
+            return State.GameManager.SpriteDictionary.LamiaScales[24 + (actor.IsAttacking ? 1 : 0) + (2 * actor.Unit.BodySize) + (actor.Unit.HasBreasts ? 0 : 8)];
         }
         return State.GameManager.SpriteDictionary.Scylla[24 + (actor.IsAttacking ? 1 : 0) + (2 * actor.Unit.BodySize) + (actor.Unit.HasBreasts ? 0 : 8)];
     }
@@ -185,10 +188,23 @@ class Lamia : DefaultRaceData
     {
         if (actor.Unit.Furry)
         {
-            return State.GameManager.SpriteDictionary.LamiaScales[2 + actor.Unit.EyeType];
+            if (actor.Unit.EyeType <= 1)
+            {
+                return State.GameManager.SpriteDictionary.LamiaScales[22 + actor.Unit.EyeType];
+            }
+            return null;
         }
         return State.GameManager.SpriteDictionary.Lamia[5 + actor.Unit.EyeType % 3];
-    } 
+    }
+
+    protected override Sprite EyesSecondarySprite(Actor_Unit actor)
+    {
+        if (actor.Unit.Furry)
+        {
+            return State.GameManager.SpriteDictionary.LamiaScales[11 + actor.Unit.EyeType];
+        }
+        return null;
+    }
 
     protected override Sprite BodyAccentSprite(Actor_Unit actor)
     {
@@ -211,6 +227,10 @@ class Lamia : DefaultRaceData
 
     protected override Sprite BodyAccentSprite3(Actor_Unit actor)
     {
+        if (actor.Unit.Furry)
+        {
+            return null;
+        }
         switch (actor.Unit.SpecialAccessoryType)
         {
             default:
@@ -225,6 +245,10 @@ class Lamia : DefaultRaceData
 
     protected override Sprite BodyAccentSprite5(Actor_Unit actor)
     {
+        if (actor.Unit.Furry)
+        {
+            return null;
+        }
         int eatingOffset = actor.IsEating ? 1 : 0;
         int genderOffset = actor.Unit.HasBreasts ? 0 : 2;
         return State.GameManager.SpriteDictionary.Lamia[26 + eatingOffset + genderOffset];
@@ -250,18 +274,29 @@ class Lamia : DefaultRaceData
 
     protected override Sprite BodyAccentSprite8(Actor_Unit actor)
     {
-        if (!actor.Unit.Furry)
+        if (!actor.Unit.Furry || actor.Unit.BodyAccentType3 == 0)
         {
             return null;
         }
         return State.GameManager.SpriteDictionary.LamiaScales[16];
     }
 
-    protected override Sprite SecondaryAccessorySprite(Actor_Unit actor)
+    protected override Sprite BodyAccentSprite9(Actor_Unit actor)
     {
-        if (actor.IsAttacking)
-            return State.GameManager.SpriteDictionary.Lamia[9];
-        return State.GameManager.SpriteDictionary.Lamia[8];
+        if (actor.Unit.Furry)
+        {
+            return State.GameManager.SpriteDictionary.LamiaScales[40 + (actor.IsAttacking ? 1 : 0) + (2 * actor.Unit.BodySize) + (actor.Unit.HasBreasts ? 0 : 8)];
+        }
+        return null;
+    }
+
+    protected override Sprite BodyAccentSprite10(Actor_Unit actor)
+    {
+        if (!actor.Unit.Furry)
+        {
+            return null;
+        }
+        return State.GameManager.SpriteDictionary.LamiaScales[19 + actor.Unit.BodyAccentType2];
     }
 
     internal override Sprite BellySprite(Actor_Unit actor, GameObject belly)
@@ -322,12 +357,12 @@ class Lamia : DefaultRaceData
                 if (actor.HasBelly == false)
                 {
                     Dick.layer = 18;
-                    return State.GameManager.SpriteDictionary.LamiaScalesBits[actor.Unit.DickSize * 2 + 1];
+                    return State.GameManager.SpriteDictionary.LamiaScalesBits[actor.Unit.DickSize + 1];
                 }
                 else
                 {
                     Dick.layer = 12;
-                    return State.GameManager.SpriteDictionary.LamiaScalesBits[actor.Unit.DickSize * 2 + 1];
+                    return State.GameManager.SpriteDictionary.LamiaScalesBits[actor.Unit.DickSize + 1];
                 }
             }
 
@@ -384,6 +419,10 @@ class Lamia : DefaultRaceData
 
     protected override Sprite BallsSprite(Actor_Unit actor)
     {
+        if (actor.Unit.Furry)
+        {
+            return State.GameManager.SpriteDictionary.LamiaScalesBits[0];
+        }
         var sprite = base.BallsSprite(actor);
         return sprite;
     }
@@ -392,6 +431,13 @@ class Lamia : DefaultRaceData
     {
         if (actor.Unit.Furry)
             return ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, actor.Unit.AccessoryColor);
+        return ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Skin, actor.Unit.SkinColor);
+    }
+
+    static ColorSwapPalette FurryColorInner(Actor_Unit actor)
+    {
+        if (actor.Unit.Furry)
+            return ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, actor.Unit.ExtraColor1);
         return ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Skin, actor.Unit.SkinColor);
     }
 }
