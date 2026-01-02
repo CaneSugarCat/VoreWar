@@ -367,7 +367,7 @@ class Lamia : DefaultRaceData
             }
 
             Dick.layer = 9;
-            return State.GameManager.SpriteDictionary.LamiaScalesBits[actor.Unit.DickSize * 2];
+            return State.GameManager.SpriteDictionary.LamiaScalesBits[1 + actor.Unit.DickSize];
         }
         if (actor.Unit.HasDick == false)
             return null;
