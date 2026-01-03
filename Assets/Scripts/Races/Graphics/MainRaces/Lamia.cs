@@ -33,7 +33,7 @@ class Lamia : DefaultRaceData
         BodyAccent8 = new SpriteExtraInfo(5, BodyAccentSprite8, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.ExtraColor2)); // Head Mark
         BodyAccent9 = new SpriteExtraInfo(5, BodyAccentSprite9, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.ExtraColor1)); // Body Scales
         BodyAccent10 = new SpriteExtraInfo(3, BodyAccentSprite10, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.LizardMain, s.Unit.ExtraColor1)); // hood inner Scales
-        Mouth = new SpriteExtraInfo(5, MouthSprite, null, (s) => FurryColor(s));
+        Mouth = new SpriteExtraInfo(7, MouthSprite, null, (s) => FurryColor(s));
         Hair = new SpriteExtraInfo(6, HairSprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.NormalHair, s.Unit.HairColor));
         Hair2 = new SpriteExtraInfo(1, HairSprite2, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.NormalHair, s.Unit.HairColor));
         Hair3 = new SpriteExtraInfo(9, HairSprite3, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.NormalHair, s.Unit.HairColor));
