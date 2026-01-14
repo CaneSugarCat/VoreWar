@@ -829,6 +829,10 @@ public class HoveringTooltip : MonoBehaviour
                 return "When unit is killed in melee or digested does has a 1/3 chance of hitting with a melee attack against the aggressor, 3/4 hit chance if vored.";
             case Traits.DimensionalAntilock:
                 return "This unit is not completely fixed to the space around it. \n(Allows using the Dimension Shift ability once per battle, which attempts to teleport the User to a random open tile within 20 tiles.)";
+            case Traits.Hoarder:
+                return "Race increase the income of a village by 0.1% per population with this trait.";
+            case Traits.NaturalCaster:
+                return "This unit is not completely fixed to the space around it. \n(Allows using the Dimension Shift ability once per battle, which attempts to teleport the User to a random open tile within 20 tiles.)";
         }  
         return "<b>This trait needs a tooltip!</b>";
     }

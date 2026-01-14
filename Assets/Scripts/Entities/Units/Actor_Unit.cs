@@ -1707,20 +1707,16 @@ public class Actor_Unit
             }
             critchance += Unit.TraitBoosts.Outgoing.CritRateShift - target.Unit.TraitBoosts.Incoming.CritRateShift;
             critchance *= TagConditionChecker.ApplyTagEffect(Unit, target.Unit, UnitTagModifierEffect.CritRateShift);
-            Debug.Log("Chance:" + critchance);
             if (State.Rand.NextDouble() < critchance)
             {
                 float calculatedCritDamage = Unit.TraitBoosts.Outgoing.CritDamageMult * target.Unit.TraitBoosts.Incoming.CritDamageMult;
                 calculatedCritDamage *= TagConditionChecker.ApplyTagEffect(Unit, target.Unit, UnitTagModifierEffect.CritDamageMult);
-                Debug.Log("Calc:" + calculatedCritDamage);
                 damageMultiplier *= (calculatedCritDamage) * Config.CritDamageMod;
-                Debug.Log("Mult:" + damageMultiplier);
                 critbool = true;
             }
             // Crit and graze check (returns attack to normal state if both are true)
             if (critbool && grazebool)
             {
-                Debug.Log("Reseting");
                 damageMultiplier = origDamageMult;
                 critbool = false;
                 grazebool = false;

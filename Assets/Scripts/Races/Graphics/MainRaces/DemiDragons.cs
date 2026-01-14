@@ -46,8 +46,7 @@ class DemiDragons : DefaultRaceData
         HairColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.UniversalHair);
         SkinColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.RedSkin);
         EyeColors = ColorPaletteMap.GetPaletteCount(ColorPaletteMap.SwapType.RaijuSkin);
-        BodyAccentTypes1 = 6; // eyebrows
-        BeardStyles = 7;
+        BodyAccentTypes5 = 6; // eyebrows
 
         ExtendedBreastSprites = true;
         FurCapable = true;
@@ -76,7 +75,7 @@ class DemiDragons : DefaultRaceData
         Hair2 = new SpriteExtraInfo(3, HairSprite2, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.UniversalHair, s.Unit.HairColor)); // Back hair
         Hair3 = new SpriteExtraInfo(9, HairSprite3, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.UniversalHair, s.Unit.HairColor)); // Eyebrows
         Eyes = new SpriteExtraInfo(21, EyesSprite, WhiteColored);
-        SecondaryEyes = new SpriteExtraInfo(22, EyesSecondarySprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.EyeColor, s.Unit.EyeColor));
+        SecondaryEyes = new SpriteExtraInfo(22, EyesSecondarySprite, null, (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.RaijuSkin, s.Unit.EyeColor));
         SecondaryAccessory = null;
         Belly = new SpriteExtraInfo(14, null, null, (s) => FurryColorInner(s));
         Weapon = new SpriteExtraInfo(6, WeaponSprite, WhiteColored);
@@ -140,7 +139,6 @@ class DemiDragons : DefaultRaceData
 
     internal override void SetBaseOffsets(Actor_Unit actor)
     {
-
         if (actor.Unit.HasBreasts)
         {
             if (actor.Unit.BodySize > 1)
@@ -167,107 +165,187 @@ class DemiDragons : DefaultRaceData
                 AddOffset(Belly, 0, 1 * .625f);
             }
         }
+        if (actor.Unit.Furry)
+        {
+            if (!actor.Unit.HasBreasts) 
+            {
+                AddOffset(Weapon, 2 * .625f, 0 * .625f);
+            }
+            if (actor.Unit.BodySize >= 2)
+            {
+                AddOffset(Weapon, 1 * .625f, 0 * .625f);
+            }
 
-        if (actor.GetWeaponSprite() == 0 || actor.GetWeaponSprite() == 4 || actor.GetWeaponSprite() == 6)
-        {
-            if (actor.Unit.HasBreasts)
+            if (actor.GetWeaponSprite() == 2)
             {
-                if (actor.Unit.BodySize > 1)
+                if (actor.Unit.AdvancedMeleeWeaponType == 1)
                 {
-                    AddOffset(Weapon, -1 * .625f, 0);
-                }
-                else
-                {
-                    AddOffset(Weapon, 0, 0);
+                    AddOffset(Weapon, 10 * .625f, 0 * .625f);
                 }
             }
-            else
+
+            if (actor.GetWeaponSprite() == 3)
             {
-                if (actor.Unit.BodySize > 1)
+                if (actor.Unit.AdvancedMeleeWeaponType == 0)
                 {
-                    AddOffset(Weapon, 1 * .625f, -1 * .625f);
+                    AddOffset(Weapon, 0 * .625f, 19 * .625f);
                 }
                 else
                 {
-                    AddOffset(Weapon, 0, -1 * .625f);
+                    AddOffset(Weapon, 0 * .625f, 10 * .625f);
                 }
             }
         }
-        else if (actor.GetWeaponSprite() == 1 || actor.GetWeaponSprite() == 3)
+        else
         {
-            if (actor.Unit.HasBreasts)
+            switch (actor.GetWeaponSprite())
             {
-                if (actor.Unit.BodySize > 1)
-                {
-                    AddOffset(Weapon, 0, -1 * .625f);
-                }
-                else
-                {
-                    AddOffset(Weapon, 0, 0);
-                }
+                case 0:
+                    if (actor.Unit.HasBreasts)
+                    {
+                        if (actor.Unit.BodySize < 2)
+                        {
+                            AddOffset(Weapon, 1 * .625f, 0 * .625f);
+                        }
+                        else
+                        {
+                            AddOffset(Weapon, 1* .625f, 0 * .625f);
+                        }
+                    }
+                    else
+                    {
+                        if (actor.Unit.BodySize < 2)                        
+                            AddOffset(Weapon, 0 * .625f, -2 * .625f);                       
+                        else
+                            AddOffset(Weapon, 1 * .625f, -2 * .625f);
+                    }
+                    break;
+                case 1:
+                    if (actor.Unit.HasBreasts)
+                    {
+                        if (actor.Unit.BodySize < 2)
+                            AddOffset(Weapon, 1 * .625f, -1 * .625f);
+                    }
+                    else
+                    {
+                        if (actor.Unit.BodySize < 2)
+                            AddOffset(Weapon, 3 * .625f, -4 * .625f);
+                        else
+                            AddOffset(Weapon, 3 * .625f, -3 * .625f);
+                    }
+                    break;
+                case 2:
+                    if (actor.Unit.AdvancedMeleeWeaponType == 1)
+                    {
+                        if (actor.Unit.HasBreasts)
+                        {
+                            if (actor.Unit.BodySize < 2)
+                                AddOffset(Weapon, 1 * .625f, 0 * .625f);
+
+                        }
+                        else
+                        {
+                            if (actor.Unit.BodySize < 2)
+                                AddOffset(Weapon, 0 * .625f, -2 * .625f);
+                            else
+                                AddOffset(Weapon, 1 * .625f, -2 * .625f);
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        if (actor.Unit.HasBreasts)
+                        {
+                            if (actor.Unit.BodySize >= 2)
+                                AddOffset(Weapon, 1 * .625f, -1 * .625f);
+                        }
+                        else
+                        {
+                            if (actor.Unit.BodySize < 2)
+                                AddOffset(Weapon, 0 * .625f, -2 * .625f);
+                            else
+                                AddOffset(Weapon, 2 * .625f, -3 * .625f);
+                        }
+                    }
+                    break;
+                case 3:
+                    if (actor.Unit.AdvancedMeleeWeaponType == 1)
+                    {
+                        if (actor.Unit.HasBreasts)
+                        {
+                            if (actor.Unit.BodySize < 2)
+                                AddOffset(Weapon, 1 * .625f, -1 * .625f);
+                        }
+                        else
+                        {
+                            if (actor.Unit.BodySize < 2)
+                                AddOffset(Weapon, 3 * .625f, -4 * .625f);
+                            else
+                                AddOffset(Weapon, 3 * .625f, -3 * .625f);
+                        }
+                    }
+                    else
+                    {
+                        if (actor.Unit.HasBreasts)
+                        {
+                            if (actor.Unit.BodySize < 2)
+                                AddOffset(Weapon, 0 * .625f, -1 * .625f);
+                        }
+                        else
+                        {
+                            AddOffset(Weapon, 3 * .625f, -4 * .625f);
+                        }
+                    }
+                    break;
+                case 4:
+                    if (actor.Unit.HasBreasts)
+                    {
+                        if (actor.Unit.BodySize < 2)
+                            AddOffset(Weapon, 1 * .625f, 0 * .625f);
+                    }
+                    else
+                    {
+                        AddOffset(Weapon, 2 * .625f, -1 * .625f);
+                    }
+                    break;
+                case 5:
+                    if (actor.Unit.HasBreasts)
+                    {
+                        if (actor.Unit.BodySize < 2)
+                            AddOffset(Weapon, 1 * .625f, -1 * .625f);
+                    }
+                    else
+                    {
+                        AddOffset(Weapon, 2 * .625f, -3 * .625f);
+                    }
+                    break; ;
+                case 6:
+                    if (actor.Unit.HasBreasts)
+                    {
+                        if (actor.Unit.BodySize < 2)
+                            AddOffset(Weapon, 1 * .625f, 0 * .625f);
+                    }
+                    else
+                    {
+                        AddOffset(Weapon, 2 * .625f, -1 * .625f);
+                    }
+                    break;
+                case 7:
+                    if (actor.Unit.HasBreasts)
+                    {
+                        if (actor.Unit.BodySize < 2)
+                            AddOffset(Weapon, 1 * .625f, -1 * .625f);
+                    }
+                    else
+                    {
+                        AddOffset(Weapon, 2 * .625f, -3 * .625f);
+                    }
+                    break;
+                default:
+                    AddOffset(Weapon, 0 * .625f, 0 * .625f);
+                    break;
             }
-            else
-            {
-                if (actor.Unit.BodySize > 1)
-                {
-                    AddOffset(Weapon, 3 * .625f, -3 * .625f);
-                }
-                else
-                {
-                    AddOffset(Weapon, 3 * .625f, -4 * .625f);
-                }
-            }
-        }
-        else if (actor.GetWeaponSprite() == 2)
-        {
-            if (actor.Unit.HasBreasts)
-            {
-                if (actor.Unit.BodySize > 1)
-                {
-                    AddOffset(Weapon, -1 * .625f, 2 * .625f);
-                }
-                else
-                {
-                    AddOffset(Weapon, -2 * .625f, 3 * .625f);
-                }
-            }
-            else
-            {
-                if (actor.Unit.BodySize > 1)
-                {
-                    AddOffset(Weapon, 0, 0);
-                }
-                else
-                {
-                    AddOffset(Weapon, 0, 0);
-                }
-            }
-        }
-        else if (actor.GetWeaponSprite() == 5 || actor.GetWeaponSprite() == 7)
-        {
-            if (actor.Unit.HasBreasts)
-            {
-                if (actor.Unit.BodySize > 1)
-                {
-                    AddOffset(Weapon, 1 * .625f, -1 * .625f);
-                }
-                else
-                {
-                    AddOffset(Weapon, 0, 0);
-                }
-            }
-            else
-            {
-                if (actor.Unit.BodySize > 1)
-                {
-                    AddOffset(Weapon, 2 * .625f, -3 * .625f);
-                }
-                else
-                {
-                    AddOffset(Weapon, 2 * .625f, -3 * .625f);
-                }
-            }
-        }
+        }                         
     }
 
 
@@ -279,6 +357,16 @@ class DemiDragons : DefaultRaceData
         unit.ExtraColor3 = unit.AccessoryColor;
         unit.ExtraColor4 = unit.AccessoryColor;
 
+        unit.BodyAccentType1 = State.Rand.Next(BodyAccentTypes1);
+        unit.BodyAccentType2 = State.Rand.Next(BodyAccentTypes2);
+        unit.BodyAccentType3 = State.Rand.Next(BodyAccentTypes3);
+        unit.BodyAccentType4 = State.Rand.Next(BodyAccentTypes4);
+        unit.BodyAccentType5 = State.Rand.Next(BodyAccentTypes5);
+        unit.FurType = State.Rand.Next(FurTypes);
+        unit.SpecialAccessoryType = State.Rand.Next(SpecialAccessoryCount);
+        unit.EarType = State.Rand.Next(EarTypes);
+        unit.TailType = State.Rand.Next(TailTypes);
+       
         if (unit.Furry)
         {
             int styles = 33;
@@ -389,10 +477,18 @@ class DemiDragons : DefaultRaceData
             case 0:
                 return State.GameManager.SpriteDictionary.HumansBodySprites1[2 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 1:
-                return State.GameManager.SpriteDictionary.HumansBodySprites1[3 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
+                return State.GameManager.SpriteDictionary.HumansBodySprites1[1 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 2:
+                if (actor.Unit.AdvancedMeleeWeaponType == 1)
+                {
+                    return State.GameManager.SpriteDictionary.HumansBodySprites1[2 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
+                }
                 return State.GameManager.SpriteDictionary.HumansBodySprites1[1 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 3:
+                if (actor.Unit.AdvancedMeleeWeaponType == 1)
+                {
+                    return State.GameManager.SpriteDictionary.HumansBodySprites1[1 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
+                }
                 return State.GameManager.SpriteDictionary.HumansBodySprites1[3 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 4:
                 return State.GameManager.SpriteDictionary.HumansBodySprites1[2 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
@@ -519,7 +615,7 @@ class DemiDragons : DefaultRaceData
             case 1:
                 return SpritesBodies1[3 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 2:
-                if (actor.Unit.BodyAccentType5 == 1)
+                if (actor.Unit.AdvancedMeleeWeaponType == 1)
                 {
                     return SpritesBodies1[1 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
                 }
@@ -552,7 +648,7 @@ class DemiDragons : DefaultRaceData
             case 0:
                 return SpritesBodies2[1 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 1:
-                return SpritesBodies2[3 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
+                return SpritesBodies2[2 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 2:
                 if (actor.Unit.AdvancedMeleeWeaponType == 1)
                 {
@@ -560,6 +656,10 @@ class DemiDragons : DefaultRaceData
                 }
                 return SpritesBodies2[2 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 3:
+                if (actor.Unit.AdvancedMeleeWeaponType == 1)
+                {
+                    return SpritesBodies2[2 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
+                }
                 return SpritesBodies2[3 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
             case 4:
                 return SpritesBodies2[1 + (actor.Unit.BodySize * 4) + (actor.Unit.HasBreasts ? 0 : 12)];
@@ -789,7 +889,7 @@ class DemiDragons : DefaultRaceData
         // Anthro
         if (actor.Unit.Furry)
         {
-            switch (actor.Unit.BodyAccentType5)
+            switch (actor.Unit.SpecialAccessoryType)
             {
                 case 1:
                     value = 0;
@@ -905,7 +1005,7 @@ class DemiDragons : DefaultRaceData
         {
             return null;
         }
-        if (actor.Unit.Furry == false)
+        if (actor.Unit.Furry)
         {
             BodyAccent8.layer = 23;
             return SpritesCustomisation2[36 + actor.Unit.BodyAccentType2];
@@ -1126,7 +1226,7 @@ class DemiDragons : DefaultRaceData
         {
             return null;
         }
-        return State.GameManager.SpriteDictionary.HumansBodySprites3[120 + actor.Unit.BodyAccentType1];
+        return State.GameManager.SpriteDictionary.HumansBodySprites3[120 + actor.Unit.BodyAccentType5];
     }
 
     protected override Sprite EyesSprite(Actor_Unit actor)
@@ -1135,9 +1235,9 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.IsOralVoring)
             {
-                return SpritesCustomisation2[82 + actor.Unit.EyeType];
+                return SpritesCustomisation2[66 + actor.Unit.EyeType];
             }
-            return SpritesCustomisation2[74 + actor.Unit.EyeType];
+            return SpritesCustomisation2[58 + actor.Unit.EyeType];
         }
         if (actor.Unit.IsDead && actor.Unit.Items != null)
         {
@@ -1155,9 +1255,9 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.IsOralVoring)
             {
-                return SpritesCustomisation2[66 + actor.Unit.EyeType];
+                return SpritesCustomisation2[82 + actor.Unit.EyeType];
             }
-            return SpritesCustomisation2[58 + actor.Unit.EyeType];
+            return SpritesCustomisation2[74 + actor.Unit.EyeType];
         }
         if (actor.Unit.IsDead && actor.Unit.Items != null)
         {
@@ -1833,9 +1933,13 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.Unit.Furry)
             {
+                blocksBreasts = false;
+                clothing2.GetSprite = null;
+                clothing3.GetSprite = null;
                 if (Races.DemiDragons.oversize)
                 {
                     clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[54];
+
                 }
                 else if (actor.Unit.HasBreasts)
                 {
@@ -1843,8 +1947,11 @@ class DemiDragons : DefaultRaceData
                 }
                 else
                 {
+                    blocksBreasts = true;
                     breastSprite = null;
                     clothing1.GetSprite = null;
+                    clothing2.GetSprite = null;
+                    clothing3.GetSprite = null;
                 }
 
                 clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.AviansSkin, actor.Unit.ClothingColor);
@@ -1910,7 +2017,7 @@ class DemiDragons : DefaultRaceData
             femaleOnly = true;
             coversBreasts = false;
             blocksDick = false;
-            clothing1 = new SpriteExtraInfo(18, null, WhiteColored);
+            clothing1 = new SpriteExtraInfo(18, null, null);
             clothing2 = new SpriteExtraInfo(17, null, null);
             clothing3 = new SpriteExtraInfo(17, null, null); Type = 1534;
             DiscardUsesPalettes = true;
@@ -1920,6 +2027,9 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.Unit.Furry)
             {
+                blocksBreasts = false;
+                clothing2.GetSprite = null;
+                clothing3.GetSprite = null;
                 if (Races.DemiDragons.oversize)
                 {
                     clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[63];
@@ -1938,9 +2048,10 @@ class DemiDragons : DefaultRaceData
             }
             else
             {
+                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Clothing50Spaced, actor.Unit.ClothingColor);
                 if (Races.DemiDragons.oversize)
                 {
-                    clothing1.GetSprite = (s) => null;
+                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[59];
                     blocksBreasts = false;
                     clothing2.GetSprite = null;
                     clothing3.GetSprite = null;
@@ -1948,7 +2059,9 @@ class DemiDragons : DefaultRaceData
                 else if (actor.Unit.HasBreasts)
                 {
                     blocksBreasts = true;
-                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[8 + actor.Unit.BreastSize];
+                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[16 + actor.Unit.BreastSize];
+                    clothing2.GetPalette = (s) => FurryColorInner(s);
+                    clothing3.GetPalette = (s) => FurryColorInner(s);
                     if (actor.Unit.BreastSize == 3)
                     {
                         clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[64];
@@ -1978,9 +2091,6 @@ class DemiDragons : DefaultRaceData
                     clothing2.GetSprite = null;
                     clothing3.GetSprite = null;
                 }
-
-                clothing2.GetPalette = (s) => FurryColorInner(s);
-                clothing3.GetPalette = (s) => FurryColorInner(s);
             }
 
 
@@ -2007,6 +2117,8 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.Unit.Furry)
             {
+                clothing2.GetSprite = null;
+                clothing3.GetSprite = null;
                 if (Races.DemiDragons.oversize)
                 {
                     clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[72];
@@ -2025,9 +2137,13 @@ class DemiDragons : DefaultRaceData
             }
             else
             {
+
+                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Clothing50Spaced, actor.Unit.ClothingColor);
+                clothing2.GetPalette = (s) => FurryColorInner(s);
+                clothing3.GetPalette = (s) => FurryColorInner(s);
                 if (Races.DemiDragons.oversize)
                 {
-                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[59];
+                    clothing1.GetSprite = (s) => null;
                     blocksBreasts = false;
                     clothing2.GetSprite = null;
                     clothing3.GetSprite = null;
@@ -2035,7 +2151,7 @@ class DemiDragons : DefaultRaceData
                 else if (actor.Unit.HasBreasts)
                 {
                     blocksBreasts = true;
-                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[16 + actor.Unit.BreastSize];
+                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[24 + actor.Unit.BreastSize];
                     if (actor.Unit.BreastSize == 3)
                     {
                         clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[64];
@@ -2057,18 +2173,6 @@ class DemiDragons : DefaultRaceData
                         clothing3.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[32 + actor.Unit.BreastSize];
                     }
                 }
-                else
-                {
-                    blocksBreasts = true;
-                    breastSprite = null;
-                    clothing1.GetSprite = null;
-                    clothing2.GetSprite = null;
-                    clothing3.GetSprite = null;
-                }
-
-                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Clothing50Spaced, actor.Unit.ClothingColor);
-                clothing2.GetPalette = (s) => FurryColorInner(s);
-                clothing3.GetPalette = (s) => FurryColorInner(s);
             }
 
 
@@ -2095,6 +2199,9 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.Unit.Furry)
             {
+                blocksBreasts = false;
+                clothing2.GetSprite = null;
+                clothing3.GetSprite = null;
                 if (Races.DemiDragons.oversize)
                 {
                     clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[81];
@@ -2115,6 +2222,7 @@ class DemiDragons : DefaultRaceData
             }
             else
             {
+
                 if (Races.DemiDragons.oversize)
                 {
                     clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[63];
@@ -2175,48 +2283,9 @@ class DemiDragons : DefaultRaceData
             coversBreasts = false;
             blocksDick = false;
             clothing1 = new SpriteExtraInfo(18, null, null);
-            clothing2 = new SpriteExtraInfo(18, null, WhiteColored);
-            Type = 1574;
-            DiscardUsesPalettes = true;
-        }
-
-        public override void Configure(CompleteSprite sprite, Actor_Unit actor)
-        {
-            if (Races.DemiDragons.oversize)
-            {
-                clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[91];
-                clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[142];
-            }
-            else if (actor.Unit.HasBreasts)
-            {
-                clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[83 + actor.Unit.BreastSize];
-                clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[92 + actor.Unit.BreastSize];
-            }
-            else
-            {
-                breastSprite = null;
-                clothing1.GetSprite = null;
-                clothing2.GetSprite = null;
-            }
-
-            clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.AviansSkin, actor.Unit.ClothingColor);
-
-            base.Configure(sprite, actor);
-        }
-    }
-
-    class GenericTop6 : MainClothing
-    {
-        public GenericTop6()
-        {
-            DiscardSprite = State.GameManager.SpriteDictionary.Avians4[88];
-            femaleOnly = true;
-            coversBreasts = false;
-            blocksDick = false;
-            clothing1 = new SpriteExtraInfo(18, null, null);
             clothing2 = new SpriteExtraInfo(17, null, null);
             clothing3 = new SpriteExtraInfo(17, null, null);
-            Type = 1588;
+            Type = 1574;
             DiscardUsesPalettes = true;
         }
 
@@ -2224,24 +2293,31 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.Unit.Furry)
             {
+                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.AviansSkin, actor.Unit.ClothingColor);
+                blocksBreasts = false;
+                clothing2.GetSprite = null;
+                clothing3.GetSprite = null;
                 if (Races.DemiDragons.oversize)
                 {
-                    clothing1.GetSprite = null;
+                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[91];
+                    clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[142];
                 }
                 else if (actor.Unit.HasBreasts)
                 {
-                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[103 + actor.Unit.BreastSize];
+                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[83 + actor.Unit.BreastSize];
+                    clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[92 + actor.Unit.BreastSize];
                 }
                 else
                 {
                     breastSprite = null;
                     clothing1.GetSprite = null;
+                    clothing2.GetSprite = null;
                 }
-
-                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.AviansSkin, actor.Unit.ClothingColor);
+                clothing2.GetPalette = (s) => null;
             }
             else
             {
+                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Clothing50Spaced, actor.Unit.ClothingColor);
                 if (Races.DemiDragons.oversize)
                 {
                     clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[65];
@@ -2283,7 +2359,93 @@ class DemiDragons : DefaultRaceData
                     clothing3.GetSprite = null;
                 }
 
-                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.Clothing50Spaced, actor.Unit.ClothingColor);
+                clothing2.GetPalette = (s) => FurryColorInner(s);
+                clothing3.GetPalette = (s) => FurryColorInner(s);
+            }
+
+                base.Configure(sprite, actor);
+        }
+    }
+
+    class GenericTop6 : MainClothing
+    {
+        public GenericTop6()
+        {
+            DiscardSprite = State.GameManager.SpriteDictionary.Avians4[88];
+            femaleOnly = true;
+            coversBreasts = false;
+            blocksDick = false;
+            clothing1 = new SpriteExtraInfo(18, null, null);
+            clothing2 = new SpriteExtraInfo(17, null, null);
+            clothing3 = new SpriteExtraInfo(17, null, null);
+            Type = 1588;
+            DiscardUsesPalettes = true;
+        }
+
+        public override void Configure(CompleteSprite sprite, Actor_Unit actor)
+        {
+            if (actor.Unit.Furry)
+            {
+                if (Races.DemiDragons.oversize)
+                {
+                    clothing1.GetSprite = null;
+                }
+                else if (actor.Unit.HasBreasts)
+                {
+                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[103 + actor.Unit.BreastSize];
+                }
+                else
+                {
+                    breastSprite = null;
+                    clothing1.GetSprite = null;
+                }
+
+                clothing1.GetPalette = (s) => ColorPaletteMap.GetPalette(ColorPaletteMap.SwapType.AviansSkin, actor.Unit.ClothingColor);
+            }
+            else
+            {
+                clothing1.GetPalette = (s) => null;
+                if (Races.DemiDragons.oversize)
+                {
+                    clothing1.GetSprite = (s) => null;
+                    blocksBreasts = false;
+                    clothing2.GetSprite = null;
+                    clothing3.GetSprite = null;
+                }
+                else if (actor.Unit.HasBreasts)
+                {
+                    blocksBreasts = true;
+                    clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.HumenFundertops[8 + actor.Unit.BreastSize];
+                    if (actor.Unit.BreastSize == 3)
+                    {
+                        clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[64];
+                        clothing3.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[67];
+                    }
+                    else if (actor.Unit.BreastSize == 4)
+                    {
+                        clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[65];
+                        clothing3.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[68];
+                    }
+                    else if (actor.Unit.BreastSize == 5)
+                    {
+                        clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[66];
+                        clothing3.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[69];
+                    }
+                    else
+                    {
+                        clothing2.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[0 + actor.Unit.BreastSize];
+                        clothing3.GetSprite = (s) => State.GameManager.SpriteDictionary.HumansVoreSprites[32 + actor.Unit.BreastSize];
+                    }
+                }
+                else
+                {
+                    blocksBreasts = true;
+                    breastSprite = null;
+                    clothing1.GetSprite = null;
+                    clothing2.GetSprite = null;
+                    clothing3.GetSprite = null;
+                }
+
                 clothing2.GetPalette = (s) => FurryColorInner(s);
                 clothing3.GetPalette = (s) => FurryColorInner(s);
             }
@@ -2311,6 +2473,8 @@ class DemiDragons : DefaultRaceData
         {
             if (actor.Unit.Furry)
             {
+                clothing2.GetSprite = null;
+                clothing3.GetSprite = null;
                 if (Races.DemiDragons.oversize)
                 {
                     clothing1.GetSprite = (s) => State.GameManager.SpriteDictionary.DemidragonClothes[135];
@@ -2370,8 +2534,8 @@ class DemiDragons : DefaultRaceData
                     clothing3.GetSprite = null;
                 }
 
-                clothing2.GetPalette = (s) => FurryColorInner(s);
-                clothing3.GetPalette = (s) => FurryColorInner(s);
+                clothing2.GetPalette = (s) => null;
+                clothing3.GetPalette = (s) => null;
             }
 
             base.Configure(sprite, actor);
@@ -2494,6 +2658,8 @@ class DemiDragons : DefaultRaceData
                 clothing1.GetSprite = null;
                 clothing2.GetSprite = null;
             }
+            clothing1.GetPalette = (s) => FurryColorInner(s);
+            clothing2.GetPalette = (s) => FurryColorInner(s);
 
             base.Configure(sprite, actor);
         }

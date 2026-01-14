@@ -124,6 +124,7 @@
     Trex = 159,
     Utahraptor = 160,
     Iliijiith = 161,
+    Pudding = 162,
 
     Selicia = 170,
     Vision = 171,

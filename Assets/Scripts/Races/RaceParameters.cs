@@ -996,7 +996,8 @@ static class RaceParameters
             RacialTraits = new List<Traits>()
         {
                 Traits.KeenShot,
-                Traits.Featherweight
+                Traits.Featherweight,
+                Traits.Flight,
         },
             RaceDescription = "A highly eclectic people, large amounts of \"Avian\" culture are actually derived from other peoples and races. This can largely be credited to their having started late. By the time the Avians properly entered the civilizational stage, most other races had already entered. Now, the Avians are eager to continue adding others to themselves. And if the Avians can't merge your culture into their own, they may instead opt to merge your body into their body fat.",
         };
@@ -1314,15 +1315,17 @@ static class RaceParameters
 
         DemiDragons = new RaceTraits()
         {
-            BodySize = 12,
-            StomachSize = 15,
+            BodySize = 15,
+            StomachSize = 20,
             HasTail = false,
-            FavoredStat = Stat.Agility,
+            FavoredStat = Stat.Mind,
             DeployCost = 1,
-            Upkeep = 4f,
+            Upkeep = 5f,
             RacialTraits = new List<Traits>()
         {
-
+                Traits.Flight,
+                Traits.NaturalCaster,
+                Traits.StrongGullet,
         },
             RaceDescription = "Dragon goes brrr",
         };

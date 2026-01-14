@@ -756,6 +756,16 @@ public class Unit
             if (rand == 1) InnateSpells.Add(SpellTypes.Pyre);
             if (rand == 2) InnateSpells.Add(SpellTypes.LightningBolt);
         }
+
+        if (HasTrait(Traits.NaturalCaster))
+        {
+            int rand = State.Rand.Next(5);
+            if (rand == 0) InnateSpells.Add(SpellTypes.Icicle);
+            if (rand == 1) InnateSpells.Add(SpellTypes.Fireball);
+            if (rand == 2) InnateSpells.Add(SpellTypes.LightningBolt);
+            if (rand == 3) InnateSpells.Add(SpellTypes.PowerBolt);
+            if (rand == 4) InnateSpells.Add(SpellTypes.Poison);
+        }
         if (race == Race.Fairies)
         {
             FairyUtil.SetSeason(this, FairyUtil.GetSeason(this)); //To establish the spell properly
