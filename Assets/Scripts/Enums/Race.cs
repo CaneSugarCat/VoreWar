@@ -42,6 +42,7 @@
     Jackals  = 37,
     Ghosts = 38,
     DemiDragons = 39,
+    Yordles = 40,
 
     Succubi = 50,
     Tigers = 51,

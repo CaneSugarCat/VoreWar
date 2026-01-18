@@ -44,6 +44,7 @@
     static internal Jackals Jackals = new Jackals();
     static internal Ghosts Ghosts = new Ghosts();
     static internal DemiDragons DemiDragons = new DemiDragons();
+    static internal Yordles Yordles = new Yordles();
 
 
     static internal Tigers Tigers = new Tigers();
@@ -451,6 +452,8 @@
                 return Ghosts;
             case Race.DemiDragons:
                 return DemiDragons;
+            case Race.Yordles:
+                return Yordles;
             case Race.WoodDryad:
                 return WoodDryad;
             case Race.EarthDryad:

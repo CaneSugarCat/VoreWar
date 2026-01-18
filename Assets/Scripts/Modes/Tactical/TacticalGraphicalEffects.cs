@@ -199,6 +199,13 @@ static class TacticalGraphicalEffects
             else if (weapon.Graphic == 6)
                 return State.GameManager.SpriteDictionary.Bears[36];
         }
+        else if (actor.Unit.Race == Race.Yordles)
+        {
+            if (weapon.Graphic == 4)
+                return State.GameManager.SpriteDictionary.YordlesCustomization2[189];
+            else if (weapon.Graphic == 6)
+                return State.GameManager.SpriteDictionary.YordlesCustomization2[190];
+        }
         return null;
     }
 

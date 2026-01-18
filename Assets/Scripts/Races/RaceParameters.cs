@@ -145,6 +145,7 @@ static class RaceParameters
     static readonly RaceTraits Utahraptor;
     static readonly RaceTraits Ghosts;
     static readonly RaceTraits DemiDragons;
+    static readonly RaceTraits Yordles;
     static readonly RaceTraits WoodDryad;
     static readonly RaceTraits EarthDryad;
     static readonly RaceTraits RiverDryad;
@@ -452,6 +453,8 @@ static class RaceParameters
                 return Ghosts;
             case Race.DemiDragons:
                 return DemiDragons;
+            case Race.Yordles:
+                return Yordles;
             case Race.WoodDryad:
                 return WoodDryad;
             case Race.EarthDryad:
@@ -1328,6 +1331,23 @@ static class RaceParameters
                 Traits.StrongGullet,
         },
             RaceDescription = "Dragon goes brrr",
+        };
+
+        Yordles = new RaceTraits()
+        {
+            BodySize = 8,
+            StomachSize = 15,
+            HasTail = false,
+            FavoredStat = Stat.Mind,
+            DeployCost = 1,
+            Upkeep = 5f,
+            RacialTraits = new List<Traits>()
+        {
+                Traits.Flight,
+                Traits.NaturalCaster,
+                Traits.StrongGullet,
+        },
+            RaceDescription = "Your honor,League of Legends.",
         };
 
         Centaur = new RaceTraits()

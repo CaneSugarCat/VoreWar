@@ -292,6 +292,14 @@ public class SpriteDictionary : MonoBehaviour
     public Sprite[] DemidragonPatterns2;
     public Sprite[] DemidragonBelliesBalls;
 
+    public Sprite[] YordlesBodies;
+    public Sprite[] YordlesVoreSkin;
+    public Sprite[] YordlesVoreFur;
+    public Sprite[] YordlesCustomization1;
+    public Sprite[] YordlesCustomization2;
+    public Sprite[] YordleClothes1;
+    public Sprite[] YordleClothes2;
+
     [Header("Unique Mercenaries")]
     public Sprite[] Selicia;
     public Sprite[] Vision;
