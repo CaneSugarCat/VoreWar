@@ -56,6 +56,7 @@ static class RaceParameters
     static readonly RaceTraits Vargul;
     static readonly RaceTraits Hamsters;
     static readonly RaceTraits RwuMercenaries;
+    static readonly RaceTraits OoviKat;
     static readonly RaceTraits Vagrants;
     static readonly RaceTraits Serpents;
     static readonly RaceTraits Wyvern;
@@ -401,6 +402,8 @@ static class RaceParameters
                 return Gnolls;
             case Race.Centaur:
                 return Centaur;
+            case Race.OoviKat:
+                return OoviKat;
             case Race.FeralSlime:
                 return FeralSlime;
             case Race.Olivia:
@@ -1722,6 +1725,36 @@ static class RaceParameters
         Hamsters = new RaceTraits()
         {
             BodySize = 12,
+            StomachSize = 20,
+            HasTail = true,
+            FavoredStat = Stat.Strength,
+            DeployCost = 1,
+            Upkeep = 5f,
+            PowerAdjustment = 1.4f,
+            RaceStats = new RaceStats()
+            {
+                Strength = new RaceStats.StatRange(18, 26),
+                Dexterity = new RaceStats.StatRange(10, 14),
+                Endurance = new RaceStats.StatRange(17, 23),
+                Mind = new RaceStats.StatRange(8, 16),
+                Will = new RaceStats.StatRange(8, 16),
+                Agility = new RaceStats.StatRange(8, 10),
+                Voracity = new RaceStats.StatRange(8, 12),
+                Stomach = new RaceStats.StatRange(12, 18),
+            },
+            RacialTraits = new List<Traits>()
+        {
+            Traits.StrongMelee,
+            Traits.PackStrength,
+            Traits.Resilient,
+            Traits.Biter,
+        },
+            RaceDescription = "A race renowned for their excellent smithing and startling strength despite their stature. Their settlements have rarely been seen above ground however, they are known to have ginormous kingdoms underground that dwarf most other faction's capitals.",
+        };
+
+        OoviKat = new RaceTraits()
+        {
+            BodySize = 15,
             StomachSize = 20,
             HasTail = true,
             FavoredStat = Stat.Strength,

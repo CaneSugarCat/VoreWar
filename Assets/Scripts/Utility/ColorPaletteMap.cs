@@ -138,6 +138,8 @@ public static class ColorPaletteMap
         DemidragonSkin,
         YordleSkin,
         YordleEyes,
+        OoviKatMain,
+        OoviKatBright,
     }
 
     static Dictionary<SwapType, List<ColorSwapPalette>> Swaps;
@@ -322,6 +324,8 @@ public static class ColorPaletteMap
         List<ColorSwapPalette> DemidragonSkinSwaps = WireUp(SwapType.DemidragonSkin);
         List<ColorSwapPalette> YordleSkinSwaps = WireUp(SwapType.YordleSkin);
         List<ColorSwapPalette> YordleEyeSwaps = WireUp(SwapType.YordleEyes);
+        List<ColorSwapPalette> OoviKatMainSwaps = WireUp(SwapType.OoviKatMain);
+        List<ColorSwapPalette> OoviKatBrightSwaps = WireUp(SwapType.OoviKatBright);
 
         int[] NormalIndexes = { 81, 153, 198, 229, 255 };
         Texture2D map = State.GameManager.PaletteDictionary.SimpleHair;
@@ -2438,6 +2442,44 @@ public static class ColorPaletteMap
             };
             ColorSwapPalette swap = new ColorSwapPalette(swapDict);
             YordleEyeSwaps.Add(swap);
+        }
+
+
+        map = State.GameManager.PaletteDictionary.OoviKatMain;
+        for (int pixelY = 0; pixelY < map.height; pixelY++)
+        {
+            Dictionary<int, Color> swapDict = new Dictionary<int, Color>
+            {
+                [25] = map.GetPixel(0, pixelY),
+                [43] = map.GetPixel(8, pixelY),
+                [50] = map.GetPixel(1, pixelY),
+                [75] = map.GetPixel(2, pixelY),
+                [100] = map.GetPixel(3, pixelY),
+                [125] = map.GetPixel(4, pixelY),
+                [150] = map.GetPixel(5, pixelY),
+                [175] = map.GetPixel(6, pixelY),
+                [200] = map.GetPixel(7, pixelY),
+            };
+            ColorSwapPalette swap = new ColorSwapPalette(swapDict);
+            OoviKatMainSwaps.Add(swap);
+        }
+
+        map = State.GameManager.PaletteDictionary.OoviKatBright;
+        for (int pixelY = 0; pixelY < map.height; pixelY++)
+        {
+            Dictionary<int, Color> swapDict = new Dictionary<int, Color>
+            {
+                [25] = map.GetPixel(0, pixelY),
+                [50] = map.GetPixel(1, pixelY),
+                [75] = map.GetPixel(2, pixelY),
+                [100] = map.GetPixel(3, pixelY),
+                [125] = map.GetPixel(4, pixelY),
+                [150] = map.GetPixel(5, pixelY),
+                [175] = map.GetPixel(6, pixelY),
+                [200] = map.GetPixel(7, pixelY),
+            };
+            ColorSwapPalette swap = new ColorSwapPalette(swapDict);
+            OoviKatBrightSwaps.Add(swap);
         }
 
         map = State.GameManager.PaletteDictionary.UmbreonSkin;

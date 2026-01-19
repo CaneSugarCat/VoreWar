@@ -23,6 +23,11 @@ abstract class DefaultRaceData
     internal SpriteExtraInfo BodyAccent13;
     internal SpriteExtraInfo BodyAccent14;
     internal SpriteExtraInfo BodyAccent15;
+    internal SpriteExtraInfo BodyAccent16;
+    internal SpriteExtraInfo BodyAccent17;
+    internal SpriteExtraInfo BodyAccent18;
+    internal SpriteExtraInfo BodyAccent19;
+    internal SpriteExtraInfo BodyAccent20;
     internal SpriteExtraInfo Mouth;
     internal SpriteExtraInfo Hair;
     internal SpriteExtraInfo Hair2;
@@ -899,6 +904,11 @@ abstract class DefaultRaceData
     protected virtual Sprite BodyAccentSprite13(Actor_Unit actor) => null;
     protected virtual Sprite BodyAccentSprite14(Actor_Unit actor) => null;
     protected virtual Sprite BodyAccentSprite15(Actor_Unit actor) => null;
+    protected virtual Sprite BodyAccentSprite16(Actor_Unit actor) => null;
+    protected virtual Sprite BodyAccentSprite17(Actor_Unit actor) => null;
+    protected virtual Sprite BodyAccentSprite18(Actor_Unit actor) => null;
+    protected virtual Sprite BodyAccentSprite19(Actor_Unit actor) => null;
+    protected virtual Sprite BodyAccentSprite20(Actor_Unit actor) => null;
     protected virtual Sprite SecondaryBreastsSprite(Actor_Unit actor) => null;
     protected virtual Sprite SecondaryBellySprite(Actor_Unit actor) => null;
 

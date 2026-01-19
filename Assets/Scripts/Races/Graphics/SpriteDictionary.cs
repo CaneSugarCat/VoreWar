@@ -222,6 +222,9 @@ public class SpriteDictionary : MonoBehaviour
     public Sprite[] RwuMercenaries8a;
     public Sprite[] RwuMercenaries8b;
     public Sprite[] Equaleon;
+    public Sprite[] OoviKatFemale;
+    public Sprite[] OoviKatMale;
+    public Sprite[] OoviKatCustomisation;
     public Sprite[] CowsSeliciaBelly;
 
     public Sprite[] PantherBase;

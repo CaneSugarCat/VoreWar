@@ -20,6 +20,11 @@ public enum SpriteType
     BodyAccent13,
     BodyAccent14,
     BodyAccent15,
+    BodyAccent16,
+    BodyAccent17,
+    BodyAccent18,
+    BodyAccent19,
+    BodyAccent20,
     Hair,
     Hair2,
     Hair3,
@@ -321,6 +326,11 @@ class CompleteSprite
         SetSprite(SpriteType.BodyAccent13, race.BodyAccent13);
         SetSprite(SpriteType.BodyAccent14, race.BodyAccent14);
         SetSprite(SpriteType.BodyAccent15, race.BodyAccent15);
+        SetSprite(SpriteType.BodyAccent16, race.BodyAccent16);
+        SetSprite(SpriteType.BodyAccent17, race.BodyAccent17);
+        SetSprite(SpriteType.BodyAccent18, race.BodyAccent18);
+        SetSprite(SpriteType.BodyAccent19, race.BodyAccent19);
+        SetSprite(SpriteType.BodyAccent20, race.BodyAccent20);
         SetSprite(SpriteType.BodyAccessory, race.BodyAccessory);
         SetSprite(SpriteType.Hair, race.Hair);
         SetSprite(SpriteType.Hair2, race.Hair2);
@@ -416,6 +426,11 @@ class CompleteSprite
         UpdatePosition(SpriteType.BodyAccent13, race.BodyAccent13);
         UpdatePosition(SpriteType.BodyAccent14, race.BodyAccent14);
         UpdatePosition(SpriteType.BodyAccent15, race.BodyAccent15);
+        UpdatePosition(SpriteType.BodyAccent16, race.BodyAccent16);
+        UpdatePosition(SpriteType.BodyAccent17, race.BodyAccent17);
+        UpdatePosition(SpriteType.BodyAccent18, race.BodyAccent18);
+        UpdatePosition(SpriteType.BodyAccent19, race.BodyAccent19);
+        UpdatePosition(SpriteType.BodyAccent20, race.BodyAccent20);
         UpdatePosition(SpriteType.BodyAccessory, race.BodyAccessory);
         UpdatePosition(SpriteType.Hair, race.Hair);
         UpdatePosition(SpriteType.Hair2, race.Hair2);

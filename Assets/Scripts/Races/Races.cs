@@ -63,6 +63,7 @@
     static internal Centaur Centaur = new Centaur();
     static internal Eevee Eevee = new Eevee();
     static internal Equaleon Equaleon = new Equaleon();
+    static internal OoviKat OoviKat = new OoviKat();
 
     static internal Vagrants Vagrants = new Vagrants();
     static internal Serpents Serpents = new Serpents();
@@ -418,6 +419,8 @@
                 return Lupine;
             case Race.Equaleon:
                 return Equaleon;
+            case Race.OoviKat:
+                return OoviKat;
             case Race.Viisels:
                 return Viisels;
             case Race.FeralEevee:

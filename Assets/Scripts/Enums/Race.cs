@@ -62,6 +62,7 @@
     Centaur = 65,
     Eevee = 66,
     Equaleon = 67,
+    OoviKat = 77,
 
     Vagrants = 100,
     Serpents = 101,
