@@ -143,6 +143,7 @@ static class RaceParameters
     static readonly RaceTraits SpaceCroach;
     static readonly RaceTraits Trex;
     static readonly RaceTraits Utahraptor;
+    static readonly RaceTraits Pudding;
     static readonly RaceTraits Ghosts;
     static readonly RaceTraits DemiDragons;
     static readonly RaceTraits WoodDryad;
@@ -464,6 +465,8 @@ static class RaceParameters
                 return Trex;
             case Race.Utahraptor:
                 return Utahraptor;
+            case Race.Pudding:
+                return Pudding;
             case (Race)700: //Singled out so that it doesn't make the debug message
                 return Default;
             case (Race)701:
@@ -3714,6 +3717,38 @@ static class RaceParameters
         };
 
         Utahraptor = new RaceTraits()
+        {
+            BodySize = 30,
+            StomachSize = 30,
+            HasTail = false,
+            FavoredStat = Stat.Strength,
+            AllowedVoreTypes = new List<VoreType> { VoreType.Oral, VoreType.Anal, VoreType.CockVore, VoreType.Unbirth },
+            ExpMultiplier = 4f,
+            PowerAdjustment = 2f,
+            DeployCost = 2,
+            Upkeep = 5f,
+            RaceStats = new RaceStats()
+            {
+                Strength = new RaceStats.StatRange(15, 20),
+                Dexterity = new RaceStats.StatRange(8, 12),
+                Endurance = new RaceStats.StatRange(15, 20),
+                Mind = new RaceStats.StatRange(10, 14),
+                Will = new RaceStats.StatRange(10, 14),
+                Agility = new RaceStats.StatRange(12, 18),
+                Voracity = new RaceStats.StatRange(14, 20),
+                Stomach = new RaceStats.StatRange(14, 20),
+            },
+            RacialTraits = new List<Traits>()
+        {
+            Traits.Charge,
+            Traits.Pounce,
+            Traits.Biter,
+            Traits.BornToMove,
+        },
+            RaceDescription = "Utahraptors are much faster and more powerful thatn the usual raptors you see here and there.  More hungry too."
+        };
+
+        Pudding = new RaceTraits()
         {
             BodySize = 30,
             StomachSize = 30,
