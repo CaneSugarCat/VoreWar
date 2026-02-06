@@ -24,6 +24,7 @@ public static class State
     public static List<UnitTag> UnitTagList;
     public static Dictionary<Traits, List<int>> UnitTagAssociatedTraitDictionary;
     public static Dictionary<TaggedTrait, bool> UntaggedTraits;
+    public static Dictionary<int, Race> AdditionalEmpires;
 
     internal static EventList EventList;
 

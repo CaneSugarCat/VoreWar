@@ -61,7 +61,7 @@ static class Config
     public static float TacticalAttackDelay = 0.2f;
     public static float TacticalVoreDelay = 0.3f;
 
-    public static int MaxVillages => World.VillagesPerEmpire.Sum();
+    public static int MaxVillages => World.VillagesPerEmpire.Values.Sum();
 
     public static AutoAdvanceType AutoAdvance = AutoAdvanceType.AdvanceTurns;
     public static bool StopAtEndOfBattle = false;
@@ -119,7 +119,7 @@ static class Config
 
     public static bool KuroTenkoConvertsAllTypes = false;
 
-    public static bool[] CenteredEmpire = new bool[NumberOfRaces];
+    public static Dictionary<int,bool> CenteredEmpire = new Dictionary<int, bool>();
 
     public static int StartingGold;
 
@@ -128,7 +128,8 @@ static class Config
     internal static WorldConfig World = new WorldConfig();
 
 
-    internal static int[] VillagesPerEmpire => World.VillagesPerEmpire;
+    internal static Dictionary<int, int> VillagesPerEmpire => World.VillagesPerEmpire;
+    internal static Dictionary<int, Race> EmpireRaceByID => World.EmpireRaceByID;
 
     internal static MonsterConquestType MonsterConquest => World.MonsterConquest;
     internal static int MonsterConquestTurns => World.MonsterConquestTurns;

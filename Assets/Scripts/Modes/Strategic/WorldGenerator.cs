@@ -37,7 +37,7 @@ public class WorldGenerator
         public Vec2i Position;
         public int Index;
         public int UtilityScore;
-        public int[] ScoreForEmpire;
+        public Dictionary<int, int> ScoreForEmpire;
     }
 
     struct EmpireBuilder
@@ -49,7 +49,7 @@ public class WorldGenerator
 
 
 
-    public void GenerateWorld(ref StrategicTileType[,] tilesRef, ref Village[] villagesRef, int[] teams, MapGenArgs mapGenArgs)
+    public void GenerateWorld(ref StrategicTileType[,] tilesRef, ref Village[] villagesRef, Dictionary<int,int> teams, MapGenArgs mapGenArgs)
     {
         villageLocations = Config.MaxVillages + ExtraPadding + mapGenArgs.AbandonedVillages; //Padding to avoid the villages way outside of territory issue
         genArgs = mapGenArgs;
@@ -240,10 +240,10 @@ public class WorldGenerator
 
     }
 
-    private void AssignVillagesForManyEmpires(int[] teams, int abandonedVillages)
+    private void AssignVillagesForManyEmpires(Dictionary<int, int> teams, int abandonedVillages)
     {
-        int sides = Config.NumberOfRaces;
-        EmpireBuilder[] builders = new EmpireBuilder[sides];
+        int sides = teams.Count;
+        Dictionary<int, EmpireBuilder> builders = new Dictionary<int, EmpireBuilder>();
         villages = new Village[villageLocations];
         bool[] placed = new bool[villageLocations];
         VillageLocation site;
@@ -253,33 +253,30 @@ public class WorldGenerator
 
         if (Config.PutTeamsTogether)
         {
-            int[] remapped = new int[sides];
+            Dictionary <int, int> remapped = new Dictionary<int, int>();
             int temp = 0;
-            for (int i = 0; i < sides; i++)
-            {
-                if (Config.CenteredEmpire[i] == false && Config.VillagesPerEmpire[i] > 0)
-                {
-                    remapped[i] = temp;
-                    temp++;
-                }
-
-            }
             Vec2i[] newRegions = new Vec2i[capitalRegions.Length];
             int nextSlot = 0;
             List<int> usedTeams = new List<int>();
-            for (int i = 0; i < sides; i++)
+            foreach (var id in teams.Keys)
             {
-                if (Config.VillagesPerEmpire[i] > 0 && Config.CenteredEmpire[i] == false)
-                    usedTeams.Add(teams[i]);
+                if (Config.CenteredEmpire[id] == false && Config.VillagesPerEmpire[id] > 0)
+                {
+                    remapped.Add(id, temp);
+                    temp++;
+                }
+                if (Config.VillagesPerEmpire[id] > 0 && Config.CenteredEmpire[id] == false)
+                    usedTeams.Add(teams[id]);
             }
+
             usedTeams = usedTeams.Distinct().OrderBy(s => s).ToList();
             foreach (int team in usedTeams)
             {
-                for (int i = 0; i < sides; i++)
+                foreach (var id in teams.Keys)
                 {
-                    if (team == teams[i] && Config.VillagesPerEmpire[i] > 0 && Config.CenteredEmpire[i] == false)
+                    if (team == teams[id] && Config.VillagesPerEmpire[id] > 0 && Config.CenteredEmpire[id] == false)
                     {
-                        newRegions[remapped[i]] = capitalRegions[nextSlot];
+                        newRegions[remapped[id]] = capitalRegions[nextSlot];
                         nextSlot++;
                     }
                 }
@@ -300,14 +297,14 @@ public class WorldGenerator
 
 
 
-        bool[] active = new bool[sides];
+        Dictionary<int, bool> active = new Dictionary<int, bool>();
         int region = 0;
-        for (int i = 0; i < sides; i++)
+        foreach (var i in teams.Keys)
         {
             if (Config.VillagesPerEmpire[i] > 0)
             {
-                active[i] = true;
-                Race race = (Race)i;
+                active.Add(i, true);
+                Race race = Config.EmpireRaceByID[i];
                 if (Config.CenteredEmpire[i] == false)
                 {
                     site = sites.OrderBy(v => capitalRegions[region].GetDistance(v.Position)).Where(v => placed[v.Index] == false).FirstOrDefault();
@@ -320,75 +317,85 @@ public class WorldGenerator
 
                 villages[site.Index] = new Village(VillageName(race, 0), site.Position, site.UtilityScore, race, true);
                 placed[site.Index] = true;
-                builders[i].Race = race;
-                builders[i].Capital = villages[site.Index];
-                builders[i].RemainingVillages = Config.VillagesPerEmpire[i] - 1;
-
+                EmpireBuilder subbuilder = new EmpireBuilder();
+                subbuilder.Race = race;
+                subbuilder.Capital = villages[site.Index];
+                subbuilder.RemainingVillages = Config.VillagesPerEmpire[i] - 1;
+                builders.Add(i, subbuilder);
+            }
+            else
+            {
+                active.Add(i, false);
             }
         }
 
         List<VillageLocation> remainingVillages = new List<VillageLocation>();
         for (int i = 0; i < villageLocations; i++)
         {
-            sites[i].ScoreForEmpire = new int[sides];
+            sites[i].ScoreForEmpire = new Dictionary<int, int>();
             if (placed[i] == false)
             {
-                for (int q = 0; q < sides; q++)
+                foreach (var q in teams.Keys)
                 {
                     if (active[q])
-                        sites[i].ScoreForEmpire[q] = 400 - (int)Mathf.Pow(sites[i].Position.GetDistance(builders[q].Capital.Position), 2);
+                        sites[i].ScoreForEmpire.Add(q, 400 - (int)Mathf.Pow(sites[i].Position.GetDistance(builders[q].Capital.Position), 2));
                 }
-                int[] tempScore = new int[sides];
-                for (int j = 0; j < sides; j++)
+                Dictionary<int, int> tempScore = new Dictionary<int, int>();
+                foreach (var j in teams.Keys)
                 {
                     if (active[j])
                     {
-                        tempScore[j] = sites[i].ScoreForEmpire[j] * sides;
-                        for (int k = 0; k < sides; k++)
+                        tempScore.Add(j, sites[i].ScoreForEmpire[j] * sides);
+                        foreach (var k in teams.Keys)
                         {
                             if (j != k)
                             {
-                                tempScore[j] -= Mathf.Max(sites[i].ScoreForEmpire[k], 0);
+                                tempScore[j] = tempScore[j] - Mathf.Max(sites[i].ScoreForEmpire[k], 0);
                             }
                         }
                     }
                 }
-                for (int j = 0; j < sides; j++)
+                foreach (var j in teams.Keys)
                 {
-                    sites[i].ScoreForEmpire[j] = tempScore[j];
+                    if (sites[i].ScoreForEmpire.ContainsKey(j))
+                    {
+                        sites[i].ScoreForEmpire[j] = tempScore[j];
+                    }
+                    else
+                    {
+                        sites[i].ScoreForEmpire.Add(j, tempScore[j]);
+                    }
                 }
                 remainingVillages.Add(sites[i]);
             }
             else
                 CreateFarmland(i);
         }
-        int side = 0;
-        int[] nameIndex = new int[sides];
-        for (int i = 0; i < nameIndex.Length; i++)
+        Dictionary<int, int> nameIndex = new Dictionary<int, int>();
+        Dictionary<int, int> remainingIndex = new Dictionary<int, int>();
+        foreach (var team in teams.Keys)
         {
-            nameIndex[i] = 1;
+            nameIndex.Add(team, 1);
+            remainingIndex.Add(team, builders[team].RemainingVillages);
         }
         while (remainingVillages.Count > ExtraPadding)
         {
-            if (builders.Sum(s => s.RemainingVillages) == 0)
+            if (remainingIndex.Values.Sum() <= 0)
             {
                 Debug.Log("Couldn't properly place all the villages");
                 break;
             }
-
-            if (builders[side].RemainingVillages > 0)
+            foreach(var team in teams.Keys)
             {
-                VillageLocation newVillage = remainingVillages.OrderByDescending(s => s.ScoreForEmpire[side]).FirstOrDefault();
+                VillageLocation newVillage = remainingVillages.OrderByDescending(s => s.ScoreForEmpire[team]).FirstOrDefault();
                 int index = newVillage.Index;
-                villages[index] = new Village(VillageName(builders[side].Race, nameIndex[side]), sites[index].Position, sites[index].UtilityScore, builders[side].Race, false);
-                nameIndex[side]++;
-                builders[side].RemainingVillages -= 1;
+                villages[index] = new Village(VillageName(builders[team].Race, nameIndex[team]), sites[index].Position, sites[index].UtilityScore, builders[team].Race, false);
+                nameIndex[team]++;
+                remainingIndex[team] = remainingIndex[team] - 1;
                 remainingVillages.Remove(newVillage);
                 CreateFarmland(index);
             }
 
-
-            side = (side + 1) % sides;
         }
         for (int i = 0; i < abandonedVillages; i++)
         {
@@ -406,9 +413,9 @@ public class WorldGenerator
     Vec2i[] GetStartingPositions()
     {
         int nonCentralActiveSides = 0;
-        for (int i = 0; i < Config.VillagesPerEmpire.Length; i++)
+        foreach(var empire in Config.VillagesPerEmpire)
         {
-            if (Config.VillagesPerEmpire[i] > 0 && Config.CenteredEmpire[i] == false)
+            if (empire.Value > 0 && Config.CenteredEmpire[empire.Key] == false)
                 nonCentralActiveSides++;
         }
         return DrawCirclePoints(nonCentralActiveSides);

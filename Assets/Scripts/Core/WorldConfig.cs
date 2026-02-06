@@ -16,7 +16,9 @@ public class WorldConfig
     internal List<ConstructibleBuilding> BuildingInfo = new List<ConstructibleBuilding>();
 
     [OdinSerialize]
-    internal int[] VillagesPerEmpire = new int[Config.NumberOfRaces];
+    internal Dictionary<int,int> VillagesPerEmpire = new Dictionary<int, int>();
+
+    internal Dictionary<int,Race> EmpireRaceByID = new Dictionary<int, Race>();
 
 
     [OdinSerialize]

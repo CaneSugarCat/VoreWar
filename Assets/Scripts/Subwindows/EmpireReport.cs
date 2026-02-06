@@ -14,8 +14,7 @@ public class EmpireReport : MonoBehaviour
 
     bool pausedState = false;
 
-    const int GoblinNum = Config.NumberOfRaces;
-    const int FirstMonster = Config.NumberOfRaces + 1;
+    int GoblinNum => State.World.MainEmpires.Count();
 
     public void Open()
     {
@@ -24,13 +23,13 @@ public class EmpireReport : MonoBehaviour
         gameObject.SetActive(true);
         if (Reports == null)
         {
-            Reports = new EmpireReportItem[Config.NumberOfRaces + World.MonsterCount + 1];
+            Reports = new EmpireReportItem[GoblinNum + World.MonsterCount + 1];
             for (int i = 0; i < Reports.Length; i++)
             {
                 Reports[i] = Instantiate(ReportItemPrefab, ReportFolder).GetComponent<EmpireReportItem>();
             }
         }
-        for (int i = 0; i < Config.NumberOfRaces; i++)
+        for (int i = 0; i < State.World.MainEmpires.Count(); i++)
         {
             int side = i;
             Reports[i].Contact.onClick.RemoveAllListeners();

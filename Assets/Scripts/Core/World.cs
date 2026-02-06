@@ -62,8 +62,9 @@ public class World
     public World(bool MapEditorVersion)
     {
 
-        Config.World.VillagesPerEmpire = new int[Config.NumberOfRaces];
-        Config.CenteredEmpire = new bool[Config.NumberOfRaces];
+        Config.World.VillagesPerEmpire = new Dictionary<int, int>();
+        Config.World.EmpireRaceByID = new Dictionary<int, Race>();
+        Config.CenteredEmpire = new Dictionary<int, bool>();
         State.World = this;
         ConfigStorage = Config.World;
         BuildingConfigStorage = Config.BuildConfig;
@@ -98,7 +99,7 @@ public class World
         if (map == null)
         {
             WorldGenerator worldGen = new WorldGenerator();
-            int empireCount = Config.VillagesPerEmpire.Where(s => s > 0).Count();
+            int empireCount = Config.VillagesPerEmpire.Values.Where(s => s > 0).Count();
             worldGen.GenerateWorld(ref Tiles, ref Villages, args.Team, args.MapGen);
             Claimables = new ClaimableBuilding[0];
             Constructibles = new ConstructibleBuilding[0];
@@ -122,9 +123,9 @@ public class World
 
 
         MainEmpires = new List<Empire>();
-        for (int i = 0; i < Config.NumberOfRaces; i++)
+        foreach (var empire in Config.EmpireRaceByID)
         {
-            MainEmpires.Add(new Empire(args.empireArgs[i]));
+            MainEmpires.Add(new Empire(args.empireArgs[empire.Key]));
         }
         for (int i = 0; i < MainEmpires.Count; i++)
         {

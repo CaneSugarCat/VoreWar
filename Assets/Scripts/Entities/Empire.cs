@@ -14,6 +14,8 @@ public class Empire
     [OdinSerialize]
     public int Team;
     [OdinSerialize]
+    public int EmpireID;
+    [OdinSerialize]
     public int Side { get; private set; }
     [OdinSerialize]
     public Race Race;

@@ -30,7 +30,7 @@ class MapVillagePopulator
                 nameIndex[(int)race] = nameIndex[(int)race] + 1;
                 continue;
             }
-            if (Config.VillagesPerEmpire.Length < (int)map.storedVillages[i].Race)
+            if (Config.VillagesPerEmpire.Count < (int)map.storedVillages[i].Race)
                 continue;
             if (Config.VillagesPerEmpire[(int)map.storedVillages[i].Race] == 0)
                 continue;

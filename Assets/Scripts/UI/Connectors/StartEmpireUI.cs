@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class StartEmpireUI : MonoBehaviour
 {
+    public Text Name;
     public Toggle AIPlayer;
     public InputField VillageCount;
     public Dropdown StrategicAI;
@@ -17,6 +18,8 @@ public class StartEmpireUI : MonoBehaviour
     public Button RemoveButton;
 
     internal int LastColor;
+    internal int EmpireID;
+    internal Race RepresentedRace = Race.none;
 
     private void Start()
     {

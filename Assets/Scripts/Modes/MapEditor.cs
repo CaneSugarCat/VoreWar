@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using TMPro;
+using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -307,7 +308,7 @@ public class MapEditor : SceneBase
     void CatchUpEmpires()
     {
         bool changed = false;
-        for (int i = 0; i < Config.NumberOfRaces; i++)
+        for (int i = 0; i < State.World.MainEmpires.Count(); i++)
         {
             if (State.World.MainEmpires.Where(s => s.Side == i).Any() == false)
             {
@@ -319,7 +320,7 @@ public class MapEditor : SceneBase
         if (changed)
         {
             State.World.MainEmpires = State.World.MainEmpires.OrderBy(s => s.Side).ToList();
-            Config.World.VillagesPerEmpire = new int[Config.NumberOfRaces];
+            Config.World.VillagesPerEmpire = new Dictionary<int, int>();
             State.World.Stats.ExpandToIncludeNewRaces();
             State.World.RefreshTurnOrder();
         }
@@ -2213,16 +2214,27 @@ public class MapEditor : SceneBase
 
     private static void RefreshVillageCounts()
     {
-        if (Config.VillagesPerEmpire.Length != State.World.MainEmpires.Count)
-            Config.World.VillagesPerEmpire = new int[State.World.MainEmpires.Count];
-        for (int i = 0; i < State.World.MainEmpires.Count; i++)
+        if (Config.VillagesPerEmpire.Count != State.World.MainEmpires.Count)
+            Config.World.VillagesPerEmpire = new Dictionary<int, int>();
+        foreach (Empire empire in State.World.MainEmpires)
         {
-            Config.VillagesPerEmpire[i] = 0;
+            Config.VillagesPerEmpire.Add(empire.Side, 0);
         }
         foreach (Village vill in State.World.Villages)
         {
             if (vill.Race < Race.Succubi)
-                Config.VillagesPerEmpire[(int)vill.Race]++;
+            {
+                int id = vill.Empire.Side;
+                if (Config.VillagesPerEmpire.ContainsKey(id))
+                {
+                    Config.VillagesPerEmpire[id] = Config.VillagesPerEmpire[id] + 1;
+                }
+                else
+                {
+                    Config.VillagesPerEmpire.Add(id, 1);
+                }
+            }
+
         }
     }
 
