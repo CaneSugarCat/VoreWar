@@ -18,7 +18,7 @@ public class WorldConfig
     [OdinSerialize]
     internal Dictionary<int,int> VillagesPerEmpire = new Dictionary<int, int>();
 
-    internal Dictionary<int,Race> EmpireRaceByID = new Dictionary<int, Race>();
+    internal Dictionary<int,Race> EmpireRaceBySide = new Dictionary<int, Race>();
 
 
     [OdinSerialize]

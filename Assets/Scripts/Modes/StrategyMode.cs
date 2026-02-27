@@ -694,7 +694,7 @@ public class StrategyMode : SceneBase
             var monsterEmp = State.World.MonsterEmpires.Where(e => e.Race == army.Units.Where(u => u.FixedSide == finalSide.Key).FirstOrDefault()?.Race).FirstOrDefault();
             if (monsterEmp != null)
             {
-                Empire brandNewEmp = new MonsterEmpire(new Empire.ConstructionArgs(finalSide.Key, UnityEngine.Color.white, UnityEngine.Color.white, monsterEmp.BannerType, StrategyAIType.Monster, TacticalAIType.Full, 2000 + finalSide.Key, monsterEmp.MaxArmySize, 0));
+                Empire brandNewEmp = new MonsterEmpire(new Empire.ConstructionArgs(finalSide.Key, (Race)finalSide.Key, UnityEngine.Color.white, UnityEngine.Color.white, monsterEmp.BannerType, StrategyAIType.Monster, TacticalAIType.Full, 2000 + finalSide.Key, monsterEmp.MaxArmySize, 0));
                 brandNewEmp.ReplacedRace = monsterEmp.Race;
                 brandNewEmp.TurnOrder = 1234;
                 brandNewEmp.Name = "Unbound " + monsterEmp.Name;
@@ -707,7 +707,7 @@ public class StrategyMode : SceneBase
             }
             else
             {
-                Empire brandNewEmp = new Empire(new Empire.ConstructionArgs(finalSide.Key, UnityEngine.Random.ColorHSV(), UnityEngine.Random.ColorHSV(), 5, StrategyAIType.Advanced, TacticalAIType.Full, 2000 + finalSide.Key, State.World.MainEmpires[0].MaxArmySize, 0));
+                Empire brandNewEmp = new Empire(new Empire.ConstructionArgs(finalSide.Key, Race.none, UnityEngine.Random.ColorHSV(), UnityEngine.Random.ColorHSV(), 5, StrategyAIType.Advanced, TacticalAIType.Full, 2000 + finalSide.Key, State.World.MainEmpires[0].MaxArmySize, 0));
                 brandNewEmp.ReplacedRace = army.Units.Where(u => u.FixedSide == finalSide.Key).First().Race;
                 brandNewEmp.TurnOrder = 1432;
                 brandNewEmp.Name = "The Free";
@@ -2184,7 +2184,7 @@ public class StrategyMode : SceneBase
 
         empire.CalcIncome(State.World.Villages, true);
         empire.AddGold(empire.Income);
-        if (empire.Side >= 50)
+        if (empire.Side >= 700)
         {
             if (empire.Gold < 0)
                 empire.AddGold(-empire.Gold);

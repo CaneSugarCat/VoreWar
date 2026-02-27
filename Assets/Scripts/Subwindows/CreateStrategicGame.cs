@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Utility.Stored;
 using MapObjects;
+using Newtonsoft.Json.Linq;
 using OdinSerializer;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,7 @@ public class CreateStrategicGame : MonoBehaviour
     public StartEmpireUI AllEmpires;
 
     public StartEmpireUI EmpiresPrefab;
+    //public CustomStartEmpireUI CustomEmpiresPrefab;
     public Transform EmpireFolder;
 
     public List<StartEmpireUI> Empires;
@@ -127,6 +129,8 @@ public class CreateStrategicGame : MonoBehaviour
 
     public InputField AbandonedVillages;
 
+
+    public CustomEmpirePopup EmpirePopup;
 
     public RacePanel RaceUI;
 
@@ -514,23 +518,200 @@ public class CreateStrategicGame : MonoBehaviour
         return "";
     }
 
-    void AssignUnusedTurnOrders()
+    void AssignUnusedTeamAndTurnOrders(StartEmpireUI item)
     {
-        int lastIndex = Empires.Count - 1;
+        int turnOrder = 1;
 
-        for (int i = Empires.Count - 1; i >= 0; i--)
+        foreach (var empire in Empires)
         {
-            if (int.TryParse(Empires[i].VillageCount.text, out int result))
-            {
-                if (result <= 0)
-                {
-                    lastIndex--;
-                }
-            }
-
+            int.TryParse(empire.TurnOrder.text, out int result);
+            if (turnOrder >= result)
+                turnOrder++; //Try next value
+            else
+                break;
         }
 
+        item.TurnOrder.text = turnOrder.ToString();
+        item.Team.text = turnOrder.ToString();
+    }
 
+    void AssignDefaultColors(StartEmpireUI item)
+    {
+        int racePrim = 1;
+        int raceSec = 1;
+
+        switch (item.RepresentedRace)
+        {
+            case Race.none:
+                break;
+            case Race.Cats:
+                racePrim = 2;
+                raceSec = 4;
+                break;
+            case Race.Dogs:
+                racePrim = 0;
+                raceSec = 10;
+                break;
+            case Race.Foxes:
+                racePrim = 2;
+                raceSec = 14;
+                break;
+            case Race.Wolves:
+                racePrim = 1;
+                raceSec = 0;
+                break;
+            case Race.Bunnies:
+                racePrim = 10;
+                raceSec = 5;
+                break;
+            case Race.Lizards:
+                racePrim = 5;
+                raceSec = 5;
+                break;
+            case Race.Slimes:
+                racePrim = 9;
+                raceSec = 6;
+                break;
+            case Race.Scylla:
+                racePrim = 7;
+                raceSec = 0;
+                break;
+            case Race.Harpies:
+                racePrim = 10;
+                raceSec = 12;
+                break;
+            case Race.Imps:
+                racePrim = 1;
+                raceSec = 11;
+                break;
+            case Race.Humans:
+                racePrim = 2;
+                raceSec = 6;
+                break;
+            case Race.Crypters:
+                racePrim = 11;
+                raceSec = 10;
+                break;
+            case Race.Lamia:
+                racePrim = 5;
+                raceSec = 11;
+                break;
+            case Race.Kangaroos:
+                racePrim = 13;
+                raceSec = 2;
+                break;
+            case Race.Taurus:
+                racePrim = 14;
+                raceSec = 3;
+                break;
+            case Race.Crux:
+                racePrim = 4;
+                raceSec = 10;
+                break;
+            case Race.Equines:
+                racePrim = 14;
+                raceSec = 5;
+                break;
+            case Race.Sergal:
+                racePrim = 13;
+                raceSec = 14;
+                break;
+            case Race.Bees:
+                racePrim = 3;
+                raceSec = 11;
+                break;
+            case Race.Driders:
+                racePrim = 11;
+                raceSec = 6;
+                break;
+            case Race.Alraune:
+                racePrim = 1;
+                raceSec = 9;
+                break;
+            case Race.Bats:
+                racePrim = 8;
+                raceSec = 11;
+                break;
+            case Race.Panthers:
+                racePrim = 16;
+                raceSec = 14;
+                break;
+            case Race.Merfolk:
+                racePrim = 5;
+                raceSec = 0;
+                break;
+            case Race.Avians:
+                racePrim = 12;
+                raceSec = 0;
+                break;
+            case Race.Ants:
+                racePrim = 14;
+                raceSec = 9;
+                break;
+            case Race.Frogs:
+                racePrim = 3;
+                raceSec = 9;
+                break;
+            case Race.Sharks:
+                racePrim = 10;
+                raceSec = 11;
+                break;
+            case Race.Deer:
+                racePrim = 9;
+                raceSec = 14;
+                break;
+            case Race.Aabayx:
+                racePrim = 10;
+                raceSec = 4;
+                break;
+            case Race.Mice:
+                racePrim = 10;
+                raceSec = 16;
+                break;
+            case Race.MatronsMinions:
+                racePrim = 10;
+                raceSec = 11;
+                break;
+            case Race.Gnolls:
+                racePrim = 10;
+                raceSec = 11;
+                break;
+            case Race.MainlandElves:
+                racePrim = 5;
+                raceSec = 14;
+                break;
+            case Race.Bears:
+                racePrim = 10;
+                raceSec = 16;
+                break;
+            case Race.Umbreon:
+                racePrim = 3;
+                raceSec = 11;
+                break;
+            case Race.Lupine:
+                racePrim = 12;
+                raceSec = 16;
+                break;
+            case Race.Jackals:
+                racePrim = 10;
+                raceSec = 12;
+                break;
+            case Race.Ghosts:
+                racePrim = 2;
+                raceSec = 11;
+                break;
+            case Race.DemiDragons:
+                racePrim = 1;
+                raceSec = 8;
+                break;
+            default:
+                racePrim = 1;
+                raceSec = 1;
+                break;
+        }
+
+        item.PrimaryColor.value = racePrim;
+        item.SecondaryColor.value = raceSec;
     }
 
 
@@ -539,13 +720,13 @@ public class CreateStrategicGame : MonoBehaviour
         State.GameManager.Menu.Options.LoadFromStored();
         State.GameManager.Menu.CheatMenu.LoadFromStored();
         Config.World.VillagesPerEmpire = new Dictionary<int, int>();
-        Config.World.EmpireRaceByID = new Dictionary<int, Race>();
+        Config.World.EmpireRaceBySide = new Dictionary<int, Race>();
         try
         {
             foreach (var empire in Empires)
             {
                 Config.VillagesPerEmpire.Add(empire.EmpireID,Convert.ToInt32(empire.VillageCount.text));
-                Config.EmpireRaceByID.Add(empire.EmpireID, empire.RepresentedRace);
+                Config.EmpireRaceBySide.Add(empire.EmpireID, empire.RepresentedRace);
             }
             Config.World.SoftLevelCap = Convert.ToInt32(SoftLevelCap.text);
             Config.World.HardLevelCap = Convert.ToInt32(HardLevelCap.text);
@@ -731,6 +912,10 @@ public class CreateStrategicGame : MonoBehaviour
         }
         for (int i = 0; i < Config.NumberOfRaces; i++)
         {
+            if (Empires.Any(s => s.RepresentedRace == (Race)i && Config.NumberOfRaces > s.EmpireID))
+            {
+                continue;
+            }
             GameObject obj = Instantiate(RaceUI.RaceUnitPanel, RaceUI.RaceFolder);
             UIUnitSprite sprite = obj.GetComponentInChildren<UIUnitSprite>();
             Actor_Unit actor = new Actor_Unit(new Vec2i(0, 0), new Unit(1, (Race)i, 0, true));
@@ -748,6 +933,29 @@ public class CreateStrategicGame : MonoBehaviour
             button.onClick.AddListener(() => AddRace(temp));
             button.onClick.AddListener(() => Destroy(obj));
         }
+        foreach (var addempire in State.AdditionalEmpires)
+        {
+            if (Empires.Any(s => s.EmpireID == addempire.Key))
+            {
+                continue;
+            }
+            GameObject obj = Instantiate(RaceUI.RaceUnitPanel, RaceUI.RaceFolder);
+            UIUnitSprite sprite = obj.GetComponentInChildren<UIUnitSprite>();
+            Actor_Unit actor = new Actor_Unit(new Vec2i(0, 0), new Unit(1, addempire.Value, 0, true));
+            TextMeshProUGUI text = obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI dcosttext = obj.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI upkeeptext = obj.transform.GetChild(5).GetComponent<TextMeshProUGUI>();
+            obj.GetComponentInChildren<UnitInfoPanel>().Unit = actor.Unit;
+            var racePar = RaceParameters.GetTraitData(actor.Unit);
+            text.text = $"{addempire.Value}\nBody Size: {State.RaceSettings.GetBodySize(actor.Unit.Race)}\nBase Stomach Size: {State.RaceSettings.GetStomachSize(actor.Unit.Race)}\nFavored Stat: {State.RaceSettings.GetFavoredStat(actor.Unit.Race)}\nDefault Traits:\n{State.RaceSettings.ListTraits(actor.Unit.Race)}";
+            sprite.UpdateSprites(actor);
+            dcosttext.text = (State.RaceSettings.GetDeployCost(actor.Unit.Race) * actor.Unit.TraitBoosts.DeployCostMult).ToString();
+            upkeeptext.text = (State.RaceSettings.GetUpkeep(actor.Unit.Race) * actor.Unit.TraitBoosts.UpkeepMult).ToString();
+            Button button = obj.GetComponentInChildren<Button>();
+            Button addbutton = obj.GetComponentInChildren<Button>();
+            addbutton.onClick.AddListener(() => AddRaceAddon(addempire.Key, addempire.Value));
+            addbutton.onClick.AddListener(() => Destroy(obj));
+        }
         RaceUI.gameObject.SetActive(true);
     }
 
@@ -763,29 +971,28 @@ public class CreateStrategicGame : MonoBehaviour
         obj.MaxGarrisonSize.value = AllEmpires.MaxGarrisonSize.value;
         obj.TurnOrder.text = "1";
         obj.RepresentedRace = (Race)race;
-        obj.EmpireID = AssignEmpireID();
-        AssignUnusedTurnOrders();
+        obj.EmpireID = race;
+        AssignUnusedTeamAndTurnOrders(obj);
+        AssignDefaultColors(obj);
         Empires.Add(obj);
     }
 
-    int AssignEmpireID(int fixedID = -1)
+    void AddRaceAddon(int id, Race race)
     {
-        if (fixedID > 0)
-        {
-            return fixedID;
-        }
-
-        int newEmpireID = 0;
-
-        foreach (var empire in Empires)
-        {
-            if (newEmpireID >= empire.EmpireID)
-                newEmpireID++; //Try next value
-            else
-                break;
-        }
-
-        return newEmpireID;
+        StartEmpireUI empireprefab = Instantiate(EmpiresPrefab, EmpireFolder);
+        StartEmpireUI obj = empireprefab.GetComponent<StartEmpireUI>();
+        obj.Name.text = (race).ToString();
+        obj.VillageCount.text = AllEmpires.VillageCount.text;
+        obj.StrategicAI.value = AllEmpires.StrategicAI.value;
+        obj.TacticalAI.value = AllEmpires.TacticalAI.value;
+        obj.MaxArmySize.value = AllEmpires.MaxArmySize.value;
+        obj.MaxGarrisonSize.value = AllEmpires.MaxGarrisonSize.value;
+        obj.TurnOrder.text = "1";
+        obj.RepresentedRace = race;
+        obj.EmpireID = id;
+        AssignUnusedTeamAndTurnOrders(obj);
+        AssignDefaultColors(obj);
+        Empires.Add(obj);
     }
 
     internal static Color ColorFromIndex(int index)
@@ -844,6 +1051,11 @@ public class CreateStrategicGame : MonoBehaviour
         LeaderLossExpPct.GetComponentInChildren<Text>().text = $"Leader Exp lost on Death: {Math.Round(LeaderLossExpPct.value * 100, 2)}%";
     }
 
+    public void OpenCustomEmpirePopup()
+    {
+        EmpirePopup.gameObject.SetActive(true);
+        EmpirePopup.Open();
+    }
 
 }
 

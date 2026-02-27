@@ -304,7 +304,7 @@ public class WorldGenerator
             if (Config.VillagesPerEmpire[i] > 0)
             {
                 active.Add(i, true);
-                Race race = Config.EmpireRaceByID[i];
+                Race race = Config.EmpireRaceBySide[i];
                 if (Config.CenteredEmpire[i] == false)
                 {
                     site = sites.OrderBy(v => capitalRegions[region].GetDistance(v.Position)).Where(v => placed[v.Index] == false).FirstOrDefault();

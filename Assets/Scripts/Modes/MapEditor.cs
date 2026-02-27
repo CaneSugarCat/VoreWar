@@ -313,7 +313,7 @@ public class MapEditor : SceneBase
             if (State.World.MainEmpires.Where(s => s.Side == i).Any() == false)
             {
                 changed = true;
-                State.World.MainEmpires.Add(new Empire(new Empire.ConstructionArgs(i, CreateStrategicGame.ColorFromIndex(i), Color.white, 0, StrategyAIType.Basic, TacticalAIType.Full, i, 16, 16)));
+                State.World.MainEmpires.Add(new Empire(new Empire.ConstructionArgs(i,(Race)i, CreateStrategicGame.ColorFromIndex(i), Color.white, 0, StrategyAIType.Basic, TacticalAIType.Full, i, 16, 16)));
                 State.World.AllActiveEmpires.Add(State.World.MainEmpires.Last());
             }
         }

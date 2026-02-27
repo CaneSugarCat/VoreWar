@@ -129,7 +129,7 @@ static class Config
 
 
     internal static Dictionary<int, int> VillagesPerEmpire => World.VillagesPerEmpire;
-    internal static Dictionary<int, Race> EmpireRaceByID => World.EmpireRaceByID;
+    internal static Dictionary<int, Race> EmpireRaceBySide => World.EmpireRaceBySide;
 
     internal static MonsterConquestType MonsterConquest => World.MonsterConquest;
     internal static int MonsterConquestTurns => World.MonsterConquestTurns;

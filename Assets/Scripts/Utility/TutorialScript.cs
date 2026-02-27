@@ -61,7 +61,7 @@ public class TutorialScript
         State.World.Villages[1].AddPopulation(60);
         State.World.Villages[1].TutorialWeapons();
         State.World.MonsterEmpires = new MonsterEmpire[1];
-        State.World.MonsterEmpires[0] = new MonsterEmpire(new Empire.ConstructionArgs(100, Color.white, Color.white, 9, StrategyAIType.Monster, TacticalAIType.Full, 999, 8, 0));
+        State.World.MonsterEmpires[0] = new MonsterEmpire(new Empire.ConstructionArgs(100, Race.Vagrants, Color.white, Color.white, 9, StrategyAIType.Monster, TacticalAIType.Full, 999, 8, 0));
     }
 
     internal void CheckStatus()

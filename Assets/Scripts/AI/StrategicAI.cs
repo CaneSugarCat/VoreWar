@@ -149,7 +149,7 @@ public class StrategicAI : IStrategicAI
             }
         }
 
-        if (empire.Gold < 150 && empire.Income < 0 && empire.Side < 50)
+        if (empire.Gold < 150 && empire.Income < 0 && empire.Side <= 700)
         {
             DismissWeakestArmy();
         }

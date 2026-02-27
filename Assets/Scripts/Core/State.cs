@@ -158,6 +158,7 @@ public static class State
         UnitTagList = new List<UnitTag>();
         UnitTagAssociatedTraitDictionary = new Dictionary<Traits, List<int>>();
         UntaggedTraits = new Dictionary<TaggedTrait, bool>();
+        AdditionalEmpires = new Dictionary<int, Race>();
 
         TieredTraitsList = ExternalTraitHandler.TaggedTraitParser();
         TieredTraitsTagsList = new List<string>();
@@ -684,7 +685,7 @@ public static class State
             {
                 if (World.GetEmpireOfSide(700) == null)
                 {
-                    World.MainEmpires.Add(new Empire(new Empire.ConstructionArgs(700, Color.red, new Color(.6f, 0, 0), 5, StrategyAIType.Basic, TacticalAIType.Full, 700, 16, 16)));
+                    World.MainEmpires.Add(new Empire(new Empire.ConstructionArgs(700, Race.none, Color.red, new Color(.6f, 0, 0), 5, StrategyAIType.Basic, TacticalAIType.Full, 700, 16, 16)));
                     World.RefreshEmpires();
                 }
                 else
@@ -695,7 +696,7 @@ public static class State
                 }
                 if (World.GetEmpireOfSide(701) == null)
                 {
-                    World.MainEmpires.Add(new Empire(new Empire.ConstructionArgs(701, Color.red, new Color(.6f, 0, 0), 7, StrategyAIType.Basic, TacticalAIType.Full, 701, 16, 16)));
+                    World.MainEmpires.Add(new Empire(new Empire.ConstructionArgs(701, Race.none, Color.red, new Color(.6f, 0, 0), 7, StrategyAIType.Basic, TacticalAIType.Full, 701, 16, 16)));
                     World.RefreshEmpires();
                 }
                 else
@@ -1198,7 +1199,7 @@ public static class State
             {
                 foreach (Empire emp in World.AllActiveEmpires)
                 {
-                    if (emp.Side > 300)
+                    if (emp.Side >= 700)
                         continue;
                     var raceFlags = RaceSettings.GetRaceTraits(emp.Race);
                     if (raceFlags != null)
@@ -1210,7 +1211,7 @@ public static class State
 
                 foreach (Empire emp in World.MainEmpires)
                 {
-                    if (emp.Side > 300)
+                    if (emp.Side >= 700)
                         continue;
                     if (RaceSettings.Exists(emp.Race))
                     {

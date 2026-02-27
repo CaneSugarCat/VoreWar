@@ -59,7 +59,7 @@ public class WorldSettings : MonoBehaviour
             Empires[i].MaxArmySize.GetComponentInChildren<SetMeToValue>().Set(Empires[i].MaxArmySize);
             Empires[i].MaxGarrisonSize.GetComponentInChildren<SetMeToValue>().Set(Empires[i].MaxGarrisonSize);
             Empires[i].TurnOrder.text = State.World.MainEmpires[i].TurnOrder.ToString();
-            if (State.World.MainEmpires[i].KnockedOut || State.World.MainEmpires[i].Side > 600)
+            if (State.World.MainEmpires[i].KnockedOut || State.World.MainEmpires[i].Side >= 700)
                 Empires[i].gameObject.SetActive(false);
         }
         UpdateColors();
@@ -83,7 +83,7 @@ public class WorldSettings : MonoBehaviour
     {
         for (int i = 0; i < Empires.Length; i++)
         {
-            if (State.World.MainEmpires[i].Side > 500)
+            if (State.World.MainEmpires[i].Side >= 700)
                 continue;
             if (Empires[i].AIPlayer.isOn)
             {

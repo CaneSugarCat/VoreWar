@@ -877,6 +877,12 @@ public class Unit
 
     internal void SetGear(Race race, bool skipTraitItems = false)
     {
+        // Prevents adding races to empire menu from crashing the game as preview units don't have item slots initialized
+        if (State.GameManager.CurrentScene == State.GameManager.Start_Mode)
+        {
+            return;
+        }
+
         if (race >= Race.Vagrants && race < Race.Selicia)
         {
             FixedGear = true;

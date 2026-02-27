@@ -121,6 +121,37 @@ public class Village
         MaxGarrisonSize = State.World.GetEmpireOfSide(Side)?.MaxGarrisonSize ?? 0;
     }
 
+    public Village(string name, Vec2i p, int fields, Empire empire, bool capital)
+    {
+        buildings = new List<VillageBuilding>();
+        Position = p;
+        Name = name;
+        if (capital)
+        {
+            buildings.Add(VillageBuilding.inn);
+            buildings.Add(VillageBuilding.mill);
+            buildings.Add(VillageBuilding.wall);
+            buildings.Add(VillageBuilding.manor);
+            buildings.Add(VillageBuilding.trainer);
+            buildings.Add(VillageBuilding.CapitalDefenses);
+            Capital = capital;
+        }
+        Race = empire.ReplacedRace;
+        OriginalRace = empire.Race;
+        Side = empire.Side;
+        FarmCount = fields;
+        Maxpop = FarmCount * Config.VillagersPerFarm;
+        Weapons = new List<ItemType>();
+        if (capital)
+        {
+            Weapons = new List<ItemType> { ItemType.Axe, ItemType.Axe, ItemType.Axe, ItemType.Axe, ItemType.CompoundBow, ItemType.CompoundBow, ItemType.CompoundBow, ItemType.CompoundBow };
+        }
+
+        int effectiveMax = Math.Min(Maxpop, Config.StartingPopulation);
+        VillagePopulation = new VillagePopulation(Race, effectiveMax, this);
+        NetBoosts = new VillageBoosts();
+        MaxGarrisonSize = State.World.GetEmpireOfSide(Side)?.MaxGarrisonSize ?? 0;
+    }
 
     internal void TutorialWeapons()
     {

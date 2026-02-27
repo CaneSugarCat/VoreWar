@@ -101,7 +101,7 @@ public class CheatMenu : MonoBehaviour
         EmpireDropdown.ClearOptions();
         if (State.World.MainEmpires != null)
         {
-            foreach (Empire empire in State.World.MainEmpires.Where(s => s.Side < 100))
+            foreach (Empire empire in State.World.MainEmpires.Where(s => s.Side < 700))
             {
                 EmpireDropdown.options.Add(new TMP_Dropdown.OptionData(empire.Name));
             }

@@ -14,8 +14,6 @@ public class Empire
     [OdinSerialize]
     public int Team;
     [OdinSerialize]
-    public int EmpireID;
-    [OdinSerialize]
     public int Side { get; private set; }
     [OdinSerialize]
     public Race Race;
@@ -159,6 +157,7 @@ public class Empire
     public struct ConstructionArgs
     {
         internal int side;
+        internal Race race;
         internal Color color;
         internal Color secColor;
         internal int bannerType;
@@ -168,9 +167,10 @@ public class Empire
         internal int maxArmySize;
         internal int maxGarrisonSize;
 
-        public ConstructionArgs(int side, Color color, Color secColor, int bannerType, StrategyAIType strategicAI, TacticalAIType tacticalAI, int team, int maxArmySize, int maxGarrisonSize)
+        public ConstructionArgs(int side, Race race, Color color, Color secColor, int bannerType, StrategyAIType strategicAI, TacticalAIType tacticalAI, int team, int maxArmySize, int maxGarrisonSize)
         {
             this.side = side;
+            this.race = race;
             this.color = color;
             this.secColor = secColor;
             this.bannerType = bannerType;
@@ -394,7 +394,7 @@ public class Empire
         {
             Armies[i].Refresh();
         }
-        if (Config.FactionLeaders && Side < 50)
+        if (Config.FactionLeaders && Side < 700)
         {
             if (Leader == null)
                 GenerateLeader();

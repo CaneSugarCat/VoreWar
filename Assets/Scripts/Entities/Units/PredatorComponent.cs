@@ -2013,7 +2013,7 @@ public class PredatorComponent
         {
             foreach (Empire emp in State.World.AllActiveEmpires)
             {
-                if (emp.Side > 300)
+                if (emp.Side >= 700)
                     continue;
                 var raceFlags = State.RaceSettings.GetRaceTraits(emp.ReplacedRace);
                 if (raceFlags != null)

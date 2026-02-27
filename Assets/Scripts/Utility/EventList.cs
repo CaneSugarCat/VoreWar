@@ -2559,7 +2559,7 @@ internal class EventList
         {
             unusedSide++;
         }
-        Empire pseudoEmp = new MonsterEmpire(new Empire.ConstructionArgs(unusedSide, UnityEngine.Color.white, UnityEngine.Color.white, bannerType, StrategyAIType.Monster, TacticalAIType.Full, 2000 + unusedSide, 32, 0));
+        Empire pseudoEmp = new MonsterEmpire(new Empire.ConstructionArgs(unusedSide, Race.none, UnityEngine.Color.white, UnityEngine.Color.white, bannerType, StrategyAIType.Monster, TacticalAIType.Full, 2000 + unusedSide, 32, 0));
         Army army = new Army(pseudoEmp, new Vec2i(loc.x, loc.y), unusedSide);
         army.Units = units.ToList();
         army.Name = armyName;
@@ -2583,7 +2583,7 @@ internal class EventList
 
     Empire GetRandomHostileEmpire(Empire empire)
     {
-        var hostileEmpires = State.World.MainEmpires.Where(s => s.IsEnemy(empire) && s.Side < 100 && s.VillageCount > 0).ToArray();
+        var hostileEmpires = State.World.MainEmpires.Where(s => s.IsEnemy(empire) && s.Side < 700 && s.VillageCount > 0).ToArray();
         if (hostileEmpires.Count() == 0)
             return null;
         return hostileEmpires[State.Rand.Next(hostileEmpires.Count())];
@@ -2591,7 +2591,7 @@ internal class EventList
 
     Empire GetRandomAlliedEmpire(Empire empire)
     {
-        var alliedEmpires = State.World.MainEmpires.Where(s => s.IsAlly(empire) && s.VillageCount > 0 && s.Side != empire.Side && s.Side < 100).ToArray();
+        var alliedEmpires = State.World.MainEmpires.Where(s => s.IsAlly(empire) && s.VillageCount > 0 && s.Side != empire.Side && s.Side < 700).ToArray();
         if (alliedEmpires.Count() == 0)
             return null;
         return alliedEmpires[State.Rand.Next(alliedEmpires.Count())];
@@ -2599,7 +2599,7 @@ internal class EventList
 
     Empire[] GetTwoRandomEmpires(Empire empire)
     {
-        var hostileEmpires = State.World.MainEmpires.Where(s => s.VillageCount > 0 && s.Side != empire.Side && s.Side < 100).ToArray();
+        var hostileEmpires = State.World.MainEmpires.Where(s => s.VillageCount > 0 && s.Side != empire.Side && s.Side < 700).ToArray();
         if (hostileEmpires.Length <= 1)
             return null;
         int first = State.Rand.Next(hostileEmpires.Length);
@@ -2614,7 +2614,7 @@ internal class EventList
 
     Empire[] GetTwoRandomAIEmpires()
     {
-        var hostileEmpires = State.World.MainEmpires.Where(s => s.VillageCount > 0 && s.StrategicAI != null && s.Side < 100).ToArray();
+        var hostileEmpires = State.World.MainEmpires.Where(s => s.VillageCount > 0 && s.StrategicAI != null && s.Side < 700).ToArray();
         if (hostileEmpires.Length <= 1)
             return null;
         int first = State.Rand.Next(hostileEmpires.Length);
@@ -2631,7 +2631,7 @@ internal class EventList
 
     Empire GetRandomEmpire(Empire empire)
     {
-        var empires = State.World.MainEmpires.Where(s => s.VillageCount > 0 && s.Side != empire.Side && s.Side < 100).ToArray();
+        var empires = State.World.MainEmpires.Where(s => s.VillageCount > 0 && s.Side != empire.Side && s.Side < 700).ToArray();
         if (empires.Length == 0)
             return null;
         return empires[State.Rand.Next(empires.Length)];

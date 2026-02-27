@@ -26,7 +26,7 @@ public class EmpireSettings : MonoBehaviour
             Empires[i] = Instantiate(SetEmpireTraitsPrefab, folder).GetComponent<EditEmpireTraitsUI>();
             Empires[i].Name.text = State.World.MainEmpires[i].Name.ToString();
             Empires[i].EmpTraits.text = RaceEditorPanel.TraitListToText(State.World.MainEmpires[i].EmpTraits).ToString();
-            if (State.World.MainEmpires[i].KnockedOut || State.World.MainEmpires[i].Side > 600)
+            if (State.World.MainEmpires[i].KnockedOut || State.World.MainEmpires[i].Side >= 700)
                 Empires[i].gameObject.SetActive(false);
         }
         RelationsManager.ResetMonsterRelations();
@@ -44,7 +44,7 @@ public class EmpireSettings : MonoBehaviour
     {
         for (int i = 0; i < Empires.Length; i++)
         {
-            if (State.World.MainEmpires[i].Side > 500)
+            if (State.World.MainEmpires[i].Side >= 700)
                 continue;
             State.World.MainEmpires[i].EmpTraits = RaceEditorPanel.TextToTraitList(Empires[i].EmpTraits.text);
             State.World.MainEmpires[i].Name = Empires[i].Name.text;
