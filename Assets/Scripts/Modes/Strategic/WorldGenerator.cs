@@ -315,7 +315,7 @@ public class WorldGenerator
                     site = sites.OrderBy(v => new Vec2i(xMax / 2, yMax / 2).GetDistance(v.Position)).Where(v => placed[v.Index] == false).FirstOrDefault();
                 }
 
-                villages[site.Index] = new Village(VillageName(race, 0), site.Position, site.UtilityScore, race, true);
+                villages[site.Index] = new Village(VillageName(race, 0), site.Position, site.UtilityScore, race, true, i);
                 placed[site.Index] = true;
                 EmpireBuilder subbuilder = new EmpireBuilder();
                 subbuilder.Race = race;
@@ -389,7 +389,7 @@ public class WorldGenerator
             {
                 VillageLocation newVillage = remainingVillages.OrderByDescending(s => s.ScoreForEmpire[team]).FirstOrDefault();
                 int index = newVillage.Index;
-                villages[index] = new Village(VillageName(builders[team].Race, nameIndex[team]), sites[index].Position, sites[index].UtilityScore, builders[team].Race, false);
+                villages[index] = new Village(VillageName(builders[team].Race, nameIndex[team]), sites[index].Position, sites[index].UtilityScore, builders[team].Race, false, team);
                 nameIndex[team]++;
                 remainingIndex[team] = remainingIndex[team] - 1;
                 remainingVillages.Remove(newVillage);

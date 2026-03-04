@@ -815,6 +815,7 @@ public class CreateStrategicGame : MonoBehaviour
                 empireArguments.maxArmySize = (int)empire.MaxArmySize.value;
                 empireArguments.maxGarrisonSize = (int)empire.MaxGarrisonSize.value;
                 empireArguments.side = i;
+                empireArguments.race = empire.RepresentedRace;
                 args.empireArgs.Add(i, empireArguments);
                 //args.empireArgs[i].bannerType = (i % 2 == 1) ? 1 : 3;
 

@@ -193,7 +193,7 @@ public class Empire
         UnitySecondaryColor = args.secColor;
         gold = Config.StartingGold;
         Income = 0;
-        Race = (Race)args.side;
+        Race = args.race;
         ReplacedRace = Race;
         Side = args.side;
         Team = args.team;

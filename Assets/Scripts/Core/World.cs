@@ -339,10 +339,8 @@ public class World
     {
         if (AllActiveEmpires == null)
             return null;
-        Debug.Log(side);
         for (int i = 0; i < AllActiveEmpires.Count; i++)
         {
-            Debug.Log("Found Side:" + AllActiveEmpires[i].Side);
             if (AllActiveEmpires[i].Side == side)
                 return AllActiveEmpires[i];
         }
