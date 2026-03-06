@@ -469,6 +469,12 @@
             case Race.Pudding:
                 return Pudding;
         }
+
+        if (race >= (Race)1000)
+        {
+            return GetRace(SubRaceParameters.DecodeSubRace(race));
+        }
+
         UnityEngine.Debug.LogWarning("Couldn't find race, substituting the Blank Slate");
         return BlankSlate;
     }

@@ -25,6 +25,7 @@ public static class State
     public static Dictionary<Traits, List<int>> UnitTagAssociatedTraitDictionary;
     public static Dictionary<TaggedTrait, bool> UntaggedTraits;
     public static Dictionary<int, Race> AdditionalEmpires;
+    public static Dictionary<Race, List<SubRaceTraits>> SubRaces;
 
     internal static EventList EventList;
 
@@ -159,6 +160,7 @@ public static class State
         UnitTagAssociatedTraitDictionary = new Dictionary<Traits, List<int>>();
         UntaggedTraits = new Dictionary<TaggedTrait, bool>();
         AdditionalEmpires = new Dictionary<int, Race>();
+        SubRaces = new Dictionary<Race, List<SubRaceTraits>>();
 
         TieredTraitsList = ExternalTraitHandler.TaggedTraitParser();
         TieredTraitsTagsList = new List<string>();

@@ -1,5 +1,6 @@
 ﻿using OdinSerializer;
 using System.Collections.Generic;
+using System.Linq;
 
 static class RaceParameters
 {
@@ -169,11 +170,20 @@ static class RaceParameters
 
     internal static RaceTraits GetTraitData(Unit unit)
     {
+        if (unit.Race > (Race)1000)
+        {
+            return State.SubRaces[SubRaceParameters.DecodeSubRace(unit.Race)].First(r => r.RaceID == unit.Race).parameters;
+        }
+        return GetTraitData(unit.Race);
+    }
+
+    internal static RaceTraits GetTraitData(Race race)
+    {
         if (Config.RaceTraitsEnabled == false)
         {
             return Default;
         }
-        switch (unit.Race)
+        switch (race)
         {
             case Race.Cats:
                 return Cats;

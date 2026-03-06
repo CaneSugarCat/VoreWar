@@ -83,6 +83,10 @@ public class Unit
     [OdinSerialize]
     public Race Race;
     [OdinSerialize]
+    public Race RootRace;
+    [OdinSerialize]
+    public string subRace;
+    [OdinSerialize]
     public int Health;
     [OdinSerialize]
     protected int[] Stats;

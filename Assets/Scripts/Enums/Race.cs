@@ -150,5 +150,5 @@
     Firefly = 191,
     Nectar = 192,
     Ryan = 193,
-    Konane = 194,
+    Konane = 194,    
 }
