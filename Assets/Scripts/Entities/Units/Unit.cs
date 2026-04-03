@@ -2931,6 +2931,10 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
 
     public Weapon GetBestMelee()
     {
+        if (Items == null)
+        {
+            return null;
+        }
         if (HasTrait(Traits.Feral))
         {
             return State.World.ItemRepository.Claws;
@@ -2961,7 +2965,7 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
 
     public Weapon GetBestRanged()
     {
-        if (HasTrait(Traits.Feral))
+        if (HasTrait(Traits.Feral) || Items == null)
         {
             return null;
         }
@@ -3143,23 +3147,26 @@ internal void SetGenderRandomizeName(Race race, Gender gender)
                 UseableSpells.Add(spell);
             }
         }
-
-        foreach (Item item in Items)
+        if (Items != null)
         {
-            if (item == null)
-                continue;
-            if (item is SpellBook book)
+            foreach (Item item in Items)
             {
-                if (HasTrait(Traits.Feral))
-                {
-                    continue;
-                }
-                else if (SpellList.SpellDict.TryGetValue(book.ContainedSpell, out Spell spell))
-                {
-                    UseableSpells.Add(spell);
-                    if (GetStatusEffect(StatusEffectType.Bloodrite) != null) UseableSpells.Remove(SpellList.Bloodrite);
-                }
 
+                if (item == null)
+                    continue;
+                if (item is SpellBook book)
+                {
+                    if (HasTrait(Traits.Feral))
+                    {
+                        continue;
+                    }
+                    else if (SpellList.SpellDict.TryGetValue(book.ContainedSpell, out Spell spell))
+                    {
+                        UseableSpells.Add(spell);
+                        if (GetStatusEffect(StatusEffectType.Bloodrite) != null) UseableSpells.Remove(SpellList.Bloodrite);
+                    }
+
+                }
             }
         }
     }

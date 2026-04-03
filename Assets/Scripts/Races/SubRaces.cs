@@ -55,4 +55,5 @@ public class SubRaceTraits
     internal Race RaceID;
     internal string SubRaceName;
     internal RaceTraits parameters;
+    internal float SelectionChance;
 }

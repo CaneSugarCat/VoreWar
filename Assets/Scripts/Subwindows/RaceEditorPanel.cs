@@ -7,6 +7,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.WSA;
 
 public class RaceEditorPanel : MonoBehaviour
 {
@@ -99,10 +100,19 @@ public class RaceEditorPanel : MonoBehaviour
     public GameObject TraitsPanel;
     public GameObject TaggedTraitsPanel;
     public GameObject UnitTagsPanel;
-    public GameObject SubracePanel;
+    public GameObject SubRacePanel;
 
-    public GameObject SubracePopup;
+    public GameObject SubRacePopup;
+    public GameObject SubRaceOptionsPanel;
+    public GameObject SuperRaceOptionsPanel;
     public InputField SubRaceName;
+    public Transform subraceFolder;
+    internal Dictionary<SubRaceTraits, SubRaceSlider> AvailibleComps;
+    internal SubRaceSlider subraceSliderInstance;
+    public SubRaceSlider subraceSlider;
+
+    public CustomizerPanel customizerPanel;
+    internal UnitCustomizer unitCustomizer;
 
     public Button GeneralButton;
     public Button TraitsButton;
@@ -596,7 +606,6 @@ public class RaceEditorPanel : MonoBehaviour
         {
             if (SubRaceLoaded)
             {
-                UnityEngine.Debug.Log("Saving");
                 Race race = State.SubRaces[PreviousRace][subracedropdownindex].RaceID;
                 SubRaceLoaded = true;
                 RaceSettingsItem item = State.RaceSettings.Get(race);
@@ -969,16 +978,30 @@ public class RaceEditorPanel : MonoBehaviour
             {
                 SubRaceDropdown.ClearOptions();
                 SubRaceDropdown.options.Add(new TMP_Dropdown.OptionData(race.ToString()));
+                unitCustomizer = new UnitCustomizer(new Actor_Unit(new Unit(race)), customizerPanel);
+                int children = subraceFolder.childCount;
+                for (int i = children - 1; i >= 0; i--)
+                {
+                    Destroy(subraceFolder.GetChild(i).gameObject);
+                }
                 foreach (var subrace in State.SubRaces[race])
                 {
                     SubRaceDropdown.options.Add(new TMP_Dropdown.OptionData(subrace.SubRaceName));
+                    subraceSliderInstance = Instantiate(subraceSlider, subraceFolder);
+                    subraceSliderInstance.subRace = subrace;
+                    subraceSliderInstance.SetName(subrace.SubRaceName);
+                    subraceSliderInstance.slider.value = subrace.SelectionChance;
                 }
                 SubRaceDropdown.RefreshShownValue();
                 SubRaceDropdown.gameObject.SetActive(true);
                 SubRaceButton.gameObject.SetActive(true);
+                SubRaceOptionsPanel.gameObject.SetActive(false);
+                SuperRaceOptionsPanel.gameObject.SetActive(true);
             }
             else
             {
+                ActivateGeneral();
+                SubRaceButton.gameObject.SetActive(false);
                 SubRaceDropdown.gameObject.SetActive(false);
                 SubRaceButton.gameObject.SetActive(false);
             }
@@ -989,7 +1012,6 @@ public class RaceEditorPanel : MonoBehaviour
     {
         Race race = State.SubRaces[superrace][index].RaceID;
         SubRaceLoaded = true;
-        UnityEngine.Debug.Log("Loading");
         RaceSettingsItem item = State.RaceSettings.Get(race);
         subracedropdownindex = index;
         var racePar = RaceParameters.GetRaceTraits(race);
@@ -1142,13 +1164,8 @@ public class RaceEditorPanel : MonoBehaviour
         SpawnTraits.text = TraitListToText(item.SpawnTraits);
         LeaderTraits.text = TraitListToText(item.LeaderTraits);
 
-        if (!SubRaceButton.interactable)
-        {
-            ActivateGeneral();
-        }
-        SubRaceButton.gameObject.SetActive(false);
-
-
+        SubRaceOptionsPanel.gameObject.SetActive(true);
+        SuperRaceOptionsPanel.gameObject.SetActive(false);
     }
 
     public void UpdateInteractable()
@@ -1349,7 +1366,7 @@ public class RaceEditorPanel : MonoBehaviour
 
     public void OpenCreateSubracePopup()
     {
-        SubracePopup.SetActive(true);
+        SubRacePopup.SetActive(true);
     }
 
     public void CreateSubrace()
@@ -1369,11 +1386,11 @@ public class RaceEditorPanel : MonoBehaviour
                 LoadRace();
             }
         }
-
+        SubRaceName.text = "";
     }
     public void CancelSubrace()
     {
-        SubracePopup.SetActive(false);
+        SubRacePopup.SetActive(false);
     }
     public void ModifyUnitTags()
     {
@@ -1385,7 +1402,7 @@ public class RaceEditorPanel : MonoBehaviour
         GeneralPanel.SetActive(true);
         TraitsPanel.SetActive(false);
         UnitTagsPanel.SetActive(false);
-        SubracePanel.SetActive(false);
+        SubRacePanel.SetActive(false);
         TaggedTraitsPanel.SetActive(false);
         GeneralButton.interactable = false;
         TaggedTraitsButton.interactable = false;
@@ -1400,7 +1417,7 @@ public class RaceEditorPanel : MonoBehaviour
         TraitsPanel.SetActive(true);
         TaggedTraitsPanel.SetActive(false);
         UnitTagsPanel.SetActive(false);
-        SubracePanel.SetActive(false);
+        SubRacePanel.SetActive(false);
         GeneralButton.interactable = true;
         TraitsButton.interactable = false;
         TaggedTraitsButton.interactable = true;
@@ -1413,7 +1430,7 @@ public class RaceEditorPanel : MonoBehaviour
         TraitsPanel.SetActive(false);
         TaggedTraitsPanel.SetActive(false);
         UnitTagsPanel.SetActive(true);
-        SubracePanel.SetActive(false);
+        SubRacePanel.SetActive(false);
         GeneralButton.interactable = true;
         TraitsButton.interactable = true;
         TaggedTraitsButton.interactable = true;
@@ -1426,7 +1443,7 @@ public class RaceEditorPanel : MonoBehaviour
         TraitsPanel.SetActive(false);
         UnitTagsPanel.SetActive(false);
         UnitTagsPanel.SetActive(false);
-        SubracePanel.SetActive(false);
+        SubRacePanel.SetActive(false);
         Enum.TryParse(RaceDropdown.options[RaceDropdown.value].text, out Race race);
         taggedTraitEditor.Open(race, CurrentTraits);
         GeneralButton.interactable = false;
@@ -1440,7 +1457,7 @@ public class RaceEditorPanel : MonoBehaviour
         GeneralPanel.SetActive(false);
         TraitsPanel.SetActive(true);
         UnitTagsPanel.SetActive(false);
-        SubracePanel.SetActive(false);
+        SubRacePanel.SetActive(false);
         CurrentTraits = taggedTraitEditor.Close();
         GeneralButton.interactable = true;
         TraitsButton.interactable = false;
@@ -1456,7 +1473,7 @@ public class RaceEditorPanel : MonoBehaviour
         TraitsPanel.SetActive(false);
         UnitTagsPanel.SetActive(false);
         TaggedTraitsPanel.SetActive(false);
-        SubracePanel.SetActive(true);
+        SubRacePanel.SetActive(true);
         GeneralButton.interactable = true;
         TaggedTraitsButton.interactable = false;
         TraitsButton.interactable = true;
