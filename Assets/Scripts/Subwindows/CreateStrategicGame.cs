@@ -132,6 +132,8 @@ public class CreateStrategicGame : MonoBehaviour
 
     public CustomEmpirePopup EmpirePopup;
 
+    public EmpireModifierPanel EmpireModifierPanel;
+
     public RacePanel RaceUI;
 
     public Text TooltipText;
@@ -994,6 +996,11 @@ public class CreateStrategicGame : MonoBehaviour
         AssignUnusedTeamAndTurnOrders(obj);
         AssignDefaultColors(obj);
         Empires.Add(obj);
+    }
+
+    internal void BuildEmpireModifiers(StartEmpireUI empire)
+    {
+
     }
 
     internal static Color ColorFromIndex(int index)

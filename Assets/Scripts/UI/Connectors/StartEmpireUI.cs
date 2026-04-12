@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using OdinSerializer;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class StartEmpireUI : MonoBehaviour
@@ -16,10 +18,13 @@ public class StartEmpireUI : MonoBehaviour
     public Slider MaxArmySize;
     public Slider MaxGarrisonSize;
     public Button RemoveButton;
+    public Button ModifyEmpire;
 
     internal int LastColor;
     internal int EmpireID;
     internal Race RepresentedRace = Race.none;
+    public List<Traits> EmpTraits;
+    public EmpireModifiers Modifiers;
 
     private void Start()
     {
@@ -27,6 +32,8 @@ public class StartEmpireUI : MonoBehaviour
             LastColor = PrimaryColor.value;
         if (RemoveButton != null)
             RemoveButton.onClick.AddListener(() => State.GameManager.Start_Mode.CreateStrategicGame.RemoveRace(this));
+        if (ModifyEmpire != null)
+            ModifyEmpire.onClick.AddListener(() => State.GameManager.Start_Mode.CreateStrategicGame.RemoveRace(this));
     }
 
     public void UpdateColor()

@@ -35,13 +35,7 @@ public class Empire
     public List<Traits> EmpTraits;
 
     [OdinSerialize]
-    public EmpireInnerPersona InnerPersona;
-    [OdinSerialize]
-    public EmpireOuterPersona OuterPersona;
-    [OdinSerialize]
-    public EmpireType EmpireType;
-    [OdinSerialize]
-    public EmpireEthics Ethics;
+    public EmpireModifiers Modifiers;
 
     [OdinSerialize]
     public int MaxArmySize;

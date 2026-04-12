@@ -1,8 +1,9 @@
+using OdinSerializer;
 using System.Collections.Generic;
 
 public class EmpireEthics
 {
-
+    [OdinSerialize]
     private Dictionary<DichotomyEmpireEthicTypes, int> EthicValues;
 
     internal void Init()
