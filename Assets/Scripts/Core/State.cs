@@ -41,6 +41,7 @@ public static class State
     public static string ConditionalTraitDirectory;
     public static string UnitTagDirectory;
     public static string NameFileDirectory;
+    public static string DeityPortraitDirectory;
 
     public static int RaceSlot;
     public static string RaceSaveDataName;
@@ -98,6 +99,7 @@ public static class State
             ConditionalTraitDirectory = Application.persistentDataPath + $"ConditionalTraits{Path.DirectorySeparatorChar}";
             UnitTagDirectory = Application.persistentDataPath + $"UnitTags{Path.DirectorySeparatorChar}";
             NameFileDirectory = Application.persistentDataPath + $"NameFiles{Path.DirectorySeparatorChar}";
+            DeityPortraitDirectory = Application.persistentDataPath + $"DeityPortrait{Path.DirectorySeparatorChar}";
             Directory.CreateDirectory(StorageDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(MapDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(SaveDirectory.TrimEnd(new char[] { '\\', '/' }));
@@ -105,6 +107,7 @@ public static class State
             Directory.CreateDirectory(ConditionalTraitDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(UnitTagDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(NameFileDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(DeityPortraitDirectory.TrimEnd(new char[] { '\\', '/' }));
         }
 
 
@@ -261,6 +264,7 @@ public static class State
             ConditionalTraitDirectory = Application.persistentDataPath + $"ConditionalTraits{Path.DirectorySeparatorChar}";
             UnitTagDirectory = Application.persistentDataPath + $"UnitTags{Path.DirectorySeparatorChar}";
             NameFileDirectory = Application.persistentDataPath + $"NameFiles{Path.DirectorySeparatorChar}";
+            DeityPortraitDirectory = Application.persistentDataPath + $"DeityPortrait{Path.DirectorySeparatorChar}";
         }
         else
         {
@@ -273,6 +277,7 @@ public static class State
             ConditionalTraitDirectory = $"UserData{Path.DirectorySeparatorChar}ConditionalTraits{Path.DirectorySeparatorChar}";
             UnitTagDirectory = $"UserData{Path.DirectorySeparatorChar}UnitTags{Path.DirectorySeparatorChar}";
             NameFileDirectory = $"UserData{Path.DirectorySeparatorChar}NameFiles{Path.DirectorySeparatorChar}";
+            DeityPortraitDirectory = $"UserData{Path.DirectorySeparatorChar}DeityPortrait{Path.DirectorySeparatorChar}";
         }
         try
         {
@@ -283,6 +288,7 @@ public static class State
             Directory.CreateDirectory(ConditionalTraitDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(UnitTagDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(NameFileDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(DeityPortraitDirectory.TrimEnd(new char[] { '\\', '/' }));
         }
         catch
         {
@@ -293,6 +299,7 @@ public static class State
             ConditionalTraitDirectory = Application.persistentDataPath + $"ConditionalTraits{Path.DirectorySeparatorChar}";
             UnitTagDirectory = Application.persistentDataPath + $"UnitTags{Path.DirectorySeparatorChar}";
             NameFileDirectory = Application.persistentDataPath + $"NameFiles{Path.DirectorySeparatorChar}";
+            DeityPortraitDirectory = Application.persistentDataPath + $"DeityPortrait{Path.DirectorySeparatorChar}";
             Directory.CreateDirectory(StorageDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(MapDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(SaveDirectory.TrimEnd(new char[] { '\\', '/' }));
@@ -300,6 +307,7 @@ public static class State
             Directory.CreateDirectory(ConditionalTraitDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(UnitTagDirectory.TrimEnd(new char[] { '\\', '/' }));
             Directory.CreateDirectory(NameFileDirectory.TrimEnd(new char[] { '\\', '/' }));
+            Directory.CreateDirectory(DeityPortraitDirectory.TrimEnd(new char[] { '\\', '/' }));
         }
 
 

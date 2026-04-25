@@ -45,6 +45,10 @@ public class VillageBoosts
 
     internal int BuilderCount = 0;
 
+    internal int DivinePower = 0;
+
+    internal int DecreePower = 0;
+
 
     internal List<Traits> AddTraits = new List<Traits>();
 
@@ -74,6 +78,8 @@ public class VillageBoosts
         PotionLevel = 0;
         MaxHappinessAdd = 0;
         BuilderCount = 0;
+        DivinePower = 0;
+        DecreePower = 0;
         AddTraits = new List<Traits>();
     }
 
@@ -100,6 +106,8 @@ public class VillageBoosts
         MaxAdventurersAdd += otherBoost.MaxAdventurersAdd;
         MaxHappinessAdd += otherBoost.MaxHappinessAdd;
         BuilderCount += otherBoost.BuilderCount;
+        DivinePower += otherBoost.DivinePower;
+        DecreePower += otherBoost.DecreePower;
         AddTraits.AddRange(otherBoost.AddTraits);
         SpellLevels += otherBoost.SpellLevels;
         EquipmentLevels += otherBoost.EquipmentLevels;

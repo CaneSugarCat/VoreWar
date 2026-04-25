@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -26,6 +27,12 @@ public class EmpireModifierPanel : MonoBehaviour
     public TMP_Dropdown EmpireInnerPersona;
     public TMP_Dropdown EmpireOuterPersona;
 
+    // Ethics
+    public Transform EthicsFolder;
+    public DiEthicPrefab EthicPrefab;
+    internal DiEthicPrefab EthicPrefabInstance;
+    internal List<DiEthicPrefab> EthicPrefabList;
+
 
     bool ingame;
     object loadedemp;
@@ -41,16 +48,17 @@ public class EmpireModifierPanel : MonoBehaviour
         ingame = false;
         ButtonArray[0].interactable = false;
         PanelArray[0].SetActive(true);
-        LoadGeneral();
+        LoadEmpireModifier();
     }
 
-    internal void LoadGeneral()
+    internal void LoadEmpireModifier()
     {
         if (loadedemp == null)
         {
             return;
         }
 
+        // General Tab
         //Load params
         EmpireModifiers modifires;
         if (ingame)
@@ -94,8 +102,16 @@ public class EmpireModifierPanel : MonoBehaviour
         EmpireType.value = (int)modifires.EmpireType;
         EmpireInnerPersona.value = (int)modifires.InnerPersona;
         EmpireOuterPersona.value = (int)modifires.OuterPersona;
-    }
 
+        // Ethics Tab
+        foreach (DichotomyEmpireEthicTypes ethics in ((DichotomyEmpireEthicTypes[])Enum.GetValues(typeof(DichotomyEmpireEthicTypes))))
+        {
+            EthicPrefabInstance = Instantiate(EthicPrefab, EthicsFolder);
+            EthicPrefabInstance.Init(ethics, (int)ethics);
+            EthicPrefabList.Add(EthicPrefabInstance);
+        }
+
+    }
 
     public void OpenTab(int index)
     {
@@ -109,14 +125,6 @@ public class EmpireModifierPanel : MonoBehaviour
         }
         ButtonArray[index].interactable = false;
         PanelArray[index].SetActive(true);
-        switch (index)
-        {
-            case 0:
-                LoadGeneral();
-                break;
-            default:
-                break;
-        }
     }
 
     public void SaveAndExit()

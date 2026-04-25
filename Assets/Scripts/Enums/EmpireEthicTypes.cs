@@ -1,10 +1,10 @@
-﻿// Negative values imply left while positive values imply right.
+﻿// Use underscore to split the text
 public enum DichotomyEmpireEthicTypes
 {
-    MilitaristPacifist,
-    GroundedSpiritual,
-    AuthoritarianEgalitarian,
-    UrbanAgragarian,
-    PredatorPrey,
-    MightMagic,
+    Militarist_Pacifist,
+    Grounded_Spiritual,
+    Authoritarian_Egalitarian,
+    Urban_Agragarian,
+    Predator_Prey,
+    Might_Magic,
 }
