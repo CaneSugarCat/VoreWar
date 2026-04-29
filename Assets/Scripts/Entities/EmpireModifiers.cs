@@ -1,4 +1,5 @@
 using OdinSerializer;
+using System.Collections.Generic;
 
 public class EmpireModifiers
 {
@@ -27,9 +28,17 @@ public class EmpireModifiers
     [OdinSerialize] internal float IncomingOpinionMult = 1;
     // Adds this value to all strategic army MP.
     [OdinSerialize] internal float ArmyMPShift = 0;
-
+    
+    /// <summary>
+    /// Ethics
+    /// </summary>
     [OdinSerialize]
     public EmpireEthics Ethics;
+
+    [OdinSerialize]
+    Dictionary<Deity, int> DeityValues = new Dictionary<Deity, int>();
+    [OdinSerialize]
+    internal Dictionary<Decree, int> DecreeValues = new Dictionary<Decree, int>();
 
     public void ResetValues()
     {
@@ -41,5 +50,7 @@ public class EmpireModifiers
         IncomingOpinionShift = 0;
         IncomingOpinionMult = 1;
         ArmyMPShift = 0;
+        DecreeValues = new Dictionary<Decree, int>();
+        DeityValues = new Dictionary<Deity, int>();
     }
 }

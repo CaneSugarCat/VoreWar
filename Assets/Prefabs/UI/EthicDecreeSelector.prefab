@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 224955942209615954}
   - component: {fileID: 222463931890720840}
   - component: {fileID: 114980041557900296}
-  - component: {fileID: 4446762039934843181}
+  - component: {fileID: 1576049273749038996}
   m_Layer: 5
   m_Name: EthicDecreeSelector
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &4446762039934843181
+--- !u!114 &1576049273749038996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,20 +88,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1913157303044632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 371b335f181563249b9608f0874fd6e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 64c7f7ffd35a04f47be7261f7c031657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EthicLeft: {fileID: 0}
-  EthicRight: {fileID: 0}
-  EthicDescription: {fileID: 0}
-  ValueSetters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Name: {fileID: 4620871391425528435}
+  Effect: {fileID: 132110395665945613}
+  Level: {fileID: 1333624699905529409}
+  Cost: {fileID: 6510370154994539244}
+  LevelUp: {fileID: 3798670394608166387}
+  LevelDown: {fileID: 2283187702844120105}
 --- !u!1 &1299053380477842908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,6 +1168,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2178282548457845877}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2283187702844120105 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114089113565751388, guid: 21f47303e48e1fe469c779c39917362d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2178282548457845877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3828840236658118063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1302,3 +1309,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3828840236658118063}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3798670394608166387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114089113565751388, guid: 21f47303e48e1fe469c779c39917362d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3828840236658118063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

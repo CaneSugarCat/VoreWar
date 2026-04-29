@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 224955942209615954}
   - component: {fileID: 222463931890720840}
   - component: {fileID: 114980041557900296}
-  - component: {fileID: 4446762039934843181}
+  - component: {fileID: 1537472800475816705}
   m_Layer: 5
   m_Name: EthicDietySelector
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &4446762039934843181
+--- !u!114 &1537472800475816705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,20 +85,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1913157303044632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 371b335f181563249b9608f0874fd6e1, type: 3}
+  m_Script: {fileID: 11500000, guid: ff7803ac3f051c745a44c30411b77144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EthicLeft: {fileID: 0}
-  EthicRight: {fileID: 0}
-  EthicDescription: {fileID: 0}
-  ValueSetters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Name: {fileID: 3369120132325261515}
+  Level: {fileID: 1170108605022894923}
+  Icon: {fileID: 6384073002950043986}
+  MainButton: {fileID: 3369176639868574967}
 --- !u!1 &3409831014028607155
 GameObject:
   m_ObjectHideFlags: 0
