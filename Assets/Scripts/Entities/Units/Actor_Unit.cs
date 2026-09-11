@@ -895,9 +895,9 @@ public class Actor_Unit
         else
             defenderBonusShift += Unit.TraitBoosts.Incoming.MeleeShift + attacker.Unit.TraitBoosts.Outgoing.MeleeShift + mod + TagConditionChecker.ApplyTagEffect(Unit, attacker.Unit, UnitTagModifierEffect.MeleeShift);
 
-        if (attacker.Unit.HasTrait(Traits.Multifaceted) && Unit.IsHighestStat(Stat.Dexterity))
+        if (attacker.Unit.HasTrait(Traits.Multifaceted) && attacker.Unit.IsHighestStat(Stat.Dexterity))
         {
-            defenderBonusShift += 0.1f;
+            defenderBonusShift -= 0.1f;
         }
 
         if (Unit.HasTrait(Traits.AllOutFirstStrike))
