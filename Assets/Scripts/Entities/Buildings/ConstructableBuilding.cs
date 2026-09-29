@@ -110,10 +110,7 @@ public abstract class ConstructibleBuilding
             default:
                 break;
         }
-        if (max_of_type > Owner.EmpireBuildingLimit[buildingType])
-        {
-            Owner.EmpireBuildingLimit[buildingType] = Owner.EmpireBuildingLimit[buildingType] + 1;
-        }
+        Owner.EmpireBuildingLimit[buildingType] = Owner.EmpireBuildingLimit[buildingType] + 1;
         Owner.SpendGold(GoldCost);
         var contstruct = State.World.Constructibles.ToList();
         contstruct.Add(this);
