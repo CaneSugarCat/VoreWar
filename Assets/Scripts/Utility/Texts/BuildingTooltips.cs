@@ -27,7 +27,7 @@
             case 11:
                 return "How many strategic turns it takes to construct this building.";
             case 12:
-                return "The maximum number of buildings of this type an empire can construct.";
+                return "The maximum number of buildings of this type an empire can construct. (Values below 0 allow for unlimited)";
             case 13:
                 return "Determines if the AI can construct this building.";
             case 14:

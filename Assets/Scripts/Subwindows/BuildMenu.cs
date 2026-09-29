@@ -106,14 +106,17 @@ public class BuildMenu : MonoBehaviour
                 default:
                     break;
             }
-            currentPrefab.BuildLimit.text = $"{remaining - empire.EmpireBuildingLimit[building.buildingType]} Remaining";
-            if (empire.EmpireBuildingLimit[building.buildingType] <= -1)
+            if (remaining >= 0)
+            {
+                currentPrefab.BuildLimit.text = $"{remaining - empire.EmpireBuildingLimit[building.buildingType]} Remaining";
+                if (!empire.constructionResources.CanBuildWithCurrentResources(building.ResourceToBuild) || building.GoldCost > empire.Gold || !empire.WithinBuildLimit(building.buildingType))
+                {
+                    currentPrefab.Construct.interactable = false;
+                }
+            }
+            else
             {
                 currentPrefab.BuildLimit.gameObject.SetActive(false);
-            }
-            if (!empire.constructionResources.CanBuildWithCurrentResources(building.ResourceToBuild) || building.GoldCost > empire.Gold || !empire.WithinBuildLimit(building.buildingType))
-            {
-                currentPrefab.Construct.interactable = false;
             }
             currentPrefab.Construct.onClick.AddListener(() =>
             {
