@@ -2155,7 +2155,7 @@ public class Actor_Unit
             {
                 Unit.TraitBoosts.Incoming.MagicDamage *= 1.50f;
             }
-            damage *= 1 + attacker.Unit.TraitBoosts.Outgoing.MagicDamage * Unit.TraitBoosts.Incoming.MagicDamage * TagConditionChecker.ApplyTagEffect(attacker.Unit, Unit, UnitTagModifierEffect.MagicDamageMult);
+            damage *= attacker.Unit.TraitBoosts.Outgoing.MagicDamage * Unit.TraitBoosts.Incoming.MagicDamage * TagConditionChecker.ApplyTagEffect(attacker.Unit, Unit, UnitTagModifierEffect.MagicDamageMult);
             if (attacker.Unit.HasTrait(Traits.Multifaceted) && attacker.Unit.IsHighestStat(Stat.Mind))
             {
                 damage += Unit.GetStat(Stat.Mind) * 0.1;
