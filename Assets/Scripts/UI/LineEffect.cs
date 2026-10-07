@@ -12,19 +12,22 @@ public class LineEffect : MonoBehaviour
     internal float currentTime;
 
     internal float extraTime;
-    internal float travelmult;
+    internal float travelTime;
+    internal float timemult;
     internal float distance;
 
     Action PlayHitSound;
     Action CreateHitEffect;    
 
-    public void Setup(Vec2i startLocation, Vec2i endLocation, Actor_Unit target, Action hitSound, Action hitEffect, float travelmultiplier = 0f)
+    public void Setup(Vec2i startLocation, Vec2i endLocation, Actor_Unit target, Action hitSound, Action hitEffect, float traveltime = 0f, float timemultiplier = 1f)
     {
+        travelTime = traveltime;
+        timemult = timemultiplier;
+
         GeneralSetup(startLocation, endLocation);
 
         PlayHitSound = hitSound;
         CreateHitEffect = hitEffect;
-        travelmult = travelmultiplier;
     }
 
     private void GeneralSetup(Vec2i startLocation, Vec2i endLocation)
@@ -35,7 +38,7 @@ public class LineEffect : MonoBehaviour
         distance = startLocation.GetDistance(endLocation);
         Debug.Log(distance);
         currentTime = 0;
-        totalTime = 0.25f * travelmult;
+        totalTime = 0.25f * timemult;
 
         float angle = 90 + (float)(Math.Atan2(startLocation.y - endLocation.y, startLocation.x - endLocation.x) * 180 / Math.PI);
         Line.transform.localRotation = Quaternion.Euler(0, 0, angle);
@@ -53,7 +56,14 @@ public class LineEffect : MonoBehaviour
             return;
         }
         currentTime += Time.deltaTime;
-        Line.GetComponent<SpriteRenderer>().size = new Vector2(1, Mathf.Lerp(0, distance, currentTime / totalTime));
+        if (0 >= travelTime)
+        {
+            Line.GetComponent<SpriteRenderer>().size = new Vector2(1, distance);
+        }
+        else
+        {
+            Line.GetComponent<SpriteRenderer>().size = new Vector2(1, Mathf.Lerp(0, distance, currentTime / travelTime));
+        }
         //Line.transform.localPosition = new Vector2(StartLocation.x, StartLocation.y + (Mathf.Lerp(0, distance, currentTime / totalTime) - 1)/2);
         if (currentTime > totalTime)
         {

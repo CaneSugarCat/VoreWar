@@ -1063,18 +1063,22 @@ static internal List<Vec2i> TilesOnPattern(Vec2i location, int[,] TargetTiles, i
         }
 
         //Sort Hit units by distance so closest is hit first.
-        Actor_Unit[] sortedList = unitList.OrderBy(u => u.Position.GetDistance(start)).ToArray();
+        Actor_Unit[] sortedList = unitList.Distinct().OrderBy(u => u.Position.GetDistance(start)).ToArray();
         List<Actor_Unit> pruned_unitList = new List<Actor_Unit>();
 
+        // No targets to hit
         if (sortedList.Length == 0)
             return pruned_unitList;
 
-        int count = 0;
+        // We hit all targets, no need to count which. +1 since pierce is 0 by default.
+        if (pierce + 1 >= sortedList.Length)
+            return sortedList.ToList();
+
         for (int i = 0; pierce >= i; i++)
         {
-            pruned_unitList.Add(sortedList[count]);
+            pruned_unitList.Add(sortedList[i]);
         }
-
+        Debug.Log(pruned_unitList.Count);
         return pruned_unitList;
     }
 
@@ -1406,7 +1410,7 @@ static internal List<Vec2i> TilesOnPattern(Vec2i location, int[,] TargetTiles, i
         }
     }
 
-    static internal void CreateEffectOnLine(Vec2i location, Vec2i unit, int range, TileEffectType type, float strength, int duration)
+    static internal void CreateEffectOnLine(Vec2i unit, Vec2i location, int range, TileEffectType type, float strength, int duration)
     {
         List<Vec2i> tile_positions = TilesOnLine(unit, location,range);
         
