@@ -31,6 +31,11 @@ public class Vec2i : IEquatable<Vec2i>
         return new Vec2i(a.x + b.x, a.y + b.y);
     }
 
+    public static Vec2i operator -(Vec2i a, Vec2i b)
+    {
+        return new Vec2i(a.x - b.x, a.y - b.y);
+    }
+
     public int GetNumberOfMovesDistance(Vec2i p) => Math.Max(Math.Abs(p.x - x), Math.Abs(p.y - y));
 
     internal int GetNumberOfMovesDistance(Vec2 p) => Math.Max(Math.Abs(p.x - x), Math.Abs(p.y - y));

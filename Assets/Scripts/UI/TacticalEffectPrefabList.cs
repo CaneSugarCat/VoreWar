@@ -3,6 +3,7 @@
 public class TacticalEffectPrefabList : MonoBehaviour
 {
     public GameObject IceBlast;
+    public GameObject IceLine;
     public GameObject Fireball;
     public GameObject GenericMagic;
     public GameObject FadeInFadeOut;

@@ -727,7 +727,77 @@ static class TacticalUtilities
         return null;
     }
 
-    static internal List<Vec2i> TilesOnPattern(Vec2i location, int[,] TargetTiles, int rows)
+    static internal List<Vec2i> TilesOnLine(Vec2i start, Vec2i mousePosition, int reach)
+    {
+        List<Vec2i> tile_positions = new List<Vec2i>();
+        //Vec2i target = mousePosition - start;
+        IEnumerable<Vec2i> full_line = SupercoverBresenham(start, mousePosition);
+
+        foreach (Vec2i tile in full_line)
+        {
+            if (tile.x < 0 || tile.y < 0 || tile.x > tiles.GetUpperBound(0) || tile.y > tiles.GetUpperBound(1) || (tile.x == start.x && tile.y == start.y))
+            {
+                continue;
+            }
+            if (start.GetNumberOfMovesDistance(tile) <= reach)
+            {
+                tile_positions.Add(new Vec2i(tile.x, tile.y));
+            }
+        }
+        
+        return tile_positions;
+    }
+    public static IEnumerable<Vec2i> SupercoverBresenham(Vec2i start, Vec2i end)
+    {
+        int x0 = start.x;
+        int y0 = start.y;
+        int x1 = end.x;
+        int y1 = end.y;
+
+        int dx = x1 - x0;
+        int dy = y1 - y0;
+
+        int nx = Mathf.Abs(dx);
+        int ny = Mathf.Abs(dy);
+
+        int signX = (dx > 0) ? 1 : -1;
+        int signY = (dy > 0) ? 1 : -1;
+
+        int x = x0;
+        int y = y0;
+
+        yield return new Vec2i(x, y);
+
+        int ix = 0;
+        int iy = 0;
+
+        while (ix < nx || iy < ny)
+        {
+            long p = (1L + 2 * ix) * ny - (1L + 2 * iy) * nx;
+
+            if (p == 0)
+            {
+                x += signX;
+                y += signY;
+                ix++;
+                iy++;
+            }
+            else if (p < 0)
+            {
+                x += signX;
+                ix++;
+            }
+            else
+            {
+                y += signY;
+                iy++;
+            }
+
+            yield return new Vec2i(x, y);
+        }
+    }
+
+static internal List<Vec2i> TilesOnPattern(Vec2i location, int[,] TargetTiles, int rows)
     {
         List<Vec2i> tile_positions = new List<Vec2i>();
         int outer_matrix_cursor = 0;
@@ -974,6 +1044,37 @@ static class TacticalUtilities
                 }
             }
         }
+        return pruned_unitList;
+    }
+    static internal List<Actor_Unit> UnitsOnLine(Vec2i start, Vec2i end, int range, int pierce)
+    {
+        List<Actor_Unit> unitList = new List<Actor_Unit>(); 
+
+        var targeted = TilesOnLine(start, end, range);
+        foreach (Actor_Unit unit in Units)
+        {
+            foreach (Vec2i target_tile in targeted)
+            {
+                if (unit.Position.x == target_tile.x && unit.Position.y == target_tile.y)
+                {
+                    unitList.Add(unit);
+                }
+            }
+        }
+
+        //Sort Hit units by distance so closest is hit first.
+        Actor_Unit[] sortedList = unitList.OrderBy(u => u.Position.GetDistance(start)).ToArray();
+        List<Actor_Unit> pruned_unitList = new List<Actor_Unit>();
+
+        if (sortedList.Length == 0)
+            return pruned_unitList;
+
+        int count = 0;
+        for (int i = 0; pierce >= i; i++)
+        {
+            pruned_unitList.Add(sortedList[count]);
+        }
+
         return pruned_unitList;
     }
 
@@ -1289,6 +1390,26 @@ static class TacticalUtilities
         }
         else
             tile_positions = TilesOnPattern(location, pattern, target_box);
+        foreach (Vec2i position in tile_positions)
+        {
+            TileEffect effect = new TileEffect(duration, strength, type);
+            State.GameManager.TacticalMode.ActiveEffects[position] = effect;
+            switch (type)
+            {
+                case TileEffectType.Fire:
+                    State.GameManager.TacticalMode.EffectTileMap.SetTile(new Vector3Int(position.x, position.y, 0), State.GameManager.TacticalMode.Pyre);
+                    break;
+                case TileEffectType.IcePatch:
+                    State.GameManager.TacticalMode.EffectTileMap.SetTile(new Vector3Int(position.x, position.y, 0), State.GameManager.TacticalMode.Ice);
+                    break;
+            }
+        }
+    }
+
+    static internal void CreateEffectOnLine(Vec2i location, Vec2i unit, int range, TileEffectType type, float strength, int duration)
+    {
+        List<Vec2i> tile_positions = TilesOnLine(unit, location,range);
+        
         foreach (Vec2i position in tile_positions)
         {
             TileEffect effect = new TileEffect(duration, strength, type);

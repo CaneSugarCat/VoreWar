@@ -112,6 +112,7 @@ public class TacticalMode : SceneBase
     public GameObject BattleReviewText;
 
     public GameObject ArrowPrefab;
+    public GameObject LineEffectPrefab;
     public GameObject HitEffectPrefab;
     public GameObject SkullPrefab;
     public GameObject HandPrefab;
@@ -2988,6 +2989,16 @@ public class TacticalMode : SceneBase
         }
     }
 
+    void UpdateRotatingLineGrid(Vec2i actorPosition, Vec2i mouseLocation, int range)
+    {
+        MovementGrid.ClearAllTiles();
+
+        foreach (Vec2 tile_pos in TacticalUtilities.TilesOnLine(actorPosition,mouseLocation, range))
+        {
+            MovementGrid.SetTile(new Vector3Int(tile_pos.x, tile_pos.y, 0), MovementGridTileTypes[1]);
+        }
+    }
+
     void UpdateAttackGrid(Vec2i source)
     {
         int range = SelectedUnit.BestRanged?.Range ?? 1;
@@ -3785,6 +3796,8 @@ public class TacticalMode : SceneBase
                 UpdateFixedCustomeGrid(mouseLocation, CurrentSpell?.Pattern, SelectedUnit.Position.GetNumberOfMovesDistance(mouseLocation.x, mouseLocation.y));
             if (CurrentSpell?.AOEType == AreaOfEffectType.RotatablePattern)
                 UpdateRotatingCustomeGrid(mouseLocation, CurrentSpell?.Pattern, SelectedUnit.Position.GetNumberOfMovesDistance(mouseLocation.x, mouseLocation.y));
+            if (CurrentSpell?.AOEType == AreaOfEffectType.Line)
+                UpdateRotatingLineGrid(SelectedUnit.Position, mouseLocation, CurrentSpell.Range.Max);
             else if (CurrentSpell?.AreaOfEffect > 0)
                 UpdateAreaOfEffectGrid(mouseLocation);
 
@@ -3820,6 +3833,15 @@ public class TacticalMode : SceneBase
                 else if (spell.AOEType == AreaOfEffectType.RotatablePattern)
                 {
                     foreach (var splashTarget in TacticalUtilities.UnitsWithinRotatingPattern(mouseLocation, spell.Pattern, TacticalUtilities.GetRotatingOctant(SelectedUnit.Position, mouseLocation)))
+                    {
+                        double spellDamage = spell.Damage(SelectedUnit, splashTarget);
+                        spellDamage = SpellDamageMod(SelectedUnit, splashTarget, spellDamage);
+                        splashTarget.UnitSprite.ShowDamagedHealthBar(splashTarget, (int)spellDamage);
+                    }
+                }
+                else if (spell.AOEType == AreaOfEffectType.Line)
+                {
+                    foreach (var splashTarget in TacticalUtilities.UnitsOnLine(SelectedUnit.Position, mouseLocation, spell.Range.Max, spell.AreaOfEffect))
                     {
                         double spellDamage = spell.Damage(SelectedUnit, splashTarget);
                         spellDamage = SpellDamageMod(SelectedUnit, splashTarget, spellDamage);

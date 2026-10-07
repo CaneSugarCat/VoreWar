@@ -53,6 +53,7 @@
     JoltCrash = 45,
     ArcBolt = 46,
     PreysHex = 47,
+    IceLance = 48,
 
     AlraunePuff = 70,
     Web = 71,

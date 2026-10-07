@@ -38,6 +38,8 @@ public enum AreaOfEffectType
     FixedPattern,
     /// <summary> RotatablePattern - Used for patterns that rotate in relation to target and unit position</summary>
     RotatablePattern,
+    /// <summary> Line - Used spells that starts at caster position to target position, extending based on range and stopping on first target hit. AOE increases spell pierce.</summary>
+    Line,
 }
 
 static class SpellList
@@ -77,6 +79,7 @@ static class SpellList
     static internal readonly Spell SummonDoppelganger;
     static internal readonly Spell SummonSpawn;
     static internal readonly DamageSpell PreysHex;
+    static internal readonly DamageSpell IceLance;
 
     //Quicksand
     static internal readonly StatusSpell PreysCurse;
@@ -681,6 +684,44 @@ static class SpellList
             },
         };
         SpellDict[SpellTypes.PreysHex] = PreysHex;
+
+        IceLance = new DamageSpell()
+        {
+            Name = "Ice Lance",
+            Id = "icelance",
+            SpellType = SpellTypes.IceLance,
+            Description = "A powerful spell fired in a straight line. Pierces up to 4 targets with a 50% chance to cause freeze. Lays ice tiles.",
+            AcceptibleTargets = new List<AbilityTargets>() { AbilityTargets.Enemy, AbilityTargets.Tile },
+            Range = new Range(5),
+            Tier = 3,
+            AOEType = AreaOfEffectType.Line,
+            AreaOfEffect = 3,
+            Resistable = true,
+            ResistanceMult = 0.90f,
+            Damage = (a, t) => 1 + a.Unit.GetStat(Stat.Mind) / 4,
+            OnExecute = (a, t) =>
+            {
+                int curr = t.Unit.Health;
+                a.CastOffensiveSpell(IceLance, t);
+                TacticalGraphicalEffects.CreateIceLanceLine(a.Position, t.Position, t);
+                TacticalUtilities.CreateEffectOnLine(a.Position, t.Position, IceLance.Range.Max, TileEffectType.IcePatch, 1, 2);
+                State.GameManager.SoundManager.PlaySpellCast(IceBlast, a);  
+                bool didSpellHit = curr != t.Unit.Health;
+                if (didSpellHit && State.Rand.Next(2) == 0)
+                {
+                    State.GameManager.TacticalMode.Log.RegisterMiscellaneous($"{t.Unit.Name} Was frozen solid!");
+                    t.Unit.ApplyStatusEffect(StatusEffectType.Frozen, 1f, 2);
+                }
+            },
+            OnExecuteTile = (a, l) =>
+            {
+                a.CastOffensiveSpell(IceLance, null, l);
+                TacticalGraphicalEffects.CreateIceLanceLine(a.Position, l, null);
+                TacticalUtilities.CreateEffectOnLine(a.Position, l, IceLance.Range.Max, TileEffectType.IcePatch, 1, 2);
+                State.GameManager.SoundManager.PlaySpellCast(IceBlast, a);
+            },
+        };
+        SpellDict[SpellTypes.IceLance] = IceLance;
 
         FlameWave = new DamageSpell()
         {

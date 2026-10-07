@@ -69438,7 +69438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -30.000275}
+  m_AnchoredPosition: {x: 0, y: -30.000244}
   m_SizeDelta: {x: 0, y: -60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &343006846
@@ -107999,7 +107999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AfflictionHolder: {fileID: 1381811513}
   NecrosisButton: {fileID: 1495497796}
-  ErrosionButton: {fileID: 32879203}
+  ErosionButton: {fileID: 0}
   AgonyButton: {fileID: 1211283285}
   LethargyButton: {fileID: 515830354}
   AfflictionDescription: {fileID: 1408387257}
@@ -161330,6 +161330,8 @@ MonoBehaviour:
   SpellHelperText: {fileID: 1189069475}
   LogUI: {fileID: 771440275}
   RightClickMenu: {fileID: 148676502}
+  defenderSide: 0
+  attackerSide: 0
   PseudoTurn: 0
   IgnorePseudo: 0
   SkipPseudo: 0
@@ -200667,6 +200669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IceBlast: {fileID: 5311956398332747120, guid: f7948a60993f11d4395803577d37934a,
     type: 3}
+  IceLine: {fileID: 5311956398332747120, guid: 1ccbae975cc3b054081cc0353d21bd71, type: 3}
   Fireball: {fileID: 5311956398332747120, guid: 3e0f703a6695c914fac6f843b133ca41,
     type: 3}
   GenericMagic: {fileID: 5311956398332747120, guid: eccc05e2a3441c8439dce16a7edf58c2,

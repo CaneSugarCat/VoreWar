@@ -3579,6 +3579,15 @@ public class Actor_Unit
                 }
                 State.GameManager.SoundManager.PlaySpellHit(spell, target.UnitSprite.transform.position);
             }
+            else if (spell.AOEType == AreaOfEffectType.Line)
+            {
+                foreach (var splashTarget in TacticalUtilities.UnitsOnLine(Position, target.Position, spell.Range.Max, spell.AreaOfEffect))
+                {
+                    splashTarget.DefendDamageSpell(spell, this, spell.Damage(this, splashTarget));
+                    CheckDead(splashTarget);
+                }
+                State.GameManager.SoundManager.PlaySpellHit(spell, target.UnitSprite.transform.position);
+            }
             else
             {
                 if (target.DefendDamageSpell(spell, this, spell.Damage(this, target)))
@@ -3609,6 +3618,15 @@ public class Actor_Unit
         else if (targetArea != null && (spell.AOEType == AreaOfEffectType.RotatablePattern))
         {
             foreach (var splashTarget in TacticalUtilities.UnitsWithinRotatingPattern(targetArea, spell.Pattern, TacticalUtilities.GetRotatingOctant(Position, targetArea)).Where(s => s.Unit.IsDead == false))
+            {
+                splashTarget.DefendDamageSpell(spell, this, spell.Damage(this, splashTarget));
+                CheckDead(splashTarget);
+            }
+            State.GameManager.SoundManager.PlaySpellHit(spell, targetArea);
+        }
+        else if (targetArea != null && (spell.AOEType == AreaOfEffectType.Line))
+        {
+            foreach (var splashTarget in TacticalUtilities.UnitsOnLine(Position, targetArea, spell.Range.Max, spell.AreaOfEffect))
             {
                 splashTarget.DefendDamageSpell(spell, this, spell.Damage(this, splashTarget));
                 CheckDead(splashTarget);
@@ -3907,7 +3925,7 @@ public class Actor_Unit
         if (position != null)
             if (Unit.HasTrait(Traits.Multifaceted) && Unit.IsHighestStat(Stat.Will))
             {
-                if (spell.AOEType == AreaOfEffectType.FixedPattern || spell.AOEType == AreaOfEffectType.RotatablePattern || spell.AreaOfEffect > 0)
+                if (spell.AOEType == AreaOfEffectType.FixedPattern || spell.AOEType == AreaOfEffectType.RotatablePattern || spell.AOEType == AreaOfEffectType.Line|| spell.AreaOfEffect > 0)
                 {
                     foreach (Actor_Unit unit in GetAOETargets(spell, position))
                     {
@@ -3950,6 +3968,8 @@ public class Actor_Unit
                 return TacticalUtilities.UnitsWithinPattern(position, spell.Pattern);
             case AreaOfEffectType.RotatablePattern:
                 return TacticalUtilities.UnitsWithinRotatingPattern(position, spell.Pattern, TacticalUtilities.GetRotatingOctant(Position, position));
+            case AreaOfEffectType.Line:
+                return TacticalUtilities.UnitsOnLine(Position, position, spell.Range.Max, spell.AreaOfEffect);
             default:
                 break;
         }
